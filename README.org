@@ -1,4 +1,28 @@
 #+TITLE: VODAP-DCATAP-VALIDATION
 
-* Introcution
+* Introduction
+The scripts assume a relatively uptodate ubuntu/debian environment
+which will be created using the vagrantfile (including the
+docker/docker-compose installation).
+
+vagrant up
+
+will start it up, if vagrant is installed along with virtualbox.
+
+*Note* this uses the dcat-ap validation rules, downloaded from the
+detailed git repository.
+
+* Usage
+In the console of the vagrant machine, run
+
+make startupvirtoso
+
+then wait for a while, before typing 
+
+make runqueries
+./genreport.sh
+
+
+
+
 
