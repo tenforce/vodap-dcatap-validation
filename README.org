@@ -2,8 +2,9 @@
 
 * Introduction
 
-Scripts to use the dcat-ap validation rules to validate currently available
-dcat-ap catalogs. 
+Scripts to use the [[https://github.com/EmidioStani/dcat-ap_validator][dcat-ap validation rules]] to validate currently
+available dcat-ap catalogs (to produce a report of the problems for a
+given link).
 
 The current scripts assume a relatively up-to-date ubuntu/debian
 environment. The vagrant definition can be used to setup a basic test
