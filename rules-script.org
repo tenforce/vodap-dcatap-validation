@@ -1,7 +1,13 @@
-#+TITLE: rules
+#+TITLE: Rule evaluation and report generation scripts
 
 * Introduction
-* Make script
+
+This is an [[http://orgmode.org][Org-Mode]] source file which should be "tangled" to extract
+the Makefile and the basic report generation script. Execution of the
+various commands should be via the use of 'make'.
+
+* Makefile (all the main entry points)
+
 #+BEGIN_SRC makefile :tangle Makefile
 ROQET=roqet
 DOCKER=docker
@@ -9,12 +15,15 @@ GNUPLOT=gnuplot
 DATAFILES=db/toLoad/catalog1.rdf
 SHELL=bash
 
-all: genreports.csv
+all: report.org
 
 genreports.csv: dcat-ap_validator/rules startupvirtuoso runqueries
 	for i in dcat-ap_validator/rules/*.rq ; do \
           roqet -q -p http://localhost:8890/sparql -r csv -e "`cat $${i}`" ; \
-      done | egrep -v Class_Name > genreport.csv
+      done | egrep -v Class_Name > genreports.csv
+
+report.org: genreport.sh genreports.csv
+	./genreport.sh genreports.csv > report.org
 
 dcat-ap_validator/rules:
 	git clone https://github.com/EmidioStani/dcat-ap_validator
@@ -30,7 +39,7 @@ startupvirtuoso: ${DATAFILES} db/virtuoso.ini
 	    -e DBA_PASSWORD=myDbaPassword -e SPARQL_UPDATE=true \
 	    -e DEFAULT_GRAPH=http://www.example.com/my-graph \
 	    -v `pwd`/db:/data -d tenforce/virtuoso > startupvirtuoso
-	sleep 60
+	sleep 180
 
 stopvirtuoso:
 	-${DOCKER} stop my-virtuoso
@@ -46,7 +55,7 @@ db/virtuoso.ini: config-files/virtuoso.ini
 	cp config-files/virtuoso.ini db
 
 realclean: rmvirtuoso
-	-rm -rf genreports.csv
+	-rm -rf genreports.csv report.org
 
 QUERYRESULTS = query/basic.csv
 
@@ -60,10 +69,12 @@ query/%.png: query/%.csv  query/%.gnuplot
 	${GNUPLOT} -e "data='$<';set output 'query/${*F}.png'; set term png;" query/${*F}.gnuplot
 
 #+END_SRC
-* Generate Report Script
+
+* Report Generation Script
+
 #+BEGIN_SRC sh :tangle genreport.sh
 #!/bin/bash
-RESULTSFILE=genreports.csv
+RESULTSFILE=$1
 
 genstatistics() {
   ERRORS=`egrep ",error," ${RESULTSFILE} | wc -l`
@@ -80,7 +91,7 @@ includestats() {
 genruleresults() {
   for i in {0..256} 
   do
-    ITEMS=`egrep ",$i," ${RESULTSFILE} | awk -F, '{print "|" $1 "|" $3 "|" $4 "|" $5 "|" $6 "|"; }'`
+    ITEMS=`egrep ",$i," ${RESULTSFILE} | awk -F, '{if (NR < 50) print "|" $1 "|" $3 "|" $4 "|" $5 "|" $6 "|"; else if (NR == 50) print "|... and so on ...|" ; }'`
     if [ ! -z "$ITEMS" ] ; then
        echo "** Rule $i"
        echo "$ITEMS"
@@ -99,5 +110,9 @@ genreport() {
   genruleresults
 }
 
-genreport > report.org
+# Run the report generator
+genreport 
 #+END_SRC
+
+* Expected Updates
+** TODO Include version comparisons
