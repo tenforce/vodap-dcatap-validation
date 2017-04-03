@@ -1,4 +1,5 @@
 #+TITLE: Rule evaluation and report generation scripts
+#+SETUPFILE: ~/SpiderOak/Org/org-html-themes/setup/theme-readtheorg.setup
 
 * Introduction
 
@@ -23,6 +24,7 @@ genreports.csv: dcat-ap_validator/rules startupvirtuoso runqueries
       done | egrep -v Class_Name > genreports.csv
 
 report.org: genreport.sh genreports.csv
+      dos2unix genreport.sh
 	./genreport.sh genreports.csv > report.org
 
 dcat-ap_validator/rules:
