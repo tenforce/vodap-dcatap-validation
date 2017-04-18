@@ -1,35 +1,58 @@
 ROQET=roqet
-DOCKER=sudo docker
+SUDO=sudo 
+DOCKER=${SUDO} docker
 GNUPLOT=gnuplot
-DATAFILES=db/toLoad/catalog1.rdf
 SHELL=bash
 CATALOG=http://opendata.vlaanderen.be/catalog.rdf
 
 all: vodapreport.org
 
-genfullreports.csv: dcat-ap_validator/rules runqueries
-	for i in dcat-ap_validator/rules/*.rq ; do \
+# management of the reports
+
+#genfullreports.csv: dcat-ap_validator/rules runqueries
+#	for i in dcat-ap_validator/rules/*.rq ; do \
+#          roqet -q -p http://localhost:8890/sparql -r csv -e "`cat $${i}`" ; \
+#	done | egrep -v Class_Name > genreports.csv
+#
+#fullreport.org: genreport.sh genfullreports.csv
+#	./genreport.sh genreports.csv > fullreport.org
+#
+
+vodapreport.csv: runqueries
+	for i in rules/*.rq ; do \
+	  echo $${i} \
           roqet -q -p http://localhost:8890/sparql -r csv -e "`cat $${i}`" ; \
-      done | egrep -v Class_Name > genreports.csv
+	done | egrep -v Class_Name > vodapreport.csv
 
-fullreport.org: genreport.sh genfullreports.csv
-	./genreport.sh genreports.csv > fullreport.org
+vodapreport.org: genreport.sh vodapreport.csv
+	./genreport.sh vodapreport.csv vodapreport.org > vodapreport.org
 
-genvodapreports.csv: dcat-ap_validator/rules runqueries
-	for i in vodap-rules/*.rq ; do \
-          roqet -q -p http://localhost:8890/sparql -r csv -e "`cat $${i}`" ; \
-      done | egrep -v Class_Name > genvodapreports.csv
+vodapreport: vodapreport.org
+	./docker-org-export/docker-org-export vodapreport.org 
 
-genvodapreports.csv2: dcat-ap_validator/rules runqueries
-	for i in test-rules/*.rq ; do \
-          roqet -q -p http://localhost:8890/sparql -r json -e "`cat $${i}`" ; \
-      done 
+# management of the rules
+ISArules:
+	mkdir -p rules
+	git clone --depth=1 https://github.com/EmidioStani/dcat-ap_validator ISArules
+	cp ISArules/rules/* rules
 
-vodapreport.org: genreport.sh genvodapreports.csv
-	./genreport.sh genvodapreports.csv vodapreport.org > vodapreport.org
+.PHONY: VODAPISArules
+VODAPISArules: ISArules
+	rm -rf rules
+	mkdir -p rules
+	./select_rules.sh ISArules VODAPISArules/vodap_selection.csv
+	cp VODAPISArules/*.rq rules
 
-dcat-ap_validator/rules:
-	git clone https://github.com/EmidioStani/dcat-ap_validator
+.PHONY: VODAPrules
+VODAPrules: ISArules
+	rm -rf rules
+	mkdir -p rules
+	./select_rules.sh ISArules VODAPrules/VODAP_selection.csv
+	cp VODAPrules/*.rq rules
+
+
+
+# management of the catalog
 
 catalog/rdf/catalog1.rdf: 
 	mkdir -p catalog/rdf
@@ -58,7 +81,7 @@ cleanCatalog: rmCatalog
 loadCatalog: startupvirtuoso createCatalog
 	virtuoso/scripts/execute-isql.sh /data/scripts/clean_upload.sql		
 
-        
+# management of the RDF store        
 startupvirtuoso: virtuoso/virtuoso.ini
 	if [ -z startupvirtuoso ] ; then
 	${DOCKER} run --name vodap-virtuoso \
@@ -89,6 +112,8 @@ virtuoso/virtuoso.ini: config-files/virtuoso.ini
 realclean: rmvirtuoso
 	-rm -rf genreports.csv report.org
 
+
+# execution of the queries
 QUERYRESULTS = query/basic.csv
 
 .PHONY: runqueries

@@ -32,7 +32,7 @@ The commands are initiated through the make command.
 
    - make startupvirtuoso : starts a local virtuoso
    - make loadCatalog     : loads the catalog on disk into virtuoso
-   - make vodapreport     : creates the report in html based on the content in the virtuoso
+   - make vodapreport     : creates the report in html based on the content in the virtuoso and the activated rules
    
 
 Commands to manage the catalog state
