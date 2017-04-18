@@ -6,17 +6,45 @@ Scripts to use the [[https://github.com/EmidioStani/dcat-ap_validator][dcat-ap v
 available dcat-ap catalogs (to produce a report of the problems for a
 given link).
 
-The current scripts assume a relatively up-to-date ubuntu/debian
-environment. The vagrant definition can be used to setup a basic test
-environment if needed (including the docker/docker-compose
-installation). Assuming [[https://www.vagrantup.com]["Vagrant"]] is installed the following is all
-that should be needed:
+
+* Deployment
+
+** new machine setup
+To start a fresh, independent environment one has to setup an up-to-date ubuntu/debian Linux.
+This and the subsequent deployment of the application is automated by the vagrant setup, included.
+Assuming [[https://www.vagrantup.com]["Vagrant"]] is installed the following is all that should be needed:
 
 #+BEGIN_EXAMPLE
 vagrant up
 #+END_EXAMPLE
 
-This will start up virtualbox, install a ubuntu image and then install
-the necessary tools.
+This will start up virtualbox, install a ubuntu image, and then installs the first the necessary system tools: docker, git, ... defined in bootstrap.sh.
+The application dependencies are collected in the subsequent script: application_bootstrap.sh.
+
+** on an existing machine
+On an existing machine the setup starts from the application_bootstrap.sh script. By running this (as sudo)
+the necessary application dependencies are installed.
+
+
+* execution
+
+The commands are initiated through the make command.
+
+   - make startupvirtuoso : starts a local virtuoso
+   - make loadCatalog     : loads the catalog on disk into virtuoso
+   - make vodapreport     : creates the report in html based on the content in the virtuoso
+   
+
+Commands to manage the catalog state
+    - make rmCatalog: removes the latest catalog aggregated file from disk 
+    - make cleanCatalog: removes the latest catalog from disk
+    - make createCatalog: create the latest catalog (from the existing downloads, if present)
+        
+
+Commands to manage the set of validation rules
+    - make VODAPrules     : use the rules for VODAP
+    - make ISAVODAPrules  : use the rules from ISA adapted to VODAP (SPARQL) case
+    - make ISArules       : use the rules from ISA (as is)
+
 
 

@@ -51,8 +51,11 @@ createCatalog: virtuoso/dumps/all.nt
 
 rmCatalog:
 	rm virtuoso/dumps/all.nt
+cleanCatalog: rmCatalog
+	rm -rf catalog/nt/*
+	rm -rf catalog/rdf/*
 
-loadCatalog: startupvirtuoso
+loadCatalog: startupvirtuoso createCatalog
 	virtuoso/scripts/execute-isql.sh /data/scripts/clean_upload.sql		
 
         
