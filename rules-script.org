@@ -102,7 +102,7 @@ genruleresults() {
 }
 
 genreport() {
-  echo "#+TITLE: DCAT Vvalidation Report (catalog.rdf file)"
+  echo "#+TITLE: DCAT Validation Report (catalog.rdf file)"
   echo "#+SETUPFILE: ~/SpiderOak/Org/org-html-themes/setup/theme-readtheorg.setup"
   echo "* Introduction"
   includestats

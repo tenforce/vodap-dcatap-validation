@@ -1,5 +1,8 @@
 #!/bin/bash
-RESULTSFILE=genreports.csv
+#RESULTSFILE=genreports.csv
+RESULTSFILE=$1
+#OUTPUTFILE=report.org
+OUTPUTFILE=$2
 MAXLINES=30
 
 genstatistics() {
@@ -26,7 +29,7 @@ genruleresults() {
 }
 
 genreport() {
-  echo "#+TITLE: DCAT Vvalidation Report (catalog.rdf file)"
+  echo "#+TITLE: DCAT Validation Report (catalog.rdf file)"
   echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>"
   echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css\"/>"
   echo "#+HTML_HEAD: <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>"
@@ -42,4 +45,4 @@ genreport() {
   genruleresults
 }
 
-genreport > report.org
+genreport > $OUTPUTFILE

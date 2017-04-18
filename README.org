@@ -9,7 +9,7 @@ given link).
 The current scripts assume a relatively up-to-date ubuntu/debian
 environment. The vagrant definition can be used to setup a basic test
 environment if needed (including the docker/docker-compose
-installation). Assuming [[https://www.vagrantup.com]["Vagrant"]][fn:1] is installed the following is all
+installation). Assuming [[https://www.vagrantup.com]["Vagrant"]] is installed the following is all
 that should be needed:
 
 #+BEGIN_EXAMPLE
@@ -19,6 +19,4 @@ vagrant up
 This will start up virtualbox, install a ubuntu image and then install
 the necessary tools.
 
-* Footnotes
 
-[fn:1] Will will requrie virtualbox is also installed.

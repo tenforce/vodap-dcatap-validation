@@ -1,47 +1,87 @@
 ROQET=roqet
-DOCKER=docker
+DOCKER=sudo docker
 GNUPLOT=gnuplot
 DATAFILES=db/toLoad/catalog1.rdf
 SHELL=bash
+CATALOG=http://opendata.vlaanderen.be/catalog.rdf
 
-all: report.org
+all: vodapreport.org
 
-genreports.csv: dcat-ap_validator/rules startupvirtuoso runqueries
+genfullreports.csv: dcat-ap_validator/rules runqueries
 	for i in dcat-ap_validator/rules/*.rq ; do \
           roqet -q -p http://localhost:8890/sparql -r csv -e "`cat $${i}`" ; \
       done | egrep -v Class_Name > genreports.csv
 
-report.org: genreport.sh genreports.csv
-	./genreport.sh genreports.csv > report.org
+fullreport.org: genreport.sh genfullreports.csv
+	./genreport.sh genreports.csv > fullreport.org
+
+genvodapreports.csv: dcat-ap_validator/rules runqueries
+	for i in vodap-rules/*.rq ; do \
+          roqet -q -p http://localhost:8890/sparql -r csv -e "`cat $${i}`" ; \
+      done | egrep -v Class_Name > genvodapreports.csv
+
+genvodapreports.csv2: dcat-ap_validator/rules runqueries
+	for i in test-rules/*.rq ; do \
+          roqet -q -p http://localhost:8890/sparql -r json -e "`cat $${i}`" ; \
+      done 
+
+vodapreport.org: genreport.sh genvodapreports.csv
+	./genreport.sh genvodapreports.csv vodapreport.org > vodapreport.org
 
 dcat-ap_validator/rules:
 	git clone https://github.com/EmidioStani/dcat-ap_validator
 
-db/toLoad/catalog1.rdf: 
-	mkdir -p db/toLoad
+catalog/rdf/catalog1.rdf: 
+	mkdir -p catalog/rdf
 	for i in {0..80} ; do \
-           wget -nc -O db/toLoad/catalog$$i.rdf http://opendata.vlaanderen.be/catalog.rdf?page=$$i ; \
+           wget -nc -O catalog/rdf/catalog$$i.rdf ${CATALOG}?page=$$i ; \
 	done
 
-startupvirtuoso: ${DATAFILES} db/virtuoso.ini
-	${DOCKER} run --name my-virtuoso -p 8890:8890 -p 1111:1111 \
-	    -e DBA_PASSWORD=myDbaPassword -e SPARQL_UPDATE=true \
-	    -e DEFAULT_GRAPH=http://www.example.com/my-graph \
-	    -v `pwd`/db:/data -d tenforce/virtuoso > startupvirtuoso
-	sleep 180
+virtuoso/dumps/all.nt: catalog/rdf/catalog1.rdf
+	mkdir -p catalog/nt
+	for i in {1..80} ; do \
+		rapper -o ntriples catalog/rdf/catalog$$i.rdf > catalog/nt/catalog$$i.nt ; \
+	done
+	rm -f virtuoso/dumps/all.nt
+	for i in {1..80} ; do \
+		cat catalog/nt/catalog$$i.nt >> virtuoso/dumps/all.nt ; \
+	done
+
+createCatalog: virtuoso/dumps/all.nt
+
+rmCatalog:
+	rm virtuoso/dumps/all.nt
+
+loadCatalog: startupvirtuoso
+	virtuoso/scripts/execute-isql.sh /data/scripts/clean_upload.sql		
+
+        
+startupvirtuoso: virtuoso/virtuoso.ini
+	if [ -z startupvirtuoso ] ; then
+	${DOCKER} run --name vodap-virtuoso \
+	    -p 8890:8890 -p 1111:1111 \
+	    -e DBA_PASSWORD=vodap \
+	    -e SPARQL_UPDATE=true \
+	    -e DEFAULT_GRAPH=http://data.vlaanderen.be/id/dataset/default \
+	    -v `pwd`/virtuoso/:/data \
+	    -d tenforce/virtuoso > startupvirtuoso 
+	fi
 
 stopvirtuoso:
-	-${DOCKER} stop my-virtuoso
-	-${DOCKER} rm my-virtuoso
+	-${DOCKER} stop vodap-virtuoso
+	-${DOCKER} rm vodap-virtuoso
 	-rm -rf startupvirtuoso
 
 rmvirtuoso: stopvirtuoso
-	-${RM} -r db/toLoad
-	-${RM} -r db
+	-${RM} -r virtuoso/toLoad
+	-${RM} -r virtuoso
 
-db/virtuoso.ini: config-files/virtuoso.ini
-	mkdir -p db
-	cp config-files/virtuoso.ini db
+virtuoso/virtuoso.ini: config-files/virtuoso.ini
+	mkdir -p virtuoso/scripts
+	mkdir -p virtuoso/dumps
+	cp config-files/virtuoso.ini virtuoso
+	cp -r config-files/virtuoso_scripts/* virtuoso/scripts
+	sed -i "s/DOCKER/${DOCKER}/" virtuoso/scripts/execute-isql.sh
 
 realclean: rmvirtuoso
 	-rm -rf genreports.csv report.org
