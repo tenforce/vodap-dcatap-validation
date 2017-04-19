@@ -18,9 +18,10 @@ all: vodapreport.org
 #	./genreport.sh genreports.csv > fullreport.org
 #
 
+	  #echo $${i} \
+
 vodapreport.csv: runqueries
 	for i in rules/*.rq ; do \
-	  echo $${i} \
           roqet -q -p http://localhost:8890/sparql -r csv -e "`cat $${i}`" ; \
 	done | egrep -v Class_Name > vodapreport.csv
 
@@ -28,7 +29,7 @@ vodapreport.org: genreport.sh vodapreport.csv
 	./genreport.sh vodapreport.csv vodapreport.org > vodapreport.org
 
 vodapreport: vodapreport.org
-	./docker-org-export/docker-org-export vodapreport.org 
+	${SUDO} ./docker-org-export/docker-org-export vodapreport.org 
 
 # management of the rules
 ISArules:
@@ -40,7 +41,7 @@ ISArules:
 VODAPISArules: ISArules
 	rm -rf rules
 	mkdir -p rules
-	./select_rules.sh ISArules VODAPISArules/vodap_selection.csv
+	./select_rules.sh ISArules VODAPISArules/VODAP_selection.csv
 	./copy_rules.sh VODAPISArules
 
 .PHONY: VODAPrules
