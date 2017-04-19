@@ -1,5 +1,5 @@
 ROQET=roqet
-SUDO=sudo 
+SUDO=sudo
 DOCKER=${SUDO} docker
 GNUPLOT=gnuplot
 SHELL=bash
@@ -83,14 +83,14 @@ loadCatalog: startupvirtuoso createCatalog
 
 # management of the RDF store        
 startupvirtuoso: virtuoso/virtuoso.ini
-	if [ -z startupvirtuoso ] ; then
+	if [ ! -f startupvirtuoso ] ; then \
 	${DOCKER} run --name vodap-virtuoso \
 	    -p 8890:8890 -p 1111:1111 \
 	    -e DBA_PASSWORD=vodap \
 	    -e SPARQL_UPDATE=true \
 	    -e DEFAULT_GRAPH=http://data.vlaanderen.be/id/dataset/default \
 	    -v `pwd`/virtuoso/:/data \
-	    -d tenforce/virtuoso > startupvirtuoso 
+	    -d tenforce/virtuoso > startupvirtuoso ;\
 	fi
 
 stopvirtuoso:
