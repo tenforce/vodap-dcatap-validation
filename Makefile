@@ -41,14 +41,14 @@ VODAPISArules: ISArules
 	rm -rf rules
 	mkdir -p rules
 	./select_rules.sh ISArules VODAPISArules/vodap_selection.csv
-	copy_rules.sh VODAPISArules
+	./copy_rules.sh VODAPISArules
 
 .PHONY: VODAPrules
 VODAPrules: ISArules
 	rm -rf rules
 	mkdir -p rules
 	./select_rules.sh ISArules VODAPrules/VODAP_selection.csv
-	copy_rules.sh VODAPrules
+	./copy_rules.sh VODAPrules
 
 
 
