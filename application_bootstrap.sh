@@ -10,7 +10,7 @@ apt-get install -y rasqal-utils raptor2-utils gnuplot
 git clone https://github.com/binarin/docker-org-export.git 
 
 # the generic DCAT-AP queries
-git clone https://github.com/EmidioStani/dcat-ap_validator
+git clone --depth=1 https://github.com/EmidioStani/dcat-ap_validator ISArules
 
 #################################################################
 # startup the services
