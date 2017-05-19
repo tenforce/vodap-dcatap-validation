@@ -26,7 +26,7 @@ On an existing machine the setup starts from the application_bootstrap.sh script
 the necessary application dependencies are installed.
 
 
-* execution
+* Execution
 
 The commands are initiated through the make command.
 
@@ -45,6 +45,21 @@ Commands to manage the set of validation rules
     - make VODAPrules     : use the rules for VODAP
     - make ISAVODAPrules  : use the rules from ISA adapted to VODAP (SPARQL) case
     - make ISArules       : use the rules from ISA (as is)
+
+
+* As webservice
+[TODO] 
+
+The validation can be deployed as a webservice. 
+On http://localhost/dcatvalidate a simple webform is presented to the user.
+The form expects an URL to the catalog in DCAT-AP form serialized in RDF. It supports serializations in ntriples, turtle and RDF/XML.
+
+The webservice will forward then the user to a validation report that can be downloaded.
+
+The validation consists of 2 levels:
+    - RDF serialization compliance: is the provided file RDF compliant. 
+      Typical issues are incorrect URI identifiers containing for example spaces. 
+    - DCAT-AP validation: is the provided file DCAT-AP(VO) compliant.
 
 
 

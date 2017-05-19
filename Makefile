@@ -4,6 +4,8 @@ DOCKER=${SUDO} docker
 GNUPLOT=gnuplot
 SHELL=bash
 CATALOG=http://opendata.vlaanderen.be/catalog.rdf
+CATALOGSIMPLE=http://www.mobielvlaanderen.be/store-x/dirkt1/dataroom_dcat.rdf
+
 
 all: vodapreport.org
 
@@ -55,31 +57,50 @@ VODAPrules: ISArules
 
 # management of the catalog
 
-catalog/rdf/catalog1.rdf: 
-	mkdir -p catalog/rdf
+
+catalog/vodap/rdf/catalog1.rdf: 
+	mkdir -p catalog/vodap/rdf
 	for i in {0..80} ; do \
-           wget -nc -O catalog/rdf/catalog$$i.rdf ${CATALOG}?page=$$i ; \
+           wget -nc -O catalog/vodap/rdf/catalog$$i.rdf ${CATALOG}?page=$$i ; \
+	done
+	mkdir -p catalog/vodap/nt
+	for i in {1..80} ; do \
+		rapper -o ntriples catalog/vodap/rdf/catalog$$i.rdf > catalog/vodap/nt/catalog$$i.nt ; \
 	done
 
-virtuoso/dumps/all.nt: catalog/rdf/catalog1.rdf
-	mkdir -p catalog/nt
-	for i in {1..80} ; do \
-		rapper -o ntriples catalog/rdf/catalog$$i.rdf > catalog/nt/catalog$$i.nt ; \
-	done
+
+catalog/simple/nt/catalog.nt: 
+	mkdir -p catalog/simple/ttl
+	mkdir -p catalog/simple/nt
+	wget -nc -O catalog/simple/ttl/catalog.ttl ${CATALOGSIMPLE}  
+	#rapper -o ntriples -i turtle catalog/simple/ttl/catalog.ttl > catalog/simple/nt/catalog.nt  
+	rapper -o ntriples -i guess catalog/simple/ttl/catalog.ttl > catalog/simple/nt/catalog.nt  
+
+virtuoso/dumps/all.nt: catalog/vodap/rdf/catalog1.rdf
 	rm -f virtuoso/dumps/all.nt
 	for i in {1..80} ; do \
-		cat catalog/nt/catalog$$i.nt >> virtuoso/dumps/all.nt ; \
+		cat catalog/vodap/nt/catalog$$i.nt >> virtuoso/dumps/all.nt ; \
 	done
+virtuoso/dumps/simple.nt: catalog/simple/nt/catalog.nt
+	rm -f virtuoso/dumps/simple.nt
+	cp catalog/simple/nt/catalog.nt virtuoso/dumps/simple.nt 
 
 createCatalog: virtuoso/dumps/all.nt
+createCatalogS: virtuoso/dumps/simple.nt
 
 rmCatalog:
-	rm virtuoso/dumps/all.nt
+	rm -f virtuoso/dumps/all.nt
+	rm -f virtuoso/dumps/simple.nt
 cleanCatalog: rmCatalog
-	rm -rf catalog/nt/*
-	rm -rf catalog/rdf/*
+	rm -rf catalog/vodap/nt/*
+	rm -rf catalog/vodap/rdf/*
+cleanCatalogS: rmCatalog
+	rm -rf catalog/simple/nt/*
+	rm -rf catalog/simple/ttl/*
 
 loadCatalog: startupvirtuoso createCatalog
+	virtuoso/scripts/execute-isql.sh /data/scripts/clean_upload.sql		
+reloadCatalog: startupvirtuoso 
 	virtuoso/scripts/execute-isql.sh /data/scripts/clean_upload.sql		
 
 # management of the RDF store        

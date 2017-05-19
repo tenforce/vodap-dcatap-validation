@@ -1,16 +1,19 @@
 # Virtuoso7 cleanup script
 
-# first commit all outstanding
-checkpoint;
 
-# empty load list
-delete from DB.DBA.LOAD_LIST ;
+RDF_GLOBAL_RESET;
 
-log_enable (2);
-
-# remove old data
-sparql drop silent graph <http://data.vlaanderen.be/id/dataset/vodap>;
-sparql drop silent graph <http://data.vlaanderen.be/id/dataset/default>;
+## first commit all outstanding
+#checkpoint;
+#
+## empty load list
+#delete from DB.DBA.LOAD_LIST ;
+#
+#log_enable (2);
+#
+## remove old data
+#sparql drop silent graph <http://data.vlaanderen.be/id/dataset/vodap>;
+#sparql drop silent graph <http://data.vlaanderen.be/id/dataset/default>;
 
 
 # schedule everything in the directory to be loaded
