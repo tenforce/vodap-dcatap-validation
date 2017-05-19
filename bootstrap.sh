@@ -15,11 +15,10 @@ systemctl status docker
 groupadd docker
 usermod -aG docker vagrant
 
-
 git config --global credential.helper cache
 git config --global credential.helper 'cache --timeout=3600'
 
 apt-get install -y emacs dos2unix git vim 
-
+apt-get install -y docker-compose
 apt-get install -y rasqal-utils 
 git clone https://github.com/binarin/docker-org-export.git 

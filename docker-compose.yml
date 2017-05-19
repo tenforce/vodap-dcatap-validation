@@ -1,0 +1,42 @@
+version: '2'
+services:
+  webservice:
+    build:
+      context: ./webservice
+    extra_hosts:
+      - "data.vlanderen.be:127.0.0.1"
+    labels:
+      webservice: "VODAP frontend access"
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./logs:/logs
+      - ./www/html:/var/www/html
+    volumes_from:
+      - datashared
+    environment:
+      - ENV_URI_DOMAIN=data.vlaanderen.be
+      - ENV_LDSB_SERVICE_URL=http://ldsb-service:81
+      - ENV_SUBJECTPAGES_SERVICE_URL=http://subjectpages-service
+      - ENV_SPARQL_ENDPOINT_SERVICE_URL=http://sparql-endpoint-service:8890/sparql
+  virtuoso:
+    image: tenforce/virtuoso
+    ports:
+      - '8890:8890'
+      - '1111:1111'
+    labels:
+      virtuoso: "VODAP temporary database store"    
+    environment:
+      - DBA_PASSWORD=vodap
+      - SPARQL_UPDATE=true
+      - DEFAULT_GRAPH=http://data.vlaanderen.be/id/dataset/default
+    volumes:
+      - ./virtuoso:/data
+    volumes_from:
+      - datashared
+
+  datashared:
+    image: busybox
+    volumes:
+      - ./data:/data
