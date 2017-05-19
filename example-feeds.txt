@@ -1,0 +1,8 @@
+Gent,http://datatank4.gent.be/api/dcat
+Kortrijk,http://data.kortrijk.be/api/dcat
+Antwerpen,http://datasets.antwerpen.be/v4/api/dcat
+Westtoer,https://datahub.westtoer.be/api/dcat
+VDAB,http://opendata.vdab.be/api/dcat
+Toerisme Vlaanderen,http://opendata.visitflanders.org/api/dcat
+INBO,http://data.inbo.be/ipt/dcat
+DMOW,http://www.mobielvlaanderen.be/store-x/dirkt1/dataroom_dcat.rdf
