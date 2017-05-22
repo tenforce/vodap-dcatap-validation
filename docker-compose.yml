@@ -4,7 +4,7 @@ services:
     build:
       context: ./webservice
     extra_hosts:
-      - "data.vlanderen.be:127.0.0.1"
+      - "opendata.vlaanderen.be:127.0.0.1"
     labels:
       webservice: "VODAP frontend access"
     ports:
@@ -16,11 +16,11 @@ services:
     volumes_from:
       - datashared
     environment:
-      - ENV_URI_DOMAIN=data.vlaanderen.be
-      - ENV_LDSB_SERVICE_URL=http://ldsb-service:81
-      - ENV_SUBJECTPAGES_SERVICE_URL=http://subjectpages-service
-      - ENV_SPARQL_ENDPOINT_SERVICE_URL=http://sparql-endpoint-service:8890/sparql
-  virtuoso:
+      - ENV_URI_DOMAIN=opendata.vlaanderen.be
+      - ENV_SPARQL_ENDPOINT_SERVICE_URL=http://vodap-virtuoso:8890/sparql
+    links:
+	vodap-virtuoso:vodap-virtuoso
+  vodap-virtuoso:
     image: tenforce/virtuoso
     ports:
       - '8890:8890'
