@@ -147,24 +147,10 @@ echo '<body>'
 #echo "http://data.vlaanderen.be/$LOCAL"
 
 
-echo "Deze uri: "
-echo "http://localhost/$REDIRECT_URL"
-echo "heeft een probleem"
-echo "\n"
-
-echo "Oorzaak is "
-echo $format
-echo $dcat_url
-echo $filepath
-echo $1
-echo "========="
 cgi_getvars BOTH ALL
 
-echo "aaaa"
+rdf_validate_url.sh $dcat_url
 
-echo $dcat_url
-
-echo "========="
 
 #echo "$HTTP_REFERER"
 #echo "--"

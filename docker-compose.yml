@@ -17,10 +17,10 @@ services:
       - datashared
     environment:
       - ENV_URI_DOMAIN=opendata.vlaanderen.be
-      - ENV_SPARQL_ENDPOINT_SERVICE_URL=http://vodap-virtuoso:8890/sparql
+      - ENV_SPARQL_ENDPOINT_SERVICE_URL=http://vodapweb-virtuoso:8890/sparql
     links:
-	vodap-virtuoso:vodap-virtuoso
-  vodap-virtuoso:
+      - vodapweb-virtuoso:vodapweb-virtuoso
+  vodapweb-virtuoso:
     image: tenforce/virtuoso
     ports:
       - '8890:8890'
