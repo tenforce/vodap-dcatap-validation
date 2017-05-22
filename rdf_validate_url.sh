@@ -5,6 +5,7 @@ URL=$1
 
 DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
 FILE=feed.$DATESTAMP
+STATUS=0
 
 echo "stage1: download" 
 wget $URL -o $FILE.download -O $FILE
@@ -15,6 +16,10 @@ fi
 
 echo "stage2: validate rdf" 
 rapper --show-namespaces --trace  -o ntriples -i guess $FILE 1> $FILE.rdf_report 2> $FILE.rdf_report2
+if [ $? != 0 ] ; then 
+	echo "incorrect RDF"
+        STATUS=1
+fi
 
 cat $FILE.download >> $FILE.report
 echo "===============================================" >> $FILE.report
@@ -23,6 +28,8 @@ echo "===============================================" >> $FILE.report
 cat $FILE.rdf_report >> $FILE.report
 
 rm $FILE.download $FILE.rdf_report2 $FILE.rdf_report
+
+exit $STATUS
 
 
 function check_status {
