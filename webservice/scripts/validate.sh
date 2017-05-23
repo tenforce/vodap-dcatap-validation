@@ -73,10 +73,8 @@ function cgi_getvars()
 	q="${q#$p&*}" # strip first part from query string
 	# decode and evaluate var if requested
 	if [ "$1" = "ALL" -o "${s/ $k /}" != "$s" ] ; then 
-	    echo $p "/"  $k "/"  $v "/" $q " END" 
 	    vv=`cgi_decodevar \"$v\"`
 	    eval "$k=$vv"
-	    echo "$k=$vv"
 	fi
     done
     return
@@ -95,8 +93,19 @@ urldecode() {
 }
 
 
+cgi_getvars BOTH ALL
+
+DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
+mkdir -p /www/results/$DATESTAMP
+./rdf_validate_url.sh $dcat_url $DATESTAMP 
+if [$? = 0 ] ; then 
+   # only continue if previous is success
+   ./load_feeds.sh $dcat_url $DATESTAMP
+fi
+
 echo "Content-type: text/html"
-echo "Status: $REDIRECT_STATUS Condition Intercepted"
+echo "Status: 302 Redirect"
+echo "Location: http://localhost/results/$DATESTAMP"
 echo ""
 echo '<html>'
 echo '<head>'
@@ -147,9 +156,6 @@ echo '<body>'
 #echo "http://data.vlaanderen.be/$LOCAL"
 
 
-cgi_getvars BOTH ALL
-
-rdf_validate_url.sh $dcat_url
 
 
 #echo "$HTTP_REFERER"

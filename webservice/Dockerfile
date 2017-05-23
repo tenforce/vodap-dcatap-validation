@@ -33,14 +33,16 @@ RUN chmod -R 555 /scripts
 
 # www directory holds the document root
 ADD www /www
+RUN chmod -R 777 /www/results
 RUN rm -rf /usr/local/apache2/htdocs && ln -s /www /usr/local/apache2/htdocs
 
 # Default Environment Variable assignments
 # these values can be overwritten at runtime
-ENV ENV_URI_DOMAIN data.vlaanderen.be
-ENV ENV_LDSB_SERVICE_URL http://ldsb-service:81
-ENV ENV_SUBJECTPAGES_SERVICE_URL http://subjectpages-service
+ENV ENV_URI_DOMAIN opendata.vlaanderen.be
 ENV ENV_SPARQL_ENDPOINT_SERVICE_URL http://sparql-endpoint-service:8890/sparql
+
+# install additional software
+RUN apt-get update && apt-get install -y wget raptor2-utils curl
 
 # redefine the start of the service to be incorporate the runtime configuration 
 # of environment variables
