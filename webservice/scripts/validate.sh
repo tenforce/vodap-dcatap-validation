@@ -87,7 +87,6 @@ function cgi_getvars()
 
 urldecode() {
     # urldecode <string>
-
     local url_encoded="${1//+/ }"
     printf '%b' "${url_encoded//%/\\x}"
 }
@@ -97,10 +96,13 @@ cgi_getvars BOTH ALL
 
 DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
 mkdir -p /www/results/$DATESTAMP
-./rdf_validate_url.sh $dcat_url $DATESTAMP 
-if [$? = 0 ] ; then 
-   # only continue if previous is success
-   ./load_feeds.sh $dcat_url $DATESTAMP
+echo "./rdf_validate_url.sh $dcat_url $DATESTAMP" >> /logs/validate.log
+./rdf_validate_url.sh $dcat_url $DATESTAMP
+ec=$?
+if [ ${ec} -eq 0 ] ; then
+    echo "load_feeds.sh $dcat_url $DATESTAMP" >> /logs/validate.log
+    # only continue if previous is success
+    ./load_feeds.sh $dcat_url $DATESTAMP
 fi
 
 echo "Content-type: text/html"

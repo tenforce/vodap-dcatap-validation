@@ -30,10 +30,11 @@ cat $FILE.rdf_report >> $FILE.report
 
 rm $FILE.download $FILE.rdf_report2 $FILE.rdf_report
 
+echo "rdf_validate_url.sh STATUS = $STATUS" >> /logs/validate.log
 exit $STATUS
 
-
 function check_status {
+
  
   if [ $? != 0 ] ; then 
 	echo "stage failed"
