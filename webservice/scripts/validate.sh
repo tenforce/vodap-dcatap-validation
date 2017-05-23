@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source log.sh
+
 #This code for getting code from post data is from http://oinkzwurgl.org/bash_cgi and
 #was written by Phillippe Kehi &lt;phkehi@gmx.net&gt; and flipflip industries
 
@@ -96,11 +98,11 @@ cgi_getvars BOTH ALL
 
 DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
 mkdir -p /www/results/$DATESTAMP
-echo "./rdf_validate_url.sh $dcat_url $DATESTAMP" >> /logs/validate.log
+log "BEFORE: ./rdf_validate_url.sh $dcat_url $DATESTAMP"
 ./rdf_validate_url.sh $dcat_url $DATESTAMP
 ec=$?
 if [ ${ec} -eq 0 ] ; then
-    echo "load_feeds.sh $dcat_url $DATESTAMP" >> /logs/validate.log
+    log "BEFORE: load_feeds.sh $dcat_url $DATESTAMP"
     # only continue if previous is success
     ./load_feeds.sh $dcat_url $DATESTAMP
 fi
