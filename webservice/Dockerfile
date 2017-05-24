@@ -10,7 +10,8 @@
 # Extra steps are in the layers for documenentation purpose
 #-----------------------------------------------------------------------------------------------------#   
 FROM httpd:2.4
-
+# install additional software
+RUN apt-get update && apt-get install -y wget raptor2-utils curl emacs24 python-seqdiag
 
 # make logs persistent in /logs
 RUN mkdir -p /logs && chmod -R 666 /logs
@@ -25,15 +26,13 @@ COPY config/httpd.conf /usr/local/apache2/conf/httpd.conf
     # sets logs to point to /logs
 COPY config/httpd-vhosts.conf /usr/local/apache2/conf/extra/httpd-vhosts.conf
 
-
-
 # scripts directory is the cgi-bin for the config
 ADD scripts /scripts
 RUN chmod -R 555 /scripts
 
 # www directory holds the document root
 ADD www /www
-RUN chmod -R 777 /www/results
+RUN mkdir -p /www/results && chmod -R 777 /www/results
 RUN rm -rf /usr/local/apache2/htdocs && ln -s /www /usr/local/apache2/htdocs
 
 # Default Environment Variable assignments
@@ -41,9 +40,18 @@ RUN rm -rf /usr/local/apache2/htdocs && ln -s /www /usr/local/apache2/htdocs
 ENV ENV_URI_DOMAIN opendata.vlaanderen.be
 ENV ENV_SPARQL_ENDPOINT_SERVICE_URL http://sparql-endpoint-service:8890/sparql
 
-# install additional software
-RUN apt-get update && apt-get install -y wget raptor2-utils curl
-
 # redefine the start of the service to be incorporate the runtime configuration 
 # of environment variables
+
+ENV DEBIAN_FRONTEND noninteractive
+ADD emacs/install.el /emacs/install.el
+RUN emacs --batch --load /emacs/install.el
+ADD emacs/export.el /emacs/export.el
+ADD emacs/ob-blockdiag.el /emacs/ob-blockdiag.el
+ADD emacs/.blockdiagrc /emacs/.blockdiagrc
+ADD emacs/org-export /emacs/org-export
+RUN chmod a+rwX /emacs/org-export
+ADD emacs/LiberationSans-Regular.ttf /emacs/LiberationSans-Regular.ttf
+ENV LANG en_US.UTF-8
+
 CMD ["/config/bin/start.sh"]
