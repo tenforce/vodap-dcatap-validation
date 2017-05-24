@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source log.sh
+
 #This code for getting code from post data is from http://oinkzwurgl.org/bash_cgi and
 #was written by Phillippe Kehi &lt;phkehi@gmx.net&gt; and flipflip industries
 
@@ -87,7 +89,6 @@ function cgi_getvars()
 
 urldecode() {
     # urldecode <string>
-
     local url_encoded="${1//+/ }"
     printf '%b' "${url_encoded//%/\\x}"
 }
@@ -97,12 +98,13 @@ cgi_getvars BOTH ALL
 
 DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
 mkdir -p /www/results/$DATESTAMP
-./rdf_validate_url.sh $dcat_url $DATESTAMP 
-if [$? = 0 ] ; then 
-   # only continue if previous is success
-   ./load_feeds.sh $dcat_url $DATESTAMP
-   cd /www/results/$DATESTAMP
-   ./dcat_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP
+log "BEFORE: ./rdf_validate_url.sh $dcat_url $DATESTAMP"
+./rdf_validate_url.sh $dcat_url $DATESTAMP
+ec=$?
+if [ ${ec} -eq 0 ] ; then
+    log "BEFORE: load_feeds.sh $dcat_url $DATESTAMP"
+    # only continue if previous is success
+    ./load_feeds.sh $dcat_url $DATESTAMP
 fi
 
 echo "Content-type: text/html"

@@ -6,7 +6,7 @@ DATESTAMP=$2
 
 LOAD="load <$URL> into <http://data.vlaanderen.be/id/dataset/$DATESTAMP>"
 
-
 #REQUEST="http://localhost:8890/sparql"
 
-curl --data-urlencode "query=$LOAD" $ENV_SPARQL_ENDPOINT_SERVICE_URL
+curl --data-urlencode "query=$LOAD" $ENV_SPARQL_ENDPOINT_SERVICE_URL > loaded.txt
+exit $?

@@ -15,10 +15,9 @@ echo ""
 
 cat /scripts/400-badrequest-before.html
 
-
 echo "<p>Deze uri: "
 echo "http://data.vlaanderen.be$REDIRECT_URL"
-echo " voldoet niet aan de VO URI strategie."
+echo " vvvvvoldoet niet aan de VO URI strategie."
 echo "</p><br/>"
 
 echo "<p>Oorzaak is "
