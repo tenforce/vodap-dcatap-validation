@@ -101,6 +101,8 @@ mkdir -p /www/results/$DATESTAMP
 if [$? = 0 ] ; then 
    # only continue if previous is success
    ./load_feeds.sh $dcat_url $DATESTAMP
+   cd /www/results/$DATESTAMP
+   ./dcat_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP
 fi
 
 echo "Content-type: text/html"
