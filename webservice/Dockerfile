@@ -27,8 +27,8 @@ RUN emacs --batch --load /emacs/install.el
 #RUN chmod a+rwX /emacs/org-export
 
 # make logs persistent in /logs
-#RUN mkdir -p /logs && chmod -R 666 /logs
-RUN mkdir -p /logs && touch /logs/validate.log && chmod -R 666 /logs
+RUN mkdir -p /logs && chmod -R 666 /logs
+RUN touch /logs/validate.log && chmod 666 /logs/validate.log
 
 # config directory holds the configuration
 ADD config /config
