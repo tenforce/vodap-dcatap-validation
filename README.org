@@ -51,15 +51,25 @@ Commands to manage the set of validation rules
 [TODO] 
 
 The validation can be deployed as a webservice. 
-On http://localhost/dcatvalidate a simple webform is presented to the user.
+On http://localhost/ a simple webform is presented to the user.
 The form expects an URL to the catalog in DCAT-AP form serialized in RDF. It supports serializations in ntriples, turtle and RDF/XML.
 
-The webservice will forward then the user to a validation report that can be downloaded.
+The webservice will forward then the user to a directory containing validation reports .
 
 The validation consists of 2 levels:
     - RDF serialization compliance: is the provided file RDF compliant. 
       Typical issues are incorrect URI identifiers containing for example spaces. 
     - DCAT-AP validation: is the provided file DCAT-AP(VO) compliant.
 
+** building the webservice 
+
+#+BEGIN_EXAMPLE
+docker-compose -f docker-compose.yml build
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+docker-compose -f docker-compose.yml down
+docker-compose -f docker-compose.yml up -d
+#+END_EXAMPLE
 
 
