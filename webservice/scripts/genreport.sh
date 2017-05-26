@@ -3,6 +3,7 @@
 RESULTSFILE=$1
 #OUTPUTFILE=report.org
 OUTPUTFILE=$2
+BASICRESULT=$3
 MAXLINES=30
 
 genstatistics() {
@@ -14,7 +15,7 @@ genstatistics() {
 
   includestats() {
   # change the out separator for org-mode
-  awk -F, '{print "|" $1 "|" $2 "|" ;}' query/basic.csv
+  awk -F, '{print "|" $1 "|" $2 "|" ;}' $BASICRESULT
 }
 
 genruleresults() {

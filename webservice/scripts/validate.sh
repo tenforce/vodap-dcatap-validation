@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source log.sh
+source ./log.sh
 
 #This code for getting code from post data is from http://oinkzwurgl.org/bash_cgi and
 #was written by Phillippe Kehi &lt;phkehi@gmx.net&gt; and flipflip industries
@@ -96,16 +96,25 @@ urldecode() {
 
 cgi_getvars BOTH ALL
 
+# add a default for testing
+if [ "$dcat_url" = "" ] ; then
+    dcat_url="http://data.kortrijk.be/api/dcat"
+fi
+
 DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
-mkdir -p /www/results/$DATESTAMP
+export PROCESSDIR=/www/results/$DATESTAMP
+mkdir -p $PROCESSDIR
+
 log "BEFORE: ./rdf_validate_url.sh $dcat_url $DATESTAMP"
+
 ./rdf_validate_url.sh $dcat_url $DATESTAMP
 ec=$?
-if [ ${ec} -eq 0 ] ; then
-    log "BEFORE: load_feeds.sh $dcat_url $DATESTAMP"
+#if [ ${ec} -eq 0 ] ; then
+    log "BEFORE: load_feed.sh $dcat_url $DATESTAMP"
     # only continue if previous is success
-    ./load_feeds.sh $dcat_url $DATESTAMP
-fi
+    ./load_feed.sh $dcat_url $DATESTAMP
+    ./dcat_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP
+#fi
 
 echo "Content-type: text/html"
 echo "Status: 302 Redirect"
@@ -172,8 +181,10 @@ echo '<body>'
 #
 #
 
-#echo "------------------------\n"
+echo $PWD
+echo "------------------------\n"
 env
+
 
 echo '</body>'
 echo '</html>'
