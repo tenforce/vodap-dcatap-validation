@@ -61,15 +61,37 @@ The validation consists of 2 levels:
       Typical issues are incorrect URI identifiers containing for example spaces. 
     - DCAT-AP validation: is the provided file DCAT-AP(VO) compliant.
 
-** building the webservice 
 
+
+** building the webservice 
+[TODO]: make a development and production docker-compose
+
+The creation of a new webservice to test locally is done as follows:
+
+    + Firstly ensure that the application_bootstrap.sh has been run.
+    + (re)build the service using the following
 #+BEGIN_EXAMPLE
 docker-compose -f docker-compose.yml build
 #+END_EXAMPLE
-
+    + stopping and starting the previous build
 #+BEGIN_EXAMPLE
 docker-compose -f docker-compose.yml down
 docker-compose -f docker-compose.yml up -d
 #+END_EXAMPLE
+
+  
+** deploying the webservice
+[TODO]: make a development and production docker-compose
+
+
+Deploying the ready made build is as easy as the following
+
+#+BEGIN_EXAMPLE
+wget https://raw.githubusercontent.com/tenforce/vodap-dcatap-validation/master/docker-compose.yml
+
+docker-compose -f docker-compose.yml up -d
+#+END_EXAMPLE
+
+
 
 
