@@ -11,6 +11,7 @@ git clone https://github.com/binarin/docker-org-export.git
    # copy the configuration to the webservice directory
    mkdir -p webservice/emacs
    cp docker-org-export/*.el webservice/emacs
+   cp docker-org-export/*.ttf webservice/emacs
    cp docker-org-export/.blockdiagrc webservice/emacs
 
 # the generic DCAT-AP queries
