@@ -1,0 +1,2 @@
+#!/bin/sh
+docker run --rm -i -t -v $(pwd):$(pwd) --workdir=$(pwd) -u $(id -u) binarin/org-export emacs --batch --load /emacs/export.el --file $1 --eval '(org-html-export-to-html)'

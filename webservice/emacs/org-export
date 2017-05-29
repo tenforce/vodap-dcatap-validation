@@ -1,0 +1,2 @@
+#!/bin/sh
+emacs --batch --load /emacs/export.el --file $1 --eval '(org-html-export-to-html)'
