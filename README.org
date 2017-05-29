@@ -6,25 +6,27 @@ Scripts to use the [[https://github.com/EmidioStani/dcat-ap_validator][dcat-ap v
 available dcat-ap catalogs (to produce a report of the problems for a
 given link).
 
-
 * Deployment
 
 ** new machine setup
-To start a fresh, independent environment one has to setup an up-to-date ubuntu/debian Linux.
-This and the subsequent deployment of the application is automated by the vagrant setup, included.
-Assuming [[https://www.vagrantup.com]["Vagrant"]] is installed the following is all that should be needed:
+To start a fresh, independent environment one has to setup an
+up-to-date ubuntu/debian Linux.  This and the subsequent deployment of
+the application is automated by the vagrant setup, included.  Assuming
+[[https://www.vagrantup.com]["Vagrant"]] is installed the following is all that should be needed:
 
 #+BEGIN_EXAMPLE
 vagrant up
 #+END_EXAMPLE
 
-This will start up virtualbox, install a ubuntu image, and then installs the first the necessary system tools: docker, git, ... defined in bootstrap.sh.
-The application dependencies are collected in the subsequent script: application_bootstrap.sh.
+This will start up virtualbox, install a ubuntu image, and then
+installs the first the necessary system tools: docker, git,
+... defined in bootstrap.sh.  The application dependencies are
+collected in the subsequent script: application_bootstrap.sh.
 
 ** on an existing machine
-On an existing machine the setup starts from the application_bootstrap.sh script. By running this (as sudo)
-the necessary application dependencies are installed.
-
+On an existing machine the setup starts from the
+application_bootstrap.sh script. By running this (as sudo) the
+necessary application dependencies are installed.
 
 * Execution
 
@@ -46,51 +48,60 @@ Commands to manage the set of validation rules
     - make ISAVODAPrules  : use the rules from ISA adapted to VODAP (SPARQL) case
     - make ISArules       : use the rules from ISA (as is)
 
-
 * As webservice
-[TODO] 
+  [TODO] 
 
-The validation can be deployed as a webservice. 
-On http://localhost/ a simple webform is presented to the user.
-The form expects an URL to the catalog in DCAT-AP form serialized in RDF. It supports serializations in ntriples, turtle and RDF/XML.
+  The validation can be deployed as a webservice.  On
+  http://localhost/ a simple webform is presented to the user.  The
+  form expects an URL to the catalog in DCAT-AP form serialized in
+  RDF. It supports serializations in ntriples, turtle and RDF/XML.
 
-The webservice will forward then the user to a directory containing validation reports .
+  The webservice will forward then the user to a directory containing validation reports .
 
-The validation consists of 2 levels:
+  The validation consists of 2 levels:
     - RDF serialization compliance: is the provided file RDF compliant. 
       Typical issues are incorrect URI identifiers containing for example spaces. 
     - DCAT-AP validation: is the provided file DCAT-AP(VO) compliant.
 
-
-
 ** building the webservice 
-[TODO]: make a development and production docker-compose
+   [TODO]: make a development and production docker-compose
 
-The creation of a new webservice to test locally is done as follows:
+   The creation of a new webservice to test locally is done as follows:
 
     + Firstly ensure that the application_bootstrap.sh has been run.
     + (re)build the service using the following
-#+BEGIN_EXAMPLE
+
+    #+BEGIN_EXAMPLE
 docker-compose -f docker-compose.yml build
 #+END_EXAMPLE
+
     + stopping and starting the previous build
-#+BEGIN_EXAMPLE
+    #+BEGIN_EXAMPLE
 docker-compose -f docker-compose.yml down
 docker-compose -f docker-compose.yml up -d
 #+END_EXAMPLE
 
-  
-** deploying the webservice
-[TODO]: make a development and production docker-compose
+    ** deploying the webservice
+    [TODO]: make a development and production docker-compose
 
+    Deploying the ready made build is as easy as the following
 
-Deploying the ready made build is as easy as the following
-
-#+BEGIN_EXAMPLE
+    #+BEGIN_EXAMPLE
 wget https://raw.githubusercontent.com/tenforce/vodap-dcatap-validation/master/docker-compose.yml
 
 docker-compose -f docker-compose.yml up -d
 #+END_EXAMPLE
+
+    To extend the environment there is a 'docker-compose-dev.yml'
+    file which will override some of the options used in the 
+    main 'docker-compose.yml' file. To use the file:
+
+    #+BEGIN_EXAMPLE
+    docker-compose -f docker-compose.yml -f docker-compose-dev.yml <command>
+    #+END_EXAMPLE
+  
+    Note: The docker-compose command 'extends' has problems with the
+    'links' so cannot be used to simplify the above.
 
 
 

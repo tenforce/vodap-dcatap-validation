@@ -1,0 +1,8 @@
+version: '2'
+services:
+  webservice:
+    build:
+      context: ./webservice
+    container_name: vodap-dev
+    labels:
+      webservice: "VODAP frontend access (dev)"

@@ -1,8 +1,7 @@
 version: '2'
 services:
   webservice:
-    build:
-      context: ./webservice
+    image: tenforce/vodap
     extra_hosts:
       - "opendata.vlaanderen.be:127.0.0.1"
     labels:
