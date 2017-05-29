@@ -41,6 +41,7 @@ COPY config/httpd.conf /usr/local/apache2/conf/httpd.conf
 COPY config/httpd-vhosts.conf /usr/local/apache2/conf/extra/httpd-vhosts.conf
 
 # scripts directory is the cgi-bin for the config
+ADD rules /rules
 ADD scripts /scripts
 RUN chmod -R 555 /scripts
 
