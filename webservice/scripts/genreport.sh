@@ -7,13 +7,13 @@ BASICRESULT=$3
 MAXLINES=30
 
 genstatistics() {
-  ERRORS=`egrep ",error," ${RESULTSFILE} | wc -l`
-  WARNINGS=`egrep ",warning," ${RESULTSFILE} | wc -l`
+  ERRORS=`egrep ",\"error\"," ${RESULTSFILE} | wc -l`
+  WARNINGS=`egrep ",\"warning\"," ${RESULTSFILE} | wc -l`
   echo "|" errors "|" $ERRORS "|"
   echo "|" warnings "|" $WARNINGS "|"
 }
 
-  includestats() {
+includestats() {
   # change the out separator for org-mode
   awk -F, '{print "|" $1 "|" $2 "|" ;}' $BASICRESULT
 }

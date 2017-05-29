@@ -33,4 +33,4 @@ log "$PROCESSDIR: generate the org file"
 
 # style the output
 ./org-export $PROCESSDIR/vodapreport.org > $PROCESSDIR/vodapreport.html 2>> /logs/validate.log
-
+rm -f $PROCESSDIR/vodapreport.html~

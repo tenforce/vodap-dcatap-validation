@@ -12,7 +12,6 @@ SPARQL_ENDPOINT_SERVICE_URL="ENV_SPARQL_ENDPOINT_SERVICE_URL"
 
 LOAD="load <$URL> into <http://data.vlaanderen.be/id/dataset/$DATESTAMP>"
 
-
 curl -s -o $PROCESSDIR/load_feed.log --data-urlencode "query=$LOAD" $SPARQL_ENDPOINT_SERVICE_URL
 
 STATUS=$?
