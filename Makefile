@@ -6,8 +6,7 @@ SHELL=bash
 CATALOG=http://opendata.vlaanderen.be/catalog.rdf
 CATALOGSIMPLE=http://www.mobielvlaanderen.be/store-x/dirkt1/dataroom_dcat.rdf
 
-
-all: vodapreport.org
+all: vodapreport
 
 # management of the reports
 
@@ -24,7 +23,7 @@ all: vodapreport.org
 
 vodapreport.csv: runqueries
 	for i in rules/*.rq ; do \
-          roqet -q -p http://localhost:8890/sparql -r csv -e "`cat $${i}`" ; \
+          roqet -q -p http://localhost:8891/sparql -r csv -e "`cat $${i}`" ; \
 	done | egrep -v Class_Name > vodapreport.csv
 
 vodapreport.org: genreport.sh vodapreport.csv
@@ -99,15 +98,15 @@ cleanCatalogS: rmCatalog
 	rm -rf catalog/simple/ttl/*
 
 loadCatalog: startupvirtuoso createCatalog
-	virtuoso/scripts/execute-isql.sh /data/scripts/clean_upload.sql		
+	virtuoso/scripts/execute-isql.sh /data/scripts/clean_upload.sql
 reloadCatalog: startupvirtuoso 
-	virtuoso/scripts/execute-isql.sh /data/scripts/clean_upload.sql		
+	virtuoso/scripts/execute-isql.sh /data/scripts/clean_upload.sql
 
 # management of the RDF store        
 startupvirtuoso: virtuoso/virtuoso.ini
 	if [ ! -f startupvirtuoso ] ; then \
 	${DOCKER} run --name vodap-virtuoso \
-	    -p 8890:8890 -p 1111:1111 \
+	    -p 8891:8890 -p 1112:1111 \
 	    -e DBA_PASSWORD=vodap \
 	    -e SPARQL_UPDATE=true \
 	    -e DEFAULT_GRAPH=http://data.vlaanderen.be/id/dataset/default \
@@ -133,16 +132,31 @@ virtuoso/virtuoso.ini: config-files/virtuoso.ini
 
 realclean: rmvirtuoso
 	-rm -rf genreports.csv report.org
+	-rm -rf query/name*.* query/publishers.csv
 
+# DataSets
+# Used the recovered publishers list to create a query file
+# for each of the publishers. The call make to generate the results
+# file for the query
+
+datasets: loadCatalog query/publishers.csv query/dataset.template
+	while IFS=, read PubID Name; do \
+          fn=$$(echo $${PubID} | md5sum | cut -d ' ' -f 1) ; \
+	  sed -e "s@PUBID@$$PubID@g" query/dataset.template > query/name$$fn.rq ; \
+          make query/name$$fn.rdf ;\
+        done < query/publishers.csv
 
 # execution of the queries
-QUERYRESULTS = query/basic.csv
+QUERYRESULTS = query/basic.csv query/publishers.csv
 
 .PHONY: runqueries
 runqueries: ${QUERYRESULTS} 
 
+query/%.rdf: query/%.rq
+	${ROQET} -q -p http://localhost:8891/sparql -r rdfxml -e "`cat $<`" > $@
+
 query/%.csv: query/%.rq
-	${ROQET} -q -p http://localhost:8890/sparql -r csv -e "`cat $<`" > $@
+	${ROQET} -q -p http://localhost:8891/sparql -r csv -e "`cat $<`" > $@
 
 query/%.png: query/%.csv  query/%.gnuplot
 	${GNUPLOT} -e "data='$<';set output 'query/${*F}.png'; set term png;" query/${*F}.gnuplot
