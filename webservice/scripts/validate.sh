@@ -84,15 +84,11 @@ function cgi_getvars()
 
 # register all GET and POST variables
 
-
-
-
 urldecode() {
     # urldecode <string>
     local url_encoded="${1//+/ }"
     printf '%b' "${url_encoded//%/\\x}"
 }
-
 
 cgi_getvars BOTH ALL
 
@@ -113,7 +109,8 @@ ec=$?
     log "BEFORE: load_feed.sh $dcat_url $DATESTAMP"
     # only continue if previous is success
     ./load_feed.sh $dcat_url $DATESTAMP
-    ./dcat_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP
+    ./dcat_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url
+    # ln -s $PROCESSDIR/vodapreport.html $PROCESSDIR/index.html
 #fi
 
 echo "Content-type: text/html"

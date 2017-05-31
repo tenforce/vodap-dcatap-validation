@@ -1,9 +1,10 @@
-#!/bin/bash
+b#!/bin/bash
 #RESULTSFILE=genreports.csv
 RESULTSFILE=$1
 #OUTPUTFILE=report.org
 OUTPUTFILE=$2
 BASICRESULT=$3
+ORIGURL=$4
 MAXLINES=30
 
 genstatistics() {
@@ -15,7 +16,7 @@ genstatistics() {
 
 includestats() {
   # change the out separator for org-mode
-  awk -F, '{print "|" $1 "|" $2 "|" ;}' $BASICRESULT
+  cat $BASICRESULT | tr -d "\"" | awk -F, '{print "|" $1 "|" $2 "|" ;}' -
 }
 
 genruleresults() {
@@ -24,13 +25,14 @@ genruleresults() {
     ITEMS=`egrep ",$i," ${RESULTSFILE} | awk -F, '{print "|" $1 "|" $3 "|" $4 "|" $5 "|" $6 "|"; }'`
     if [ ! -z "$ITEMS" ] ; then
        echo "** Rule $i"
-       echo "$ITEMS" | head -${MAXLINES}
+       echo "$ITEMS" | tr -d "\"" | head -${MAXLINES}
     fi
   done
 }
 
 genreport() {
-  echo "#+TITLE: DCAT Validation Report (catalog.rdf file)"
+    echo "#+TITLE: DCAT Validation Report"
+    echo "#+SUBTITLE: ${dcat_url}"
   echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>"
   echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css\"/>"
   echo "#+HTML_HEAD: <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>"

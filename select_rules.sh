@@ -10,3 +10,8 @@ while read p; do
   echo $p
   cp $RULESOURCE/rules/$p rules
 done < S2
+
+# Clean up
+rm -f S1 S2
+
+

@@ -102,7 +102,3 @@ docker-compose -f docker-compose.yml up -d
   
     Note: The docker-compose command 'extends' has problems with the
     'links' so cannot be used to simplify the above.
-
-
-
-

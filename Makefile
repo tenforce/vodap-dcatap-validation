@@ -132,7 +132,8 @@ virtuoso/virtuoso.ini: config-files/virtuoso.ini
 
 realclean: rmvirtuoso
 	-rm -rf genreports.csv report.org
-	-rm -rf query/name*.* query/publishers.csv
+	-rm -rf query/name*.* query/publishers.csv pubquery/* webservice/www/pubdata/*
+	-rm -rf webservice/www/datasets.html
 
 # DataSets
 # Used the recovered publishers list to create a query file
@@ -140,20 +141,21 @@ realclean: rmvirtuoso
 # file for the query
 
 datasets: loadCatalog query/publishers.csv query/dataset.template
+	mkdir -p pubquery webservice/www/pubdata
 	while IFS=, read PubID Name; do \
           fn=$$(echo $${PubID} | md5sum | cut -d ' ' -f 1) ; \
-	  sed -e "s@PUBID@$$PubID@g" query/dataset.template > query/name$$fn.rq ; \
-          make query/name$$fn.rdf ;\
+	  sed -e "s@PUBID@$$PubID@g" query/dataset.template > pubquery/name$$fn.rq ; \
+          make webservice/www/pubdata/name$$fn.nt ;\
         done < query/publishers.csv
+
+webservice/www/pubdata/%.nt: pubquery/%.rq
+	curl -s --data-urlencode query="`cat $<`" --data format="RDF/XML" http://localhost:8891/sparql > $@
 
 # execution of the queries
 QUERYRESULTS = query/basic.csv query/publishers.csv
 
 .PHONY: runqueries
 runqueries: ${QUERYRESULTS} 
-
-query/%.rdf: query/%.rq
-	${ROQET} -q -p http://localhost:8891/sparql -r rdfxml -e "`cat $<`" > $@
 
 query/%.csv: query/%.rq
 	${ROQET} -q -p http://localhost:8891/sparql -r csv -e "`cat $<`" > $@
