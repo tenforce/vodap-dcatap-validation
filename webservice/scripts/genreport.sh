@@ -1,4 +1,4 @@
-b#!/bin/bash
+#!/bin/bash
 #RESULTSFILE=genreports.csv
 RESULTSFILE=$1
 #OUTPUTFILE=report.org
