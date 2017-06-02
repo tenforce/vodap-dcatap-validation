@@ -7,6 +7,7 @@ CONSTRUCT {
   ?catalog ?p ?c .
   ?dataset ?property ?value .
   ?catalog dcat:dataset ?dataset .
+  ?distribution ?dp ?dv .
   <PUBID> ?p1 ?v1 .
 } where {
   ?dataset dct:publisher <PUBID> .
@@ -14,6 +15,7 @@ CONSTRUCT {
   ?catalog ?p ?c .
   FILTER ( ?p != dcat:dataset )
   ?dataset ?property ?value .
+  OPTIONAL { ?value dcat:distribution ?distribution .
+             ?distribution ?dp ?dv }
   <PUBID> ?p1 ?v1 .
 }
-

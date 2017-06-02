@@ -5,6 +5,7 @@ services:
     hostname: webservice
     extra_hosts:
       - "opendata.vlaanderen.be:127.0.0.1"
+      - "data.vlaanderen.be:127.0.0.1"      
     labels:
       webservice: "VODAP frontend access"
     ports:
@@ -25,6 +26,7 @@ services:
       
   vodapweb-virtuoso:
     image: tenforce/virtuoso
+    hostname: vodapweb-virtuoso
     ports:
       - '8890:8890'
       - '1111:1111'
