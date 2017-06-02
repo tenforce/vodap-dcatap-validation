@@ -29,13 +29,16 @@ urlencode() {
 rm $PROCESSDIR/tmp.list
 output_line() {
     pointer=$(urlencode "http://webservice"$3)
-    echo "<li><a href=\"/dataset?dcat_url=$pointer\">"$2"</a></li>" >>  $PROCESSDIR/tmp.list
+    label=$(echo $2 | tr -d '"')
+    echo "<li><a href=\"/dataset?dcat_url=$pointer\">"$label"</a></li>" >>  $PROCESSDIR/tmp.list
 }
 
 mkdir -p $PROCESSDIR
 
-log "Dataset construction started"
-./load_feed.sh $dcat_url $DATESTAMP
+log "Loading of the catalog started"
+for i in {0..20}; do
+    ./load_feed.sh $dcat_url?page=$i $DATESTAMP
+done
 
 log "Get publishers List $SPARQL_ENDPOINT_SERVICE_URL $pwd"
 
