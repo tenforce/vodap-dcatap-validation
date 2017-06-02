@@ -7,6 +7,7 @@ DEFAULT_GRAPH=http://data.vlaanderen.be/id/dataset/$DATESTAMP
 SPARQL_ENDPOINT_SERVICE_URL="http://vodapweb-virtuoso:8890/sparql"
 export PROCESSDIR=/www/results/$DATESTAMP
 dcat_url=http://opendata.vlaanderen.be/catalog.rdf
+Pages=20
 
 urlencode() {
     # urlencode <string> taken from https://gist.github.com/cdown/1163649
@@ -34,7 +35,6 @@ output_line() {
 }
 
 mkdir -p $PROCESSDIR
-
 log "Loading of the catalog started"
 for i in {0..20}; do
     ./load_feed.sh $dcat_url?page=$i $DATESTAMP
@@ -67,7 +67,7 @@ echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
 echo '<title>http://opendata.vlaanderen.be/catalog.rdf</title>'
 echo '</head>'
 echo '<body>'
-echo '<h1>Publishers found in http://opendata.vlaanderen.be/catalog.rdf</h1><ul>'
+echo '<h1>Publishers found in http://opendata.vlaanderen.be/catalog.rdf (first 20 Pages)</h1><ul>'
 tail -n +2 $PROCESSDIR/tmp.list 
 echo '</ul></body>'
 echo '</html>'
