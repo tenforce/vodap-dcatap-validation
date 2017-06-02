@@ -52,7 +52,7 @@ do
     fn=$(echo ${RPubID} | md5sum | cut -d ' ' -f 1) ;
     sed -e "s@PUBID@$RPubID@g" query/dataset.template > $PROCESSDIR/name$fn.rq ;
     curl --data-urlencode query="`cat $PROCESSDIR/name$fn.rq`" --data format="RDF/XML" --data-urlencode default-graph-uri="$DEFAULT_GRAPH" -o $PROCESSDIR/name$fn.nt $SPARQL_ENDPOINT_SERVICE_URL >> /logs/webservice.log 2>&1
-    output_line "${PubId}" "$Name" "$PROCESSDIR/name$fn.nt"
+    output_line "${PubId}" "$Name" "/results/$DATESTAMP/name$fn.nt"
     log "Publisher $PubID query end"    
 done < $PROCESSDIR/publishers.csv
 
@@ -61,11 +61,11 @@ echo ""
 echo '<html>'
 echo '<head>'
 echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
-echo '<title>Error</title>'
+echo '<title>http://opendata.vlaanderen.be/catalog.rdf</title>'
 echo '</head>'
 echo '<body>'
-echo '<h1>Dataset Links</h1><ul>'
-cat $PROCESSDIR/tmp.list
+echo '<h1>Publishers found in http://opendata.vlaanderen.be/catalog.rdf</h1><ul>'
+tail -n +2 $PROCESSDIR/tmp.list 
 echo '</ul></body>'
 echo '</html>'
 exit 0
