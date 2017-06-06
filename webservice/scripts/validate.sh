@@ -29,7 +29,7 @@ ec=$?
 
 echo "Content-type: text/html"
 echo "Status: 302 Redirect"
-echo "Location: http://localhost/results/$DATESTAMP"
+echo "Location: http://ENV_URI_DOMAIN/results/$DATESTAMP"
 echo ""
 echo '<html>'
 echo '<head>'

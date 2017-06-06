@@ -12,7 +12,7 @@ cgi_getvars BOTH ALL
 # Variables which can be overriden (via a form or the interface)
 dcat_url=${dcat_url:-http://opendata.vlaanderen.be/catalog.rdf}
 pages_start=${pages_start:-1}
-pages_end=${pages_end:-15}
+pages_end=${pages_end:-45}
 
 # Endpoint to load into
 SPARQL_ENDPOINT_SERVICE_URL="http://vodapweb-virtuoso:8890/sparql"
@@ -65,17 +65,37 @@ do
     log "Publisher $PubID query end"    
 done < $PROCESSDIR/publishers.csv
 
+cat /scripts/datasets-list-before.html > $PROCESSDIR/datasets.html
+echo '<h3>Pages '$pages_start'..'$pages_end'</h3><ul>' >> $PROCESSDIR/datasets.html
+tail -n +2 $PROCESSDIR/tmp.list >> $PROCESSDIR/datasets.html
+echo '</ul>' >> $PROCESSDIR/datasets.html
+cat /scripts/datasets-list-after.html >> $PROCESSDIR/datasets.html
+
+
+
+#echo "Content-type: text/html"
+#echo ""
+#echo '<html>'
+#echo '<head>'
+#echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
+#echo '<title>http://opendata.vlaanderen.be/catalog.rdf</title>'
+#echo '</head>'
+#echo '<body>'
+#echo '<h1>Publishers found in http://opendata.vlaanderen.be/catalog.rdf</h1>'
+#echo '<h3>Pages '$pages_start'..'$pages_end'</h3><ul>'
+#tail -n +2 $PROCESSDIR/tmp.list 
+#echo '</ul></body>'
+#echo '</html>'
+
 echo "Content-type: text/html"
+echo "Status: 302 Redirect"
+echo "Location: http://ENV_URI_DOMAIN/results/$DATESTAMP/datasets.html"
 echo ""
 echo '<html>'
 echo '<head>'
 echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
-echo '<title>http://opendata.vlaanderen.be/catalog.rdf</title>'
+echo '<title>Redirect</title>'
 echo '</head>'
-echo '<body>'
-echo '<h1>Publishers found in http://opendata.vlaanderen.be/catalog.rdf</h1>'
-echo '<h3>Pages '$pages_start'..'$pages_end'</h3><ul>'
-tail -n +2 $PROCESSDIR/tmp.list 
-echo '</ul></body>'
+echo '<body/>'
 echo '</html>'
 exit 0
