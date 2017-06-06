@@ -27,7 +27,7 @@ urlencode() {
 }
 
 
-rm $PROCESSDIR/tmp.list
+rm -f $PROCESSDIR/tmp.list
 output_line() {
     pointer=$(urlencode "http://webservice"$3)
     label=$(echo $2 | tr -d '"')
@@ -36,9 +36,11 @@ output_line() {
 
 mkdir -p $PROCESSDIR
 log "Loading of the catalog started"
-for i in {0..20}; do
-    ./load_feed.sh $dcat_url?page=$i $DATESTAMP
+DCATURLS=""
+for i in {1..15}; do
+    DCATURLS+=" $dcat_url?page=$i "
 done
+./load_feeds.sh $DATESTAMP $DCATURLS
 
 log "Get publishers List $SPARQL_ENDPOINT_SERVICE_URL $pwd"
 
@@ -67,7 +69,8 @@ echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
 echo '<title>http://opendata.vlaanderen.be/catalog.rdf</title>'
 echo '</head>'
 echo '<body>'
-echo '<h1>Publishers found in http://opendata.vlaanderen.be/catalog.rdf (first 20 Pages)</h1><ul>'
+echo '<h1>Publishers found in http://opendata.vlaanderen.be/catalog.rdf</h1>'
+echo '<h3>Pages 1..15</h3><ul>'
 tail -n +2 $PROCESSDIR/tmp.list 
 echo '</ul></body>'
 echo '</html>'
