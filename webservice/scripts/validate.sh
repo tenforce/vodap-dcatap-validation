@@ -108,7 +108,7 @@ ec=$?
 #if [ ${ec} -eq 0 ] ; then
     log "BEFORE: load_feed.sh $dcat_url $DATESTAMP"
     # only continue if previous is success
-    ./load_feed.sh $dcat_url $DATESTAMP
+    ./load_feeds.sh $DATESTAMP $dcat_url 
     ./dcat_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
     # all the links to the original report are fond in the generated document
     ln -s $PROCESSDIR/vodapreport.html $PROCESSDIR/index.html
