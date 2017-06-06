@@ -6,8 +6,8 @@
 /config/bin/replace-env.sh /scripts/dcat_validate.sh
 /config/bin/replace-env.sh /scripts/load_feed.sh
 
-touch /logs/validate.log
-chmod 666 /logs/validate.log
+touch /logs/webservice.log
+chmod 666 /logs/webservice.log
 
 
 httpd-foreground
