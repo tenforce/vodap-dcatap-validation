@@ -1,7 +1,7 @@
 version: '2'
 services:
   webservice:
-    image: tenforce/vodap
+    image: tenforce/vodap-dcatap-validation
     hostname: webservice
     extra_hosts:
       - "opendata.vlaanderen.be:127.0.0.1"
