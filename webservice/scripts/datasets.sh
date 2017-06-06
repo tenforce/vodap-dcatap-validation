@@ -1,31 +1,17 @@
 #!/bin/bash
 
 source ./log.sh
+source ./cgi.sh
+
+cgi_getvars BOTH ALL
 
 DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
 DEFAULT_GRAPH=http://data.vlaanderen.be/id/dataset/$DATESTAMP
 SPARQL_ENDPOINT_SERVICE_URL="http://vodapweb-virtuoso:8890/sparql"
 export PROCESSDIR=/www/results/$DATESTAMP
 dcat_url=http://opendata.vlaanderen.be/catalog.rdf
-Pages=20
-
-urlencode() {
-    # urlencode <string> taken from https://gist.github.com/cdown/1163649
-    old_lc_collate=$LC_COLLATE
-    LC_COLLATE=C
-    
-    local length="${#1}"
-    for (( i = 0; i < length; i++ )); do
-        local c="${1:i:1}"
-        case $c in
-            [a-zA-Z0-9.~_-]) printf "$c" ;;
-            *) printf '%%%02X' "'$c" ;;
-        esac
-    done
-    
-    LC_COLLATE=$old_lc_collate
-}
-
+pages_start=${pages_start:-1}
+pages_end=${pages_end:-15}
 
 rm -f $PROCESSDIR/tmp.list
 output_line() {
@@ -37,7 +23,7 @@ output_line() {
 mkdir -p $PROCESSDIR
 log "Loading of the catalog started"
 DCATURLS=""
-for i in {1..15}; do
+for (( i=${pages_start}; i<=${pages_end}; i++ )); do
     DCATURLS+=" $dcat_url?page=$i "
 done
 ./load_feeds.sh $DATESTAMP $DCATURLS
@@ -70,7 +56,7 @@ echo '<title>http://opendata.vlaanderen.be/catalog.rdf</title>'
 echo '</head>'
 echo '<body>'
 echo '<h1>Publishers found in http://opendata.vlaanderen.be/catalog.rdf</h1>'
-echo '<h3>Pages 1..15</h3><ul>'
+echo '<h3>Pages '$pages_start'..'$pages_end'</h3><ul>'
 tail -n +2 $PROCESSDIR/tmp.list 
 echo '</ul></body>'
 echo '</html>'
