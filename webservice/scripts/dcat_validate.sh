@@ -34,6 +34,6 @@ log "$PROCESSDIR: generate the org file"
 ./genreport.sh $PROCESSDIR/vodapreport.csv $PROCESSDIR/vodapreport.org $PROCESSDIR/basic.csv $dcat_url $DATESTAMP
 
 # style the output
-./org-export $PROCESSDIR/vodapreport.org > $PROCESSDIR/vodapreport.html 2>> /logs/validate.log
+./org-export $PROCESSDIR/vodapreport.org > $PROCESSDIR/vodapreport.html 2>> /logs/webservice.log
 # remove the tempfile (which isn't needed)
 rm -f $PROCESSDIR/vodapreport.html~
