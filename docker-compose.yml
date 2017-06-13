@@ -28,7 +28,7 @@ services:
     image: tenforce/virtuoso
     hostname: vodapweb-virtuoso
     ports:
-      - '8890:8890'
+      - '8891:8890'
     labels:
       virtuoso: "VODAP temporary database store"    
     environment:

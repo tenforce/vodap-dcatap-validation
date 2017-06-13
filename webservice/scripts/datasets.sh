@@ -15,7 +15,8 @@ pages_start=${pages_start:-1}
 pages_end=${pages_end:-5}
 
 # Endpoint to load into
-SPARQL_ENDPOINT_SERVICE_URL="http://vodapweb-virtuoso:8890/sparql"
+#SPARQL_ENDPOINT_SERVICE_URL="http://vodapweb-virtuoso:8890/sparql"
+SPARQL_ENDPOINT_SERVICE_URL="ENV_SPARQL_ENDPOINT_SERVICE_URL"
 
 DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
 DEFAULT_GRAPH=http://data.vlaanderen.be/id/dataset/$DATESTAMP
