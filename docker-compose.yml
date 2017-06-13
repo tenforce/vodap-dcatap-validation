@@ -9,8 +9,7 @@ services:
     labels:
       webservice: "VODAP frontend access"
     ports:
-      - '80:80'
-      - '443:443'
+      - '81:80'
     volumes:
       - ./logs:/logs
       - ./webservice/www:/var/www/html
@@ -30,7 +29,6 @@ services:
     hostname: vodapweb-virtuoso
     ports:
       - '8890:8890'
-      - '1111:1111'
     labels:
       virtuoso: "VODAP temporary database store"    
     environment:
