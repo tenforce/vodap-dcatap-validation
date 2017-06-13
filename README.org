@@ -87,10 +87,16 @@ docker-compose -f docker-compose.yml up -d
     Deploying the ready made build is as easy as the following
 
     #+BEGIN_EXAMPLE
-wget https://raw.githubusercontent.com/tenforce/vodap-dcatap-validation/master/docker-compose.yml
+    wget https://raw.githubusercontent.com/tenforce/vodap-dcatap-validation/master/docker-compose.yml
+    #+END_EXAMPLE
 
-docker-compose -f docker-compose.yml up -d
-#+END_EXAMPLE
+    This docker-compose file contains the VODAP default settings 
+
+    #+BEGIN_EXAMPLE
+    docker-compose -f docker-compose.yml up -d
+    #+END_EXAMPLE
+
+   
 
     To extend the environment there is a 'docker-compose-dev.yml'
     file which will override some of the options used in the 

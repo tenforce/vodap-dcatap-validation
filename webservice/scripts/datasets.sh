@@ -12,7 +12,7 @@ cgi_getvars BOTH ALL
 # Variables which can be overriden (via a form or the interface)
 dcat_url=${dcat_url:-http://opendata.vlaanderen.be/catalog.rdf}
 pages_start=${pages_start:-1}
-pages_end=${pages_end:-45}
+pages_end=${pages_end:-5}
 
 # Endpoint to load into
 SPARQL_ENDPOINT_SERVICE_URL="http://vodapweb-virtuoso:8890/sparql"
@@ -89,7 +89,7 @@ cat /scripts/datasets-list-after.html >> $PROCESSDIR/datasets.html
 
 echo "Content-type: text/html"
 echo "Status: 302 Redirect"
-echo "Location: http://ENV_URI_DOMAIN/results/$DATESTAMP/datasets.html"
+echo "Location: http://ENV_VALIDATOR_LOCATION/results/$DATESTAMP/datasets.html"
 echo ""
 echo '<html>'
 echo '<head>'

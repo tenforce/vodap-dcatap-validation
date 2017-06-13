@@ -19,7 +19,8 @@ services:
     volumes_from:
       - datashared
     environment:
-      - ENV_URI_DOMAIN=opendata.vlaanderen.be
+      - ENV_VALIDATOR_DOMAIN=opendata.vlaanderen.be
+      - ENV_VALIDATOR_LOCATION=opendata.vlaanderen.be/vodap_validator
       - ENV_SPARQL_ENDPOINT_SERVICE_URL=http://vodapweb-virtuoso:8890/sparql
     links:
       - vodapweb-virtuoso:vodapweb-virtuoso
