@@ -14,12 +14,11 @@ docker run -d \
     tenforce/virtuoso
 
 
-docker run -d \
+docker run  -d \
     --add-host opendata.vlaanderen.be:127.0.0.1 \
     --add-host data.vlaanderen.be:127.0.0.1      \
-    -p 81:80 \
+    -p 80:80 \
     -v $WORKDIR/logs:/logs \
-    -v $WORKDIR/webservice/www:/www \
     -v /etc/timezone:/etc/timezone:ro \
     -v /etc/localtime:/etc/localtime:ro \
     -e ENV_VALIDATOR_DOMAIN=opendata.vlaanderen.be \
