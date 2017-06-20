@@ -25,7 +25,7 @@ export PROCESSDIR=/www/results/$DATESTAMP
 # Page contents with one link per publisher.
 rm -f $PROCESSDIR/tmp.list
 output_line() { # x Link Name
-    pointer=$(urlencode "http://webservice"$3)
+    pointer=$(urlencode "http://ENV_VALIDATOR_LOCATION"$3)
     label=$(echo $2 | tr -d '"')
     echo "<li><a href=\"/dataset?dcat_url=$pointer\">"$label"</a></li>" >>  $PROCESSDIR/tmp.list
 }
