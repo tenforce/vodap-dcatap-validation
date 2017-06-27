@@ -49,6 +49,8 @@ RUN chmod -R 555 /scripts
 ADD www /www
 RUN mkdir -p /www/results && chmod -R 777 /www/results
 RUN rm -rf /usr/local/apache2/htdocs && ln -s /www /usr/local/apache2/htdocs
+RUN rm -rf /vodap_validator/ && mkdir -p /vodap_validator && ln -s /scripts /vodap_validator/bin
+RUN rm -rf /www/vodap_validator/ && mkdir -p /www/vodap_validator && ln -s /scripts /www/vodap_validator/bin
 
 # Default Environment Variable assignments
 # these values can be overwritten at runtime
