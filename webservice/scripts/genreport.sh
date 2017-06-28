@@ -24,11 +24,21 @@ includestats() {
 genruleresults() {
   for i in {0..256} 
   do
-    ITEMS=`egrep ",$i," ${RESULTSFILE} | awk -F, '{print "|" $1 "|" $3 "|" $4 "|" $5 "|" $6 "|"; }'`
-    if [ ! -z "$ITEMS" ] ; then
-       echo "** Rule $i"
-       echo "$ITEMS" | tr -d "\"" | head -${MAXLINES}
+    egrep ",$i," ${RESULTSFILE} | tr -d "\"" | head -${MAXLINES} > /tmp/items.txt
+    if [ ! -z "$(cat /tmp/items.txt)" ] ; then
+	echo "** Rule $i"
+	 # create a list of groups (must be exact match for the following operation)
+         cat /tmp/items.txt | awk -F, '{print $1","$2","$3","$4};' | sort -u - > /tmp/groups.txt
+         cat /tmp/groups.txt | while read line
+         do
+	     # for each grouping dump the corresponding errors and warnings as a table
+             echo $line | awk -F, '{ print $1 " - " $3 " -  " $4; }'
+	     echo ""
+	     cat /tmp/items.txt | egrep "$line" | awk -F, '{ print "|" $5 "|" $6 "|"; }'
+         done
+	 rm -rf /tmp/groups.txt
     fi
+    rm -rf /tmp/items.txt
   done
 }
 
