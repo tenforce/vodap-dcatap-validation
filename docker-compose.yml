@@ -9,8 +9,7 @@ services:
     labels:
       webservice: "VODAP frontend access"
     ports:
-      - '80:80'
-      - '443:443'
+      - '81:80'
     volumes:
       - ./logs:/logs
       - ./webservice/www:/var/www/html
@@ -19,7 +18,8 @@ services:
     volumes_from:
       - datashared
     environment:
-      - ENV_URI_DOMAIN=opendata.vlaanderen.be
+      - ENV_VALIDATOR_DOMAIN=opendata.vlaanderen.be
+      - ENV_VALIDATOR_LOCATION=opendata.vlaanderen.be/vodap_validator
       - ENV_SPARQL_ENDPOINT_SERVICE_URL=http://vodapweb-virtuoso:8890/sparql
     links:
       - vodapweb-virtuoso:vodapweb-virtuoso
@@ -28,8 +28,7 @@ services:
     image: tenforce/virtuoso
     hostname: vodapweb-virtuoso
     ports:
-      - '8890:8890'
-      - '1111:1111'
+      - '8891:8890'
     labels:
       virtuoso: "VODAP temporary database store"    
     environment:

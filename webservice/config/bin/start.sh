@@ -4,7 +4,8 @@
 /config/bin/replace-env.sh /scripts/validate.sh
 /config/bin/replace-env.sh /scripts/rdf_validate_url.sh
 /config/bin/replace-env.sh /scripts/dcat_validate.sh
-/config/bin/replace-env.sh /scripts/load_feed.sh
+/config/bin/replace-env.sh /scripts/load_feeds.sh
+/config/bin/replace-env.sh /scripts/datasets.sh
 
 touch /logs/webservice.log
 chmod 666 /logs/webservice.log

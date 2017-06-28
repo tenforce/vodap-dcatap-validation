@@ -12,10 +12,11 @@ cgi_getvars BOTH ALL
 # Variables which can be overriden (via a form or the interface)
 dcat_url=${dcat_url:-http://opendata.vlaanderen.be/catalog.rdf}
 pages_start=${pages_start:-1}
-pages_end=${pages_end:-15}
+pages_end=${pages_end:-5}
 
 # Endpoint to load into
-SPARQL_ENDPOINT_SERVICE_URL="http://vodapweb-virtuoso:8890/sparql"
+#SPARQL_ENDPOINT_SERVICE_URL="http://vodapweb-virtuoso:8890/sparql"
+SPARQL_ENDPOINT_SERVICE_URL="ENV_SPARQL_ENDPOINT_SERVICE_URL"
 
 DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
 DEFAULT_GRAPH=http://data.vlaanderen.be/id/dataset/$DATESTAMP
@@ -24,7 +25,7 @@ export PROCESSDIR=/www/results/$DATESTAMP
 # Page contents with one link per publisher.
 rm -f $PROCESSDIR/tmp.list
 output_line() { # x Link Name
-    pointer=$(urlencode "http://webservice"$3)
+    pointer=$(urlencode "http://ENV_VALIDATOR_LOCATION"$3)
     label=$(echo $2 | tr -d '"')
     echo "<li><a href=\"/dataset?dcat_url=$pointer\">"$label"</a></li>" >>  $PROCESSDIR/tmp.list
 }
@@ -65,17 +66,37 @@ do
     log "Publisher $PubID query end"    
 done < $PROCESSDIR/publishers.csv
 
+cat /scripts/datasets-list-before.html > $PROCESSDIR/datasets.html
+echo '<h3>Pages '$pages_start'..'$pages_end'</h3><ul>' >> $PROCESSDIR/datasets.html
+tail -n +2 $PROCESSDIR/tmp.list >> $PROCESSDIR/datasets.html
+echo '</ul>' >> $PROCESSDIR/datasets.html
+cat /scripts/datasets-list-after.html >> $PROCESSDIR/datasets.html
+
+
+
+#echo "Content-type: text/html"
+#echo ""
+#echo '<html>'
+#echo '<head>'
+#echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
+#echo '<title>http://opendata.vlaanderen.be/catalog.rdf</title>'
+#echo '</head>'
+#echo '<body>'
+#echo '<h1>Publishers found in http://opendata.vlaanderen.be/catalog.rdf</h1>'
+#echo '<h3>Pages '$pages_start'..'$pages_end'</h3><ul>'
+#tail -n +2 $PROCESSDIR/tmp.list 
+#echo '</ul></body>'
+#echo '</html>'
+
 echo "Content-type: text/html"
+echo "Status: 302 Redirect"
+echo "Location: http://ENV_VALIDATOR_LOCATION/results/$DATESTAMP/datasets.html"
 echo ""
 echo '<html>'
 echo '<head>'
 echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
-echo '<title>http://opendata.vlaanderen.be/catalog.rdf</title>'
+echo '<title>Redirect</title>'
 echo '</head>'
-echo '<body>'
-echo '<h1>Publishers found in http://opendata.vlaanderen.be/catalog.rdf</h1>'
-echo '<h3>Pages '$pages_start'..'$pages_end'</h3><ul>'
-tail -n +2 $PROCESSDIR/tmp.list 
-echo '</ul></body>'
+echo '<body/>'
 echo '</html>'
 exit 0

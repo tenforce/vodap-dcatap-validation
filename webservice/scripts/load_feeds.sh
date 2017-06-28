@@ -3,7 +3,7 @@
 
 source ./log.sh
 
-SPARQL_ENDPOINT_SERVICE_URL="http://vodapweb-virtuoso:8890/sparql"
+#SPARQL_ENDPOINT_SERVICE_URL="http://vodapweb-virtuoso:8891/sparql"
 #DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
 DATESTAMP=$1
 shift;
@@ -18,8 +18,8 @@ do
  LOAD+="load <$URL> into <http://data.vlaanderen.be/id/dataset/$DATESTAMP> "
 done 
 
-log curl -s -o "$PROCESSDIR/load_feed.log" --data-urlencode "query=$LOAD" $SPARQL_ENDPOINT_SERVICE_URL
-curl -s -o $PROCESSDIR/load_feed.log --data-urlencode "query=$LOAD" $SPARQL_ENDPOINT_SERVICE_URL
+log curl -s -o "$PROCESSDIR/load_feed.log" --data-urlencode "query=$LOAD" ENV_SPARQL_ENDPOINT_SERVICE_URL
+curl -s -o $PROCESSDIR/load_feed.log --data-urlencode "query=$LOAD" ENV_SPARQL_ENDPOINT_SERVICE_URL
 
 STATUS=$?
 log "load_feed: STATUS $STATUS"
