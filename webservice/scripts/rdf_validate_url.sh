@@ -28,7 +28,6 @@ if [ $? != 0 ] ; then
     # echo "incorrect RDF" 1>&2
     STATUS=1
     log "rapper failed $STATUS"
-    exit $STATUS    
 fi
 
 cat $FILE.download >> $FILE.report

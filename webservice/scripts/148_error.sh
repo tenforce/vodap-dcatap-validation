@@ -23,7 +23,7 @@ echo "Content-type: text/html"
 echo "Status: $REDIRECT_STATUS NOT FOUND"
 echo ""
 
-cat /scripts/404-nonfound-before.html
+cat /scripts/148-nonfound-before.html
 
 echo "<p>Parsing issuer for uri: "
 echo "${referenceurl}" "see <a href=\""$details"\">Details</a>"

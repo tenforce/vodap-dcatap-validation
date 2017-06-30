@@ -30,7 +30,8 @@ includestats() {
 # Recover the instances
 
 get_instances() { # Label
-    awk -F, -v label=$1 '$1 ~ $label {print $2;}' $BASICRESULT
+    l=$(cat  $BASICRESULT | awk -F, -v label=$1 '$1 ~ label {print $2;}')
+    echo "of $l"
 }
 
 # simply could the errors/warnings found in the files passed into the command
@@ -77,7 +78,7 @@ create_label() {
     if [ "$1" != "0" -a "$3" != "0" ] ; then
 	padding=","
     fi    
-    echo "(" ${errors} ${padding} ${warnings} of ${instances}")"
+    echo "(" ${errors} ${padding} ${warnings} ${instances} ")"
 }
 
 genruleresults() {

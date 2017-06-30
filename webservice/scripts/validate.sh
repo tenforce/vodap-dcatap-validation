@@ -1,7 +1,8 @@
 #!/bin/bash
 
-source ./log.sh
+
 source ./cgi.sh
+source ./log.sh
 
 cgi_getvars BOTH ALL
 
@@ -20,6 +21,7 @@ rm -f $PROCESSDIR/*
 log "BEFORE: ./rdf_validate_url.sh $dcat_url $DATESTAMP"
 ./rdf_validate_url.sh $dcat_url $DATESTAMP
 ec=$?
+log "AFTER: ${ec}"
 case "${ec}" in
     0) log "BEFORE: load_feed.sh $dcat_url $DATESTAMP"
        # only continue if previous is success
@@ -41,13 +43,13 @@ case "${ec}" in
     1) # File can be downloaded, but there is a parsing error
        log "1 status, REDIRECT to load_feed.log - load problem (in /vodap_validator/results/$DATESTAMP)"	1
        ln -s $PROCESSDIR/feed.$DATESTAMP.report $PROCESSDIR/index.html
-       REDIRECT="/vodap_validator/bin/148_error.sh?dcat_url=$dcat_url&details=/vodap_validator/results/$DATESTAMP"       
+       REDIRECT="/vodap_validator/bin/148_error.sh?dcat_url=$dcat_url&details=/vodap_validator/results/$DATESTAMP/feed.$DATESTAMP.report"       
        ;;
 
   148) # File can be downloaded, but there is a parsing error
        ln -s $PROCESSDIR/feed.$DATESTAMP.report $PROCESSDIR/index.html
-       log "148 code, REDIRECT to load_feed.log - load problem (in /vodap_validator/results/$DATESTAMP)"
-       REDIRECT="/vodap_validator/bin/148_error.sh?dcat_url=$dcat_url&details=/vodap_validator/results/$DATESTAMP"       
+       log "148 code, REDIRECT to $PROCESSDIR/feed.$DATESTAMP.report - load problem (in /vodap_validator/results/$DATESTAMP)"
+       REDIRECT="/vodap_validator/bin/148_error.sh?dcat_url=$dcat_url&details=/vodap_validator/results/$DATESTAMP/feed.$DATESTAMP.report"       
        ;;
 
   404) # File cannot be downloaded, so redirect to the 404 message
