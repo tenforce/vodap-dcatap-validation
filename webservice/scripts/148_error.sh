@@ -25,9 +25,9 @@ echo ""
 
 cat /scripts/404-nonfound-before.html
 
-echo "<p>Deze uri: "
-echo "${referenceurl}"
-echo " is niet gevonden. " 
+echo "<p>Parsing issuer for uri: "
+echo "${referenceurl}" "see <a href=\""$details"\">Details</a>"
+
 echo "</p><br/>"
 
 

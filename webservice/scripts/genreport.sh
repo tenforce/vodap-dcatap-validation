@@ -1,4 +1,7 @@
 #!/bin/bash
+
+source ./log.sh
+
 #RESULTSFILE=genreports.csv
 RESULTSFILE=$1
 #OUTPUTFILE=report.org
@@ -9,36 +12,88 @@ DATESTAMP=$5
 MAXLINES=30
 
 URLDATESTAMP=$(echo $DATESTAMP | sed -e 's^:^%3A^g')
+ERRORS=`egrep ",\"error\"," ${RESULTSFILE} | wc -l`
+WARNINGS=`egrep ",\"warning\"," ${RESULTSFILE} | wc -l`
+PID=$$
+
 genstatistics() {
-  ERRORS=`egrep ",\"error\"," ${RESULTSFILE} | wc -l`
-  WARNINGS=`egrep ",\"warning\"," ${RESULTSFILE} | wc -l`
-  echo "|" errors "|" $ERRORS "|"
-  echo "|" warnings "|" $WARNINGS "|"
+    echo "|" "| Number |"
+    echo "|" errors "|" $ERRORS "|"
+    echo "|" warnings "|" $WARNINGS "|"
 }
 
 includestats() {
-  # change the out separator for org-mode
-  cat $BASICRESULT | tr -d "\"" | awk -F, '{print "|" $1 "|" $2 "|" ;}' -
+    # change the out separator for org-mode
+    cat $BASICRESULT | tr -d "\"" | awk -F, '{print "|" $1 "|" $2 "|" ;}' -
+}
+
+# Recover the instances
+
+get_instances() { # Label
+    awk -F, -v label=$1 '$1 ~ $label {print $2;}' $BASICRESULT
+}
+
+# simply could the errors/warnings found in the files passed into the command
+
+get_flag() {
+    awk -F, 'BEGIN{error=0; warning=0;} $3 == "error" {error++ } $3 == "warning" {warning++} END { print error","warning; }' $1
+}
+
+# Output a single section (labels and counts coming from the outside)
+
+output_form() {
+    local IFILENAME=$1
+    local LABEL=$2
+    local NNR=$3
+    local TOTAL=$4
+
+    if [ "${NNR}" != "0" ]; then
+	echo "  :PROPERTIES:"
+	echo "  :HTML_CONTAINER_CLASS: ${LABEL}"
+	echo "  :END:"
+	# create a list of groups (must be exact match for the following operation)
+	awk -F, '{print $1","$2","$3","$4};' ${IFILENAME} | sort -u - | while read line
+	do
+	    # for each grouping dump the corresponding errors and warnings as a table
+            echo $line | awk -F, '{ print "   " $1 " - " $3 " -  " $4; }'
+	    echo "     | Description | Instance | "
+	    echo "     |-------------+----------| "
+	    cat ${IFILENAME} | egrep "$line" | awk -F, '{ print "    |" $5 "|" $6 "|"; }'
+	done
+    fi
+}
+
+create_label() {
+    errors=""
+    warnings=""
+    padding=""
+    instances=$(get_instances $5)
+    if [ "$1" != "0" ] ; then
+	errors=$(echo "errors: $1/$2")
+    fi
+    if [ "$3" != "0" ] ; then
+	warnings=$(echo "warnings: $3/$4")
+    fi
+    if [ "$1" != "0" -a "$3" != "0" ] ; then
+	padding=","
+    fi    
+    echo "(" ${errors} ${padding} ${warnings} of ${instances}")"
 }
 
 genruleresults() {
   for i in {0..256} 
   do
-    egrep ",$i," ${RESULTSFILE} | tr -d "\"" | head -${MAXLINES} > /tmp/items.txt
-    if [ ! -z "$(cat /tmp/items.txt)" ] ; then
-	echo "** Rule $i"
-	 # create a list of groups (must be exact match for the following operation)
-         cat /tmp/items.txt | awk -F, '{print $1","$2","$3","$4};' | sort -u - > /tmp/groups.txt
-         cat /tmp/groups.txt | while read line
-         do
-	     # for each grouping dump the corresponding errors and warnings as a table
-             echo $line | awk -F, '{ print $1 " - " $3 " -  " $4; }'
-	     echo ""
-	     cat /tmp/items.txt | egrep "$line" | awk -F, '{ print "|" $5 "|" $6 "|"; }'
-         done
-	 rm -rf /tmp/groups.txt
+    IFILENAME=/tmp/items${PID}.txt
+    egrep ",$i," ${RESULTSFILE} | tr -d "\"" | head -${MAXLINES} > ${IFILENAME}
+    if [ ! -z "$(cat ${IFILENAME})" ] ; then
+	msg=$(get_flag ${IFILENAME})
+	nrerrors=$(echo $msg | cut -d, -f1)
+	nrwarnings=$(echo $msg | cut -d, -f2)
+	echo "** Rule $i $(create_label ${nrerrors} ${ERRORS} ${nrwarnings} ${WARNINGS} "Agent")"
+	output_form ${IFILENAME} "errors" "${nrerrors}" ${ERRORS}
+	output_form ${IFILENAME} "warnings" "${nrwarnings}" ${WARNINGS}
     fi
-    rm -rf /tmp/items.txt
+    rm -rf ${IFILENAME}
   done
 }
 

@@ -72,8 +72,6 @@ tail -n +2 $PROCESSDIR/tmp.list >> $PROCESSDIR/datasets.html
 echo '</ul>' >> $PROCESSDIR/datasets.html
 cat /scripts/datasets-list-after.html >> $PROCESSDIR/datasets.html
 
-
-
 #echo "Content-type: text/html"
 #echo ""
 #echo '<html>'

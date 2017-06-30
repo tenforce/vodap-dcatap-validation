@@ -12,24 +12,59 @@ fi
 
 DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
 export PROCESSDIR=/www/results/$DATESTAMP
+
 mkdir -p $PROCESSDIR
+# Empty directory if it already exists.
+rm -f $PROCESSDIR/*
 
 log "BEFORE: ./rdf_validate_url.sh $dcat_url $DATESTAMP"
-
 ./rdf_validate_url.sh $dcat_url $DATESTAMP
 ec=$?
-#if [ ${ec} -eq 0 ] ; then
-    log "BEFORE: load_feed.sh $dcat_url $DATESTAMP"
-    # only continue if previous is success
-    ./load_feeds.sh $DATESTAMP $dcat_url 
-    ./dcat_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
-    # all the links to the original report are fond in the generated document
-    ln -s $PROCESSDIR/vodapreport.html $PROCESSDIR/index.html
-#fi
+case "${ec}" in
+    0) log "BEFORE: load_feed.sh $dcat_url $DATESTAMP"
+       # only continue if previous is success
+       ./load_feeds.sh $DATESTAMP $dcat_url
+       LOADSTATUS=$?
+       if [ "${LOADSTATUS}" == "0" ] ; then
+	   log "LOADSTATUS = ${LOADSTATUS}"		
+	   ./dcat_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
+	   log "Set Pointer to $PROCESSDIR/vodapreport.html"
+	   ln -s $PROCESSDIR/vodapreport.html $PROCESSDIR/index.html
+	   # all the links to the original report are fond in the generated document
+       else
+	   log "REDIRECT to load_feed,log - load problem (in /vodap_validator/results/$DATESTAMP)"	
+	   ln -s $PROCESSDIR/load_feed.log $PROCESSDIR/index.html
+       fi
+       REDIRECT="/vodap_validator/results/$DATESTAMP"
+       ;;
+
+    1) # File can be downloaded, but there is a parsing error
+       log "1 status, REDIRECT to load_feed.log - load problem (in /vodap_validator/results/$DATESTAMP)"	1
+       ln -s $PROCESSDIR/feed.$DATESTAMP.report $PROCESSDIR/index.html
+       REDIRECT="/vodap_validator/bin/148_error.sh?dcat_url=$dcat_url&details=/vodap_validator/results/$DATESTAMP"       
+       ;;
+
+  148) # File can be downloaded, but there is a parsing error
+       ln -s $PROCESSDIR/feed.$DATESTAMP.report $PROCESSDIR/index.html
+       log "148 code, REDIRECT to load_feed.log - load problem (in /vodap_validator/results/$DATESTAMP)"
+       REDIRECT="/vodap_validator/bin/148_error.sh?dcat_url=$dcat_url&details=/vodap_validator/results/$DATESTAMP"       
+       ;;
+
+  404) # File cannot be downloaded, so redirect to the 404 message
+       ln -s $PROCESSDIR/feed.$DATESTAMP.report $PROCESSDIR/index.html
+       log "404 code, /vodap_validator/bin/404_error.sh?dcat_url=$dcat_url"
+       REDIRECT="/vodap_validator/bin/404_error.sh?dcat_url=$dcat_url"
+       ;;
+  
+    *) # no idea what the response code is.
+       log "Unknown error - ec = ${ec}"
+       REDIRECT="/vodap_validator/bin/404_error.sh?dcat_url=$dcat_url"
+       ;;
+esac
 
 echo "Content-type: text/html"
 echo "Status: 302 Redirect"
-echo "Location: http://ENV_VALIDATOR_LOCATION/results/$DATESTAMP"
+echo "Location: ${REDIRECT}"
 echo ""
 echo '<html>'
 echo '<head>'
@@ -47,7 +82,7 @@ echo '<body>'
 #  IFS="$OIFS"
 # 
 ## Next parse the individual "name=value" tokens.
-# 
+# 1
 #  ARGX=""
 #  ARGY=""
 #  ARGZ=""
@@ -78,10 +113,6 @@ echo '<body>'
 #
 #LOCAL=$(urldecode $ErroneousURI)
 #echo "http://data.vlaanderen.be/$LOCAL"
-
-
-
-
 #echo "$HTTP_REFERER"
 #echo "--"
 #echo "$REDIRECT_URL"
