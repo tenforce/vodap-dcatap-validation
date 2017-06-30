@@ -90,7 +90,8 @@ genruleresults() {
 	msg=$(get_flag ${IFILENAME})
 	nrerrors=$(echo $msg | cut -d, -f1)
 	nrwarnings=$(echo $msg | cut -d, -f2)
-	echo "** Rule $i $(create_label ${nrerrors} ${ERRORS} ${nrwarnings} ${WARNINGS} "Agent")"
+	class="Agent"    ## XXX needs recovering from the IFILENAME list
+	echo "** Rule $i $(create_label ${nrerrors} ${ERRORS} ${nrwarnings} ${WARNINGS} ${class})"
 	output_form ${IFILENAME} "errors" "${nrerrors}" ${ERRORS}
 	output_form ${IFILENAME} "warnings" "${nrwarnings}" ${WARNINGS}
     fi
