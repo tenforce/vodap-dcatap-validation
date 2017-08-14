@@ -12,26 +12,47 @@ DATESTAMP=$5
 MAXLINES=30
 
 URLDATESTAMP=$(echo $DATESTAMP | sed -e 's^:^%3A^g')
-ERRORS=`egrep ",\"error\"," ${RESULTSFILE} | wc -l`
-WARNINGS=`egrep ",\"warning\"," ${RESULTSFILE} | wc -l`
+TERRORS=`egrep ",\"error\"," ${RESULTSFILE} | wc -l`
+TWARNINGS=`egrep ",\"warning\"," ${RESULTSFILE} | wc -l`
 PID=$$
 
 genstatistics() {
     echo "|" "| Number |"
-    echo "|" errors "|" $ERRORS "|"
-    echo "|" warnings "|" $WARNINGS "|"
+    echo "|" errors "|" $TERRORS "|"
+    echo "|" warnings "|" $TWARNINGS "|"
 }
 
 includestats() {
     # change the out separator for org-mode
-    cat $BASICRESULT | tr -d "\"" | awk -F, '{print "|" $1 "|" $2 "|" ;}' -
+    cat $BASICRESULT | tr -d "\"" | while IFS=, read -r cl ins
+    do
+	if [ "$cl" == "Class" ]
+	then
+	    echo "| Class | Instances | Errors | Warnings |"
+	else
+	    errors=$(get_number "error" $cl)
+	    warnings=$(get_number "warning" $cl)
+	    echo "|" $cl "|" $ins "|" $errors "|" $warnings "|"
+	fi
+    done
+    echo "| | |" $TERRORS "|" $TWARNINGS "|"
+}
+
+get_number() {
+    echo get_number $1 $2 1>&2
+    egrep ",\"$1\"," ${RESULTSFILE} | tr -d "\"" | awk -F, -v class=$2 '(index(class, $1) != 0) {print $1;}' | wc -l
 }
 
 # Recover the instances
 
 get_instances() { # Label
-    l=$(cat  $BASICRESULT | awk -F, -v label=$1 '$1 ~ label {print $2;}')
-    echo "of $l"
+    l=$(cat $BASICRESULT | awk -F, -v label=$1 '$1 ~ label {print $2;}')
+    if [ "$l" == "" ]; then
+	out="with no instances"
+    else
+	out="in $l instances"
+    fi;
+    echo $out
 }
 
 # simply could the errors/warnings found in the files passed into the command
@@ -90,10 +111,10 @@ genruleresults() {
 	msg=$(get_flag ${IFILENAME})
 	nrerrors=$(echo $msg | cut -d, -f1)
 	nrwarnings=$(echo $msg | cut -d, -f2)
-	class="Agent"    ## XXX needs recovering from the IFILENAME list
-	echo "** Rule $i $(create_label ${nrerrors} ${ERRORS} ${nrwarnings} ${WARNINGS} ${class})"
-	output_form ${IFILENAME} "errors" "${nrerrors}" ${ERRORS}
-	output_form ${IFILENAME} "warnings" "${nrwarnings}" ${WARNINGS}
+	class=$(cat ${IFILENAME} | cut -d, -f1 | uniq) ## was "Agent" XXX needs recovering from the IFILENAME list
+	echo "** Rule $i $(create_label ${nrerrors} ${TERRORS} ${nrwarnings} ${TWARNINGS} ${class})"
+	output_form ${IFILENAME} "errors" "${nrerrors}" ${TERRORS}
+	output_form ${IFILENAME} "warnings" "${nrwarnings}" ${TWARNINGS}
     fi
     rm -rf ${IFILENAME}
   done
@@ -123,8 +144,9 @@ genreport() {
     echo "  - [[file:publishers.csv][~publishers.csv - the list of publishers in the catalog~]]"        
     echo "** Overview"
     includestats
-    echo "** Statistics"
-    genstatistics
+    # merged into overview table
+    # echo "** Statistics"
+    # genstatistics
     echo "* Individual Rule Results"
     genruleresults
 }

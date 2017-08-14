@@ -63,7 +63,7 @@ do
 	 --data-urlencode default-graph-uri="$DEFAULT_GRAPH" \
 	 -o $PROCESSDIR/name$fn.nt $SPARQL_ENDPOINT_SERVICE_URL >> /logs/webservice.log 2>&1
     output_line "${PubId}" "$Name" "/results/$DATESTAMP/name$fn.nt"
-    log "Publisher $PubID query end"    
+    log "Publisher $PubID query end"
 done < $PROCESSDIR/publishers.csv
 
 cat /scripts/datasets-list-before.html > $PROCESSDIR/datasets.html

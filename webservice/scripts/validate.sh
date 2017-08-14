@@ -47,7 +47,7 @@ case "${ec}" in
        ;;
 
   148) # File can be downloaded, but there is a parsing error
-       ln -s $PROCESSDIR/feed.$DATESTAMP.report $PROCESSDIR/index.html
+       # ln -s $PROCESSDIR/feed.$DATESTAMP.report $PROCESSDIR/index.html
        log "148 code, REDIRECT to $PROCESSDIR/feed.$DATESTAMP.report - load problem (in /vodap_validator/results/$DATESTAMP)"
        REDIRECT="/vodap_validator/bin/148_error.sh?dcat_url=$dcat_url&details=/vodap_validator/results/$DATESTAMP/feed.$DATESTAMP.report"       
        ;;
