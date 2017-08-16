@@ -75,6 +75,7 @@ Dataset ; M ; rule-38.rq ; [Dataset ] ;  dct:description should be a literal
 Dataset ; M ; rule-39.rq ; [Dataset ] ;  dct:title is a required property for Dataset
 Dataset ; M ; rule-40.rq ; [Dataset ] ;  dct:title should be a literal
 Dataset ; M ; rule-41.rq ; [Dataset ] ;  dcat:contactPoint is a recommended property for Dataset
+Dataset ; M ; rule-411.rq ; [Dataset ] ;  vcard:hasEmail is a required property for a contactpoint of a Dataset
 Dataset ; M ; rule-43.rq ; [Dataset ] ;  dcat:contactPoint should be a vcard:Kind
 Dataset ; M ; rule-44.rq ; [Dataset ] ;  dcat:distribution is a recommended property for Dataset
 Dataset ; M ; rule-46.rq ; [Dataset ] ;  dcat:distribution should be a dcat:Distribution
