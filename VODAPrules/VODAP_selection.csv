@@ -79,7 +79,7 @@ Dataset ; M ; rule-411.rq ; [Dataset ] ;  vcard:hasEmail is a required property 
 Dataset ; M ; rule-43.rq ; [Dataset ] ;  dcat:contactPoint should be a vcard:Kind
 Dataset ; M ; rule-44.rq ; [Dataset ] ;  dcat:distribution is a recommended property for Dataset
 Dataset ; M ; rule-46.rq ; [Dataset ] ;  dcat:distribution should be a dcat:Distribution
-Dataset ; M ; rule-49.rq ; [Dataset ] ;  dct:publisher is a recommended property for Dataset
+Dataset ; M ; rule-49.rq ; [Dataset ] ;  dct:publisher is a mandatory property for Dataset
 Dataset ; M ; rule-50.rq ; [Dataset ] ;  dct:publisher has maximum cardinality of 1 for Dataset
 Dataset ; M ; rule-52.rq ; [Dataset ] ;  dct:publisher should be a foaf:Agent
 Dataset ;   ; rule-63.rq ; [Dataset ] ;  dcat:landingPage should be a foaf:Document
@@ -116,9 +116,9 @@ Distribution ;   ; rule-111.rq ; [Distribution ] ;  dct:modified has a maximum c
 Distribution ;   ; rule-159.rq ; [Distribution ] ;  foaf:page should be a foaf:Document
 Distribution ; M ; rule-163.rq ; [Distribution ] ;  dcat:Distribution does not exist
 Distribution ; M ; rule-79.rq ; [Distribution ] ;  dcat:accessURL is a required property for Distribution
-Distribution ; M ; rule-81.rq ; [Distribution ] ;  dct:description is a recommended property for Distribution
+Distribution ; M ; rule-81.rq ; [Distribution ] ;  dct:description is a mandatory property for Distribution
 Distribution ; M ; rule-82.rq ; [Distribution ] ;  dct:description should be a literal
-Distribution ; M ; rule-86.rq ; [Distribution ] ;  dct:license is a recommended property for Distribution
+Distribution ; M ; rule-86.rq ; [Distribution ] ;  dct:license is a mandatory property for Distribution
 Distribution ; M ; rule-87.rq ; [Distribution ] ;  dct:license should be a dct:LicenseDocument
 Distribution ; M ; rule-88.rq ; [Distribution ] ;  dct:license has a maximum cardinality of 1 for Distribution
 Distribution ;   ; rule-92.rq ; [Distribution ] ;  dct:issued should be literal typed as date or dateTime
