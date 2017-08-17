@@ -2,8 +2,8 @@ Agent ; M ; rule-0.rq ; [Agent ] ;  foaf:name is a required property for Agent
 Agent ; M ; rule-113.rq ; [Agent ] ;  foaf:Agent does not exist
 Agent ; M ; rule-1.rq ; [Agent ] ;  foaf:name should be a literal
 Agent ; M ; rule-2.rq ; [Agent ] ;  dct:type is a recommended property for Agent
-Agent ; M ; rule-3.rq ; [Agent ] ;  dct:type should be a skos:Concept
-Agent  ;; rule-98.rq ; [Agent ] ;  dct:type has maximum cardinality of 1 for Agent
+Agent ; ; rule-3.rq ; [Agent ] ;  dct:type should be a skos:Concept
+Agent  ; ; rule-98.rq ; [Agent ] ;  dct:type has maximum cardinality of 1 for Agent
 Catalog ; M ; rule-112.rq ; [Catalog ] ;  dcat:Catalog does not exist
 Catalog ; M ; rule-11.rq ; [Catalog ] ;  dct:publisher should be a foaf:Agent
 Catalog ; M ; rule-12.rq ; [Catalog ] ;  dct:title is a required property for Catalog
@@ -28,14 +28,14 @@ Catalog ; M ; rule-5.rq ; [Catalog ] ;  dcat:dataset should be a dcat:Dataset
 Catalog ; M ; rule-6.rq ; [Catalog ] ;  dct:description is a required property for Catalog
 Catalog ; M ; rule-7.rq ; [Catalog ] ;  dct:description should be a literal
 Catalog ; M ; rule-8.rq ; [Catalog ] ;  dct:publisher is a required property for Catalog
-CatalogRecord ; M ; rule-119.rq ; [Catalog Record ] ;  foaf:primaryTopic is a required property for Catalog Record
-CatalogRecord ; M ; rule-120.rq ; [Catalog Record ] ;  dct:modified is a required property for Catalog Record
-CatalogRecord ; M ; rule-121.rq ; [Catalog Record ] ;  foaf:primaryTopic has a maximum cardinality of 1 for Catalog Record
-CatalogRecord ; M ; rule-127.rq ; [Catalog Record ] ;  dct:issued has a maximum cardinality of 1 for dcat:Catalog Record
-CatalogRecord ; M ; rule-142.rq ; [Catalog Record ] ;  foaf:primaryTopic should be a dcat:Dataset
-CatalogRecord ; M ; rule-143.rq ; [Catalog Record ] ;  dct:modified should be a literal typed as date or dateTime
-CatalogRecord ; M ; rule-146.rq ; [Catalog Record ] ;  dct:issued is a recommended property for Catalog Record
-CatalogRecord ; M ; rule-147.rq ; [Catalog Record ] ;  dct:issued should be a literal typed as date or dateTime
+CatalogRecord ;   ; rule-119.rq ; [Catalog Record ] ;  foaf:primaryTopic is a required property for Catalog Record
+CatalogRecord ;   ; rule-120.rq ; [Catalog Record ] ;  dct:modified is a required property for Catalog Record
+CatalogRecord ;   ; rule-121.rq ; [Catalog Record ] ;  foaf:primaryTopic has a maximum cardinality of 1 for Catalog Record
+CatalogRecord ;   ; rule-127.rq ; [Catalog Record ] ;  dct:issued has a maximum cardinality of 1 for dcat:Catalog Record
+CatalogRecord ;   ; rule-142.rq ; [Catalog Record ] ;  foaf:primaryTopic should be a dcat:Dataset
+CatalogRecord ;   ; rule-143.rq ; [Catalog Record ] ;  dct:modified should be a literal typed as date or dateTime
+CatalogRecord ;   ; rule-146.rq ; [Catalog Record ] ;  dct:issued is a recommended property for Catalog Record
+CatalogRecord ;   ; rule-147.rq ; [Catalog Record ] ;  dct:issued should be a literal typed as date or dateTime
 CatalogRecord  ;; rule-122.rq ; [Catalog Record ] ;  dct:modified has a maximum cardinality of 1 for Catalog Record
 CatalogRecord  ;; rule-123.rq ; [Catalog Record ] ;  dct:conformsTo has a maximum cardinality of 1 for Catalog Record
 CatalogRecord  ;; rule-124.rq ; [Catalog Record ] ;  dct:conformsTo should be a resource
@@ -69,19 +69,20 @@ Checksum  ;; rule-134.rq ; [Checksum ] ;  spdx:algorithm has a maximum cardinali
 Checksum  ;; rule-135.rq ; [Checksum ] ;  spdx:checksumValue has a maximum cardinality of 1 for spdx:Checksum
 Checksum  ;; rule-164.rq ; [Checksum ] ;  spdx:checksumValue should be literal typed as hexBinary
 Dataset ; M ; rule-114.rq ; [Dataset ] ;  dcat:Dataset does not exist
-Dataset ; M ; rule-115.rq ; [Dataset ] ;  dcat:theme should be a skos:Concept
+Dataset ;  ; rule-115.rq ; [Dataset ] ;  dcat:theme should be a skos:Concept
 Dataset ; M ; rule-37.rq ; [Dataset ] ;  dct:description is a required property for Dataset
 Dataset ; M ; rule-38.rq ; [Dataset ] ;  dct:description should be a literal
 Dataset ; M ; rule-39.rq ; [Dataset ] ;  dct:title is a required property for Dataset
 Dataset ; M ; rule-40.rq ; [Dataset ] ;  dct:title should be a literal
 Dataset ; M ; rule-41.rq ; [Dataset ] ;  dcat:contactPoint is a recommended property for Dataset
+Dataset ; M ; rule-411.rq ; [Dataset ] ;  vcard:hasEmail is a required property for a contactpoint of a Dataset
 Dataset ; M ; rule-43.rq ; [Dataset ] ;  dcat:contactPoint should be a vcard:Kind
 Dataset ; M ; rule-44.rq ; [Dataset ] ;  dcat:distribution is a recommended property for Dataset
 Dataset ; M ; rule-46.rq ; [Dataset ] ;  dcat:distribution should be a dcat:Distribution
-Dataset ; M ; rule-49.rq ; [Dataset ] ;  dct:publisher is a recommended property for Dataset
+Dataset ; M ; rule-49.rq ; [Dataset ] ;  dct:publisher is a mandatory property for Dataset
 Dataset ; M ; rule-50.rq ; [Dataset ] ;  dct:publisher has maximum cardinality of 1 for Dataset
 Dataset ; M ; rule-52.rq ; [Dataset ] ;  dct:publisher should be a foaf:Agent
-Dataset ; M ; rule-63.rq ; [Dataset ] ;  dcat:landingPage should be a foaf:Document
+Dataset ;   ; rule-63.rq ; [Dataset ] ;  dcat:landingPage should be a foaf:Document
 Dataset  ;; rule-100.rq ; [Dataset ] ;  dct:accessRights has maximum cardinality of 1 for Dataset
 Dataset  ;; rule-103.rq ; [Dataset ] ;  dct:type has maximum cardinality of 1 for Dataset
 Dataset  ;; rule-104.rq ; [Dataset ] ;  dct:type should be a skos:Concept
@@ -111,19 +112,19 @@ Dataset  ;; rule-74.rq ; [Dataset ] ;  dct:modified has maximum cardinality of 1
 Dataset  ;; rule-75.rq ; [Dataset ] ;  owl:versionInfo should be a literal
 Dataset  ;; rule-76.rq ; [Dataset ] ;  owl:versionInfo has maximum cardinality of 1 for Dataset
 Dataset  ;; rule-77.rq ; [Dataset ] ;  adms:versionNotes should be literal
-Distribution ; M ; rule-111.rq ; [Distribution ] ;  dct:modified has a maximum cardinality of 1 for Distribution
-Distribution ; M ; rule-159.rq ; [Distribution ] ;  foaf:page should be a foaf:Document
+Distribution ;   ; rule-111.rq ; [Distribution ] ;  dct:modified has a maximum cardinality of 1 for Distribution
+Distribution ;   ; rule-159.rq ; [Distribution ] ;  foaf:page should be a foaf:Document
 Distribution ; M ; rule-163.rq ; [Distribution ] ;  dcat:Distribution does not exist
 Distribution ; M ; rule-79.rq ; [Distribution ] ;  dcat:accessURL is a required property for Distribution
-Distribution ; M ; rule-81.rq ; [Distribution ] ;  dct:description is a recommended property for Distribution
+Distribution ; M ; rule-81.rq ; [Distribution ] ;  dct:description is a mandatory property for Distribution
 Distribution ; M ; rule-82.rq ; [Distribution ] ;  dct:description should be a literal
-Distribution ; M ; rule-86.rq ; [Distribution ] ;  dct:license is a recommended property for Distribution
+Distribution ; M ; rule-86.rq ; [Distribution ] ;  dct:license is a mandatory property for Distribution
 Distribution ; M ; rule-87.rq ; [Distribution ] ;  dct:license should be a dct:LicenseDocument
 Distribution ; M ; rule-88.rq ; [Distribution ] ;  dct:license has a maximum cardinality of 1 for Distribution
-Distribution ; M ; rule-92.rq ; [Distribution ] ;  dct:issued should be literal typed as date or dateTime
+Distribution ;   ; rule-92.rq ; [Distribution ] ;  dct:issued should be literal typed as date or dateTime
 Distribution ; M ; rule-200.rq ; [Distribution ] ;  dct:title is a mandatory property for Distribution
 Distribution ; M ; rule-95.rq ; [Distribution ] ;  dct:title should be a literal
-Distribution ; M ; rule-96.rq ; [Distribution ] ;  dct:modified should be a literal literal typed as date or dateTime
+Distribution ;   ; rule-96.rq ; [Distribution ] ;  dct:modified should be a literal literal typed as date or dateTime
 Distribution  ;; rule-105.rq ; [Distribution ] ;  spdx:checksum has a maximum cardinality of 1 for Distribution
 Distribution  ;; rule-106.rq ; [Distribution ] ;  spdx:checksum should be a spdx:Checksum.
 Distribution  ;; rule-107.rq ; [Distribution ] ;  dct:issued has a maximum cardinality of 1 for Distribution
@@ -145,10 +146,10 @@ Distribution  ;; rule-93.rq ; [Distribution ] ;  dct:rights should be a dct:Righ
 Identifier  ;; rule-176.rq ; [Identifier ] ;  skos:notation has maximum cardinality of 1 for adms:Identifier
 Identifier  ;; rule-66.rq ; [Identifier ] ;  skos:notation is a required property for adms:Identifier
 Licence Document ; M ; rule-118.rq ; [Licence Document ] ;  dct:type has a maximum cardinality of 1 for dct:LicenseDocument
-Licence Document ; M ; rule-166.rq ; [Licence Document ] ;  dct:LicenseDocument does not exist
+Licence Document ;   ; rule-166.rq ; [Licence Document ] ;  dct:LicenseDocument does not exist
 Licence Document ; M ; rule-170.rq ; [Licence Document ] ;  dct:type is a required property for Licence Document
 Licence Document  ;; rule-165.rq ; [Licence Document ] ;  dct:type should be a skos:Concept
-Period of time ; M ; rule-136.rq ; [Period of time ] ;  schema:startDate has a maximum cardinality of 1 for dct:PeriodOfTime
-period of time ; M ; rule-137.rq ; [period of time ] ;  schema:endDate has a maximum cardinality of 1 for dct:PeriodOfTime
-Period of time ; M ; rule-174.rq ; [Period of time ] ;  schema:startDate should be a literal typed as date or dateTime
-Period of time ; M ; rule-175.rq ; [Period of time ] ;  schema:endDate should be a literal typed as date or dateTime
+Period of time ;   ; rule-136.rq ; [Period of time ] ;  schema:startDate has a maximum cardinality of 1 for dct:PeriodOfTime
+period of time ;   ; rule-137.rq ; [period of time ] ;  schema:endDate has a maximum cardinality of 1 for dct:PeriodOfTime
+Period of time ;   ; rule-174.rq ; [Period of time ] ;  schema:startDate should be a literal typed as date or dateTime
+Period of time ;   ; rule-175.rq ; [Period of time ] ;  schema:endDate should be a literal typed as date or dateTime
