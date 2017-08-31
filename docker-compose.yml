@@ -3,14 +3,11 @@ services:
   webservice:
     image: tenforce/vodap-dcatap-validation
     hostname: webservice
-    extra_hosts:
-      - "opendata.vlaanderen.be:127.0.0.1"
-      - "data.vlaanderen.be:127.0.0.1"      
     labels:
       webservice: "VODAP frontend access"
     ports:
       - '81:80'
-      - '80:80'      
+      - '80:80'
     volumes:
       - ./logs:/logs
       - ./webservice/www:/var/www/html
@@ -41,7 +38,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
     volumes_from:
       - datashared
-
   datashared:
     image: busybox
     volumes:

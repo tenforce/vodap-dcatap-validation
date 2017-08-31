@@ -4,5 +4,14 @@ services:
     build:
       context: ./webservice
     container_name: vodap-dev
+    extra_hosts:
+      - "opendata.vlaanderen.be:172.17.0.1"
+    environment:
+      - ENV_VALIDATOR_DOMAIN=opendata.vlaanderen.be
+      - ENV_VALIDATOR_LOCATION=opendata.vlaanderen.be/vodap_validator
+      - ENV_SPARQL_ENDPOINT_SERVICE_URL=http://vodapweb-virtuoso:8890/sparql
     labels:
       webservice: "VODAP frontend access (dev)"
+  vodapweb-virtuoso:
+    extra_hosts:
+      - "opendata.vlaanderen.be:172.17.0.1"
