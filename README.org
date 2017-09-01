@@ -24,6 +24,7 @@ installs the first the necessary system tools: docker, git,
 collected in the subsequent script: application_bootstrap.sh.
 
 ** on an existing machine
+
 On an existing machine the setup starts from the
 application_bootstrap.sh script. By running this (as sudo) the
 necessary application dependencies are installed.
@@ -96,8 +97,6 @@ docker-compose -f docker-compose.yml up -d
     docker-compose -f docker-compose.yml up -d
     #+END_EXAMPLE
 
-   
-
     To extend the environment there is a 'docker-compose-dev.yml'
     file which will override some of the options used in the 
     main 'docker-compose.yml' file. To use the file:
@@ -108,3 +107,10 @@ docker-compose -f docker-compose.yml up -d
   
     Note: The docker-compose command 'extends' has problems with the
     'links' so cannot be used to simplify the above.
+
+** Acknowledgements
+
+- [[https://github.com/fniessen/org-html-themes][ReadToOrg]] provide readthedocs styles for the org-mode files.
+- [[https://github.com/binarin/docker-org-export][Docker for exporting orgfiles]] basic approach was copied from this docker file.
+- Virtuoso, Apache and Othertools
+
