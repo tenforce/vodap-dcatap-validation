@@ -1,14 +1,15 @@
 #!/bin/bash
 ####################################################################################
-# validate.sh:
-#   
+# title:       validate.sh
+# description: 
+#
 source ./cgi.sh
 source ./log.sh
 
 cgi_getvars BOTH ALL
 
 ####################################################################################
-# add a default for testing
+# add a default for testing purposes.
 if [ "$dcat_url" = "" ] ; then
     dcat_url="http://data.kortrijk.be/api/dcat"
 fi
@@ -21,6 +22,10 @@ mkdir -p $PROCESSDIR
 rm -f $PROCESSDIR/*
 
 ####################################################################################
+# Pass the URL and location of where to put the results to the validation script.
+# Response from the validate is used to determine what is to be sent to the user
+# (possibilities include load error, parsing error or the final report itself).
+#
 log "BEFORE: ./rdf_validate_url.sh $dcat_url $DATESTAMP"
 ./rdf_validate_url.sh $dcat_url $DATESTAMP
 ec=$?
