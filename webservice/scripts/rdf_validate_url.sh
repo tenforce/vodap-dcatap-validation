@@ -19,7 +19,7 @@ if [ $STATUS != 0 ] ; then
     # echo "maybe https certificate?"   
     wget --no-check-certificate $URL -o $FILE.download -O $FILE
     if [ $? != 0 ] ; then
-	STATUS=404
+	STATUS=2
 	log "wget failed (no https version either) $STATUS"
 	exit $STATUS
     fi
