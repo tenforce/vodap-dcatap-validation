@@ -1,5 +1,5 @@
 #!/bin/bash
-
+####################################################################################
 #This code for getting code from post data is from http://oinkzwurgl.org/bash_cgi and
 #was written by Phillippe Kehi &lt;phkehi@gmx.net&gt; and flipflip industries
 

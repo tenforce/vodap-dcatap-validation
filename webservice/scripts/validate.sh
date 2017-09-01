@@ -1,11 +1,12 @@
 #!/bin/bash
-
+####################################################################################
 
 source ./cgi.sh
 source ./log.sh
 
 cgi_getvars BOTH ALL
 
+####################################################################################
 # add a default for testing
 if [ "$dcat_url" = "" ] ; then
     dcat_url="http://data.kortrijk.be/api/dcat"
@@ -18,6 +19,7 @@ mkdir -p $PROCESSDIR
 # Empty directory if it already exists.
 rm -f $PROCESSDIR/*
 
+####################################################################################
 log "BEFORE: ./rdf_validate_url.sh $dcat_url $DATESTAMP"
 ./rdf_validate_url.sh $dcat_url $DATESTAMP
 ec=$?
@@ -64,6 +66,7 @@ case "${ec}" in
        ;;
 esac
 
+####################################################################################
 echo "Content-type: text/html"
 echo "Status: 302 Redirect"
 echo "Location: ${REDIRECT}"
@@ -134,3 +137,5 @@ echo '</body>'
 echo '</html>'
  
 exit 0
+####################################################################################
+####################################################################################

@@ -1,4 +1,5 @@
 #!/bin/bash
+####################################################################################
 
 source ./log.sh
 
@@ -10,6 +11,7 @@ cd /www/results/$DATESTAMP
 FILE=feed.$DATESTAMP
 STATUS=0
 
+####################################################################################
 #echo "stage1: download" 
 wget $URL -o $FILE.download -O $FILE
 STATUS=$?
@@ -23,6 +25,7 @@ if [ $STATUS != 0 ] ; then
     fi
 fi
 
+####################################################################################
 #echo "stage2: validate rdf" 
 rapper --show-namespaces --trace  -o ntriples -i guess $FILE 1> $FILE.rdf_report 2> $FILE.rdf_report2
 if [ $? != 0 ] ; then 
@@ -31,6 +34,7 @@ if [ $? != 0 ] ; then
     log "rapper failed $STATUS"
 fi
 
+####################################################################################
 cat $FILE.download >> $FILE.report
 echo "===============================================" >> $FILE.report
 cat $FILE.rdf_report2 >> $FILE.report
@@ -42,12 +46,14 @@ rm $FILE.download $FILE.rdf_report2 $FILE.rdf_report
 log "final STATUS = $STATUS"
 exit $STATUS
 
+####################################################################################
+####################################################################################
 function check_status {
-
- 
   if [ $? != 0 ] ; then 
 	echo "stage failed"
 	exit
 	fi
 	
 }
+
+

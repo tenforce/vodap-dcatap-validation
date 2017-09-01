@@ -108,9 +108,12 @@ docker-compose -f docker-compose.yml up -d
     Note: The docker-compose command 'extends' has problems with the
     'links' so cannot be used to simplify the above.
 
-** Acknowledgements
+* Acknowledgements
 
 - [[https://github.com/fniessen/org-html-themes][ReadToOrg]] provide readthedocs styles for the org-mode files.
 - [[https://github.com/binarin/docker-org-export][Docker for exporting orgfiles]] basic approach was copied from this docker file.
 - Virtuoso, Apache and Othertools
+- cgi.sh: The code for getting code from post data is from
+  http://oinkzwurgl.org/bash_cgi and was written by Phillippe Kehi
+  &lt;phkehi@gmx.net&gt; and flipflip industries
 

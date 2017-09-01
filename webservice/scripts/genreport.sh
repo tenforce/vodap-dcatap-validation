@@ -1,5 +1,5 @@
 #!/bin/bash
-
+###############################################################################
 source ./log.sh
 
 #RESULTSFILE=genreports.csv
@@ -16,11 +16,15 @@ TERRORS=`egrep ",\"error\"," ${RESULTSFILE} | wc -l`
 TWARNINGS=`egrep ",\"warning\"," ${RESULTSFILE} | wc -l`
 PID=$$
 
+###############################################################################
+
 genstatistics() {
     echo "|" "| Number |"
     echo "|" errors "|" $TERRORS "|"
     echo "|" warnings "|" $TWARNINGS "|"
 }
+
+###############################################################################
 
 includestats() {
     # change the out separator for org-mode
@@ -38,11 +42,14 @@ includestats() {
     echo "| | |" $TERRORS "|" $TWARNINGS "|"
 }
 
+###############################################################################
+
 get_number() {
-    echo get_number $1 $2 1>&2
+#   echo get_number $1 $2 1>&2
     egrep ",\"$1\"," ${RESULTSFILE} | tr -d "\"" | awk -F, -v class=$2 '(index(class, $1) != 0) {print $1;}' | wc -l
 }
 
+###############################################################################
 # Recover the instances
 
 get_instances() { # Label
@@ -55,12 +62,14 @@ get_instances() { # Label
     echo $out
 }
 
+###############################################################################
 # simply could the errors/warnings found in the files passed into the command
 
 get_flag() {
     awk -F, 'BEGIN{error=0; warning=0;} $3 == "error" {error++ } $3 == "warning" {warning++} END { print error","warning; }' $1
 }
 
+###############################################################################
 # Output a single section (labels and counts coming from the outside)
 
 output_form() {
@@ -85,6 +94,7 @@ output_form() {
     fi
 }
 
+###############################################################################
 create_label() {
     errors=""
     warnings=""
@@ -102,6 +112,7 @@ create_label() {
     echo "(" ${errors} ${padding} ${warnings} ${instances} ")"
 }
 
+###############################################################################
 genruleresults() {
   for i in {0..256} 
   do
@@ -120,6 +131,7 @@ genruleresults() {
   done
 }
 
+###############################################################################
 genreport() {
     echo "#+TITLE: DCAT Validation Report"
     echo "#+SUBTITLE: ${dcat_url}"
@@ -155,3 +167,6 @@ genreport() {
 }
 
 genreport > $OUTPUTFILE
+
+###############################################################################
+###############################################################################

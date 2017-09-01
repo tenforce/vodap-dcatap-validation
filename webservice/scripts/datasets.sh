@@ -22,6 +22,7 @@ DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
 DEFAULT_GRAPH=http://data.vlaanderen.be/id/dataset/$DATESTAMP
 export PROCESSDIR=/www/results/$DATESTAMP
 
+####################################################################################
 # Page contents with one link per publisher.
 rm -f $PROCESSDIR/tmp.list
 output_line() { # x Link Name
@@ -38,10 +39,12 @@ for (( i=${pages_start}; i<=${pages_end}; i++ )); do
     DCATURLS+=" $dcat_url?page=$i "
 done
 
+####################################################################################
 log "call: ./load_feeds.sh $DATESTAMP $DCATURLS"
 
 ./load_feeds.sh $DATESTAMP $DCATURLS
 
+####################################################################################
 log "Get publishers List $SPARQL_ENDPOINT_SERVICE_URL $pwd"
 
 curl --data-urlencode query="`cat query/publishers.rq`"  \
@@ -49,6 +52,7 @@ curl --data-urlencode query="`cat query/publishers.rq`"  \
      --data-urlencode default-graph-uri="$DEFAULT_GRAPH" \
      -o $PROCESSDIR/publishers.csv $SPARQL_ENDPOINT_SERVICE_URL >> /logs/webservice.log 2>&1
 
+####################################################################################
 log "Contructing Queries and Getting publishers"
 cat $PROCESSDIR/publishers.csv >> /logs/webservice.log
 
@@ -68,6 +72,7 @@ do
     log "Publisher $PubID query end"
 done < $PROCESSDIR/publishers.csv
 
+####################################################################################
 log "Publisher data should be recovered"
 
 cat /scripts/datasets-list-before.html > $PROCESSDIR/datasets.html
@@ -102,3 +107,5 @@ echo '</head>'
 echo '<body/>'
 echo '</html>'
 exit 0
+####################################################################################
+####################################################################################
