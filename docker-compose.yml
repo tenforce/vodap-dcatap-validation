@@ -16,6 +16,7 @@ services:
     volumes_from:
       - datashared
     environment:
+      - ENV_CATALOG_LOCATION=http://opendata.vlaanderen.be/catalog.rdf
       - ENV_VALIDATOR_DOMAIN=opendata.vlaanderen.be
       - ENV_VALIDATOR_LOCATION=opendata.vlaanderen.be:81/vodap_validator
       - ENV_SPARQL_ENDPOINT_SERVICE_URL=http://vodapweb-virtuoso:8890/sparql
