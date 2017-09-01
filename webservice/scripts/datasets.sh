@@ -10,7 +10,7 @@ source ./cgi.sh
 cgi_getvars BOTH ALL
 
 # Variables which can be overriden (via a form or the interface)
-dcat_url=${dcat_url:-http://opendata.vlaanderen.be/catalog.rdf}
+dcat_url=${dcat_url:-ENV_CATALOG_LOCATION}
 pages_start=${pages_start:-1}
 pages_end=${pages_end:-5}
 
@@ -31,12 +31,15 @@ output_line() { # x Link Name
 }
 
 mkdir -p $PROCESSDIR
-log "Loading of the catalog started (from pages_start to pages_end)"
+log "Loading of the catalog $dcat_url started (from $pages_start to $pages_end) into $PROCESSDIR"
 
 DCATURLS=""
 for (( i=${pages_start}; i<=${pages_end}; i++ )); do
     DCATURLS+=" $dcat_url?page=$i "
 done
+
+log "call: ./load_feeds.sh $DATESTAMP $DCATURLS"
+
 ./load_feeds.sh $DATESTAMP $DCATURLS
 
 log "Get publishers List $SPARQL_ENDPOINT_SERVICE_URL $pwd"
@@ -46,11 +49,10 @@ curl --data-urlencode query="`cat query/publishers.rq`"  \
      --data-urlencode default-graph-uri="$DEFAULT_GRAPH" \
      -o $PROCESSDIR/publishers.csv $SPARQL_ENDPOINT_SERVICE_URL >> /logs/webservice.log 2>&1
 
+log "Contructing Queries and Getting publishers"
 cat $PROCESSDIR/publishers.csv >> /logs/webservice.log
 
-log "Contructing Queries and Getting publishers"
-
-# for each publisher, the query is createdm and executed, all results are
+# for each publisher, the query is created and executed, all results are
 # saved for debugging purposes.
 while IFS=, read PubID Name;
 do
@@ -65,6 +67,8 @@ do
     output_line "${PubId}" "$Name" "/results/$DATESTAMP/name$fn.nt"
     log "Publisher $PubID query end"
 done < $PROCESSDIR/publishers.csv
+
+log "Publisher data should be recovered"
 
 cat /scripts/datasets-list-before.html > $PROCESSDIR/datasets.html
 echo '<h3>Pages '$pages_start'..'$pages_end'</h3><ul>' >> $PROCESSDIR/datasets.html

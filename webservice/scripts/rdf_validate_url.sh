@@ -12,7 +12,8 @@ STATUS=0
 
 #echo "stage1: download" 
 wget $URL -o $FILE.download -O $FILE
-if [ $? != 0 ] ; then 
+STATUS=$?
+if [ $STATUS != 0 ] ; then 
     # echo "maybe https certificate?"   
     wget --no-check-certificate $URL -o $FILE.download -O $FILE
     if [ $? != 0 ] ; then

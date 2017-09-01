@@ -141,7 +141,10 @@ genreport() {
     echo "  - [[file:load_feed.log][~load_feed.log - loading of the DCAT feed into the RDF store~]]"
     echo "  - [[file:basic.csv][~basic.csv - csv output of the statistics~]]"
     echo "  - [[file:vodapreport.csv][~CSV Detail - csv output of the validation rules~]]"
-    echo "  - [[file:publishers.csv][~publishers.csv - the list of publishers in the catalog~]]"        
+    if [ -f "publishers.csv" ]
+    then
+       echo "  - [[file:publishers.csv][~publishers.csv - the list of publishers in the catalog~]]"
+    fi
     echo "** Overview"
     includestats
     # merged into overview table

@@ -67,7 +67,6 @@ catalog/vodap/rdf/catalog1.rdf:
 		rapper -o ntriples catalog/vodap/rdf/catalog$$i.rdf > catalog/vodap/nt/catalog$$i.nt ; \
 	done
 
-
 catalog/simple/nt/catalog.nt: 
 	mkdir -p catalog/simple/ttl
 	mkdir -p catalog/simple/nt
