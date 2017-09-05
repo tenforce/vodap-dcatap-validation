@@ -28,7 +28,7 @@ rm -f $PROCESSDIR/tmp.list
 output_line() { # x Link Name
     pointer=$(urlencode "http://ENV_VALIDATOR_LOCATION"$3)
     label=$(echo $2 | tr -d '"')
-    echo "<li><a href=\"/dataset?dcat_url=$pointer\">"$label"</a></li>" >>  $PROCESSDIR/tmp.list
+    echo "<li><a href=\"ENV_VALIDATOR_LOCATION/dataset?dcat_url=$pointer\">"$label"</a></li>" >>  $PROCESSDIR/tmp.list
 }
 
 mkdir -p $PROCESSDIR
