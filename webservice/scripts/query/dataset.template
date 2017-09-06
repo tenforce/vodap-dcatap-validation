@@ -1,21 +1,57 @@
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
 CONSTRUCT {
-  ?catalog ?p ?c .
-  ?dataset ?property ?value .
-  ?catalog dcat:dataset ?dataset .
-  ?distribution ?dp ?dv .
-  <PUBID> ?p1 ?v1 .
+  ?dataset ?p1 ?o1.
+  ?o1 ?p2 ?o2.
+  ?o2 ?p3 ?o3.
+  ?catalog dcat:dataset ?dataset.
+  ?catalog ?pc ?oc.
+  ?oc ?ocp ?oco.
 } where {
+
+  {
   ?dataset dct:publisher <PUBID> .
-  ?catalog dcat:dataset ?dataset .
-  ?catalog ?p ?c .
-  FILTER ( ?p != dcat:dataset )
-  ?dataset ?property ?value .
-  OPTIONAL { ?dataset dcat:distribution ?distribution .
-             ?distribution ?dp ?dv }
-  <PUBID> ?p1 ?v1 .
-}
+  {?dataset ?p1 ?o1.}
+  union {
+    ?dataset ?p1 ?o1.
+    ?o1 ?p2 ?o2.
+    }
+  union {
+    ?dataset ?p1 ?o1.
+    ?o1 ?p2 ?o2.
+    ?o2 ?p3 ?o3.
+  }
+
+  } union
+  {
+
+  { 
+
+  { select ?catalog where {
+       ?ds dct:publisher <PUBID> .
+       ?catalog dcat:dataset ?ds.
+      }
+  }
+
+
+    ?catalog ?pc ?oc.
+    filter( ?pc != dcat:dataset)
+  }
+   union {
+   
+
+  { select ?catalog where {
+       ?ds dct:publisher <PUBID> .
+       ?catalog dcat:dataset ?ds.
+      }
+  }
+
+
+    ?catalog ?pc ?oc.
+   filter( ?pc != dcat:dataset)
+   ?oc ?ocp ?oco.
+  }
+  }
+} 
