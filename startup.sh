@@ -21,6 +21,7 @@ docker run  -d \
     -v $WORKDIR/logs:/logs \
     -v /etc/timezone:/etc/timezone:ro \
     -v /etc/localtime:/etc/localtime:ro \
+    -e ENV_CATALOG_LOCATION=http://opendata.vlaanderen.be/catalog.rdf \
     -e ENV_VALIDATOR_DOMAIN=opendata.vlaanderen.be \
     -e ENV_VALIDATOR_LOCATION=opendata.vlaanderen.be/vodap_validator \
     -e ENV_SPARQL_ENDPOINT_SERVICE_URL=http://vodapweb-virtuoso:8890/sparql \
