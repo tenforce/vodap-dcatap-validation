@@ -13,6 +13,7 @@ cgi_getvars BOTH ALL
 dcat_url=${dcat_url:-ENV_CATALOG_LOCATION}
 pages_start=${pages_start:-1}
 pages_end=${pages_end:-5}
+cleancache=no
 
 # Endpoint to load into
 #SPARQL_ENDPOINT_SERVICE_URL="http://vodapweb-virtuoso:8890/sparql"
@@ -25,18 +26,38 @@ export PROCESSDIR=/www/results/$DATESTAMP
 ####################################################################################
 # Page contents with one link per publisher.
 rm -f $PROCESSDIR/tmp.list
-output_line() { # x Link Name
-    pointer=$(urlencode "http://ENV_VALIDATOR_LOCATION"$3)
+output_line() { # x Link UUID Name
+    pointer=$(urlencode "http://ENV_VALIDATOR_LOCATION"$4)
     label=$(echo $2 | tr -d '"')
-    echo "<li><a href=\"http://ENV_VALIDATOR_LOCATION/dataset?dcat_url=$pointer\">"$label"</a></li>" >>  $PROCESSDIR/tmp.list
+    nm=$(echo $3 | tr -d '"')
+    echo "<li><a href=\"http://ENV_VALIDATOR_LOCATION/dataset?dcat_url=$pointer\">"$label" - ("$nm")</a></li>" >>  $PROCESSDIR/tmp.list
 }
 
+####################################################################################
+# 
 mkdir -p $PROCESSDIR
 log "Loading of the catalog $dcat_url started (from $pages_start to $pages_end) into $PROCESSDIR"
 
-DCATURLS=""
+# Setup a cache area to to used
+CACHENAME=$(date '+%A')
+CACHEDIR=/www/results/cache/$CACHENAME
+if [ "$cleancache" == "yes" ]
+then
+    rm -rf $CACHEDIR
+fi
+mkdir -p $CACHEDIR
+
+# Recover the file requested, but put contents in a cache
+
 for (( i=${pages_start}; i<=${pages_end}; i++ )); do
-    DCATURLS+=" $dcat_url?page=$i "
+    reference=$(echo "$dcat_url?validation_mode=true&page=$i")
+    cachekey=$(printf '%s' '$reference' | md5sum | cut -d ' ' -f 1)
+    if [ ! -f "$CACHEDIR/$cachekey" ]
+    then
+	log "caching (--compressed) $reference in http://ENV_VALIDATOR_LOCATION/results/cache/$CACHENAME/$cachekey"
+	curl --compressed $reference > $CACHEDIR/$cachekey
+    fi
+    DCATURLS+=" http://ENV_VALIDATOR_LOCATION/results/cache/$CACHENAME/$cachekey "
 done
 
 ####################################################################################
@@ -58,7 +79,7 @@ cat $PROCESSDIR/publishers.csv >> /logs/webservice.log
 
 # for each publisher, the query is created and executed, all results are
 # saved for debugging purposes.
-while IFS=, read PubID Name;
+while IFS=, read PubID Name PubUUID;
 do
     log "Publisher $PubID $Name query start"
     RPubID=$(echo ${PubID} | tr -d '"')
@@ -68,7 +89,7 @@ do
 	 --data format="RDF/XML" \
 	 --data-urlencode default-graph-uri="$DEFAULT_GRAPH" \
 	 -o $PROCESSDIR/name$fn.nt $SPARQL_ENDPOINT_SERVICE_URL >> /logs/webservice.log 2>&1
-    output_line "${PubId}" "$Name" "/results/$DATESTAMP/name$fn.nt"
+    output_line "${PubId}" "$Name" "$PubUUID" "/results/$DATESTAMP/name$fn.nt"
     log "Publisher $PubID query end"
 done < $PROCESSDIR/publishers.csv
 

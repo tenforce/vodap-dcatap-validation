@@ -7,9 +7,9 @@
 /config/bin/replace-env.sh /scripts/load_feeds.sh
 /config/bin/replace-env.sh /scripts/datasets.sh
 /config/bin/replace-env.sh /scripts/genreport.sh
+/config/bin/replace-env.sh /scripts/datasets-list-before.html
 
 touch /logs/webservice.log
 chmod 666 /logs/webservice.log
-
 
 httpd-foreground
