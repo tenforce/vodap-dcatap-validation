@@ -3,9 +3,9 @@ PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX vodap: <http://data.vlaanderen.be/ns/vodap#>
 
-SELECT DISTINCT ?publisher ?name ?publisherid where {
+SELECT DISTINCT ?publisher ?name ?publisherid ?oldname where {
   ?dataset dct:publisher ?publisher .
   ?dataset vodap:ckan-organisation ?publisherid .
-  OPTIONAL { ?publisher <http://xmlns.com/foaf/0.1/name> ?name }
-
+  ?dataset vodap:ckan-organisation-name ?name .
+  OPTIONAL { ?publisher <http://xmlns.com/foaf/0.1/name> ?oldname }
 } ORDER BY ?name

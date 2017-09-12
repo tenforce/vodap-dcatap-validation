@@ -46,7 +46,10 @@ then
     rm -rf $CACHEDIR
 else
     # clean the cache of older files (speed?)
-    find $CACHEDIR -mtime +1 -exec rm {} \;
+    if [ -d "$CACHEDIR" ]
+    then
+       find $CACHEDIR -mtime +1 -exec rm {} \;
+    fi
 fi
 mkdir -p $CACHEDIR
 
@@ -82,7 +85,7 @@ cat $PROCESSDIR/publishers.csv >> /logs/webservice.log
 
 # for each publisher, the query is created and executed, all results are
 # saved for debugging purposes.
-while IFS=, read PubID Name PubUUID;
+while IFS=, read PubID Name PubUUID PubOld;
 do
     log "Publisher $PubID $Name query start"
     RPubID=$(echo ${PubID} | tr -d '"')
