@@ -44,6 +44,9 @@ CACHEDIR=/www/results/cache/$CACHENAME
 if [ "$cleancache" == "yes" ]
 then
     rm -rf $CACHEDIR
+else
+    # clean the cache of older files (speed?)
+    find $CACHEDIR -mtime +1 -exec rm {} \;
 fi
 mkdir -p $CACHEDIR
 
