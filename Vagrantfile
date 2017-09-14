@@ -25,7 +25,7 @@ Vagrant.configure(2) do |config|
   # config.vm.box_check_update = false
   config.vm.synced_folder ".", "/vagrant"
   config.vm.provider "virtualbox" do |vb|
-      vb.name = "vagrant-vodap-system"
+      vb.name = "vagrant-vodap-system2"
       vb.gui = true
       vb.customize ["modifyvm", :id, "--memory", 4096]
       vb.customize ["modifyvm", :id, "--vram", 64]

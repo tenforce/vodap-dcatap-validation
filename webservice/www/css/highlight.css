@@ -10,3 +10,17 @@
     align: center;
     width: 98%;
 }
+
+.errors a {
+   float: right;
+   border-bottom: 1px black solid;
+   font-size: 16px;
+   vertical-align: center;
+}
+
+.warnings a {
+   float: right;
+   border-bottom: 1px black solid;    
+   font-size: 16px;
+   vertical-align: center;
+}

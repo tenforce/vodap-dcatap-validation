@@ -86,7 +86,7 @@ output_form() {
 	awk -F, '{print $1","$2","$3","$4};' ${IFILENAME} | sort -u - | while read line
 	do
 	    # for each grouping dump the corresponding errors and warnings as a table
-            echo $line | awk -F, '{ print "   " $1 " - " $3 " -  " $4; }'
+            echo $line | awk -F, '{ print "   " $1 " - " $3 " -  " $4 ; }'
 	    echo "     | Description | Instance | "
 	    echo "     |-------------+----------| "
 	    cat ${IFILENAME} | egrep "$line" | awk -F, '{ print "    |" $5 "|" $6 "|"; }'
@@ -124,6 +124,9 @@ genruleresults() {
 	nrwarnings=$(echo $msg | cut -d, -f2)
 	class=$(cat ${IFILENAME} | cut -d, -f1 | uniq) ## was "Agent" XXX needs recovering from the IFILENAME list
 	echo "** Rule $i $(create_label ${nrerrors} ${TERRORS} ${nrwarnings} ${TWARNINGS} ${class})"
+	echo "#+ATTR_HTML: :target _blank :class help-links"
+	echo "[[https://github.com/SEMICeu/dcat-ap_validator/blob/master/rules/rule-$i.rq][Sparql]]"
+	echo ""
 	output_form ${IFILENAME} "errors" "${nrerrors}" ${TERRORS}
 	output_form ${IFILENAME} "warnings" "${nrwarnings}" ${TWARNINGS}
     fi
@@ -142,7 +145,6 @@ genreport() {
     echo "#+HTML_HEAD: <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>"
     echo "#+HTML_HEAD: <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>"
     echo "#+HTML_HEAD: <script type=\"text/javascript\" src=\"http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js\"></script>"
-    echo "#+HTML_HEAD: <script type=\"text/javascript\" src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>"
     echo "* Introduction"
     echo "Original source link: $ORIGURL"
     echo "** Processing File Links"

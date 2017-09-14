@@ -3,31 +3,35 @@
 * Introduction
 
 Scripts to use the [[https://github.com/EmidioStani/dcat-ap_validator][dcat-ap validation rules]] to validate currently
-available dcat-ap catalogs (to produce a report of the problems for a
-given link).
+available dcat-ap catalogs, to produce a report of the problems for a
+given web-accessible link.
 
 * Deployment
 
-** new machine setup
-To start a fresh, independent environment one has to setup an
-up-to-date ubuntu/debian Linux.  This and the subsequent deployment of
-the application is automated by the vagrant setup, included.  Assuming
-[[https://www.vagrantup.com]["Vagrant"]] is installed the following is all that should be needed:
+** New machine setup using vagrant
+
+To simplify development and to test the deployment, [[http:://vagrant.com][Vagrant]] is used to
+create and provision an up-to-date ubuntu/debian Linux virtual
+machine.
+
+Assuming [[https://www.vagrantup.com]["Vagrant"]] is installed the following is all that should be
+needed is:
 
 #+BEGIN_EXAMPLE
 vagrant up
 #+END_EXAMPLE
 
-This will start up virtualbox, install a ubuntu image, and then
-installs the first the necessary system tools: docker, git,
-... defined in bootstrap.sh.  The application dependencies are
+This will start up virtualbox, install the expected Ubuntu image, and
+then installs the first the necessary system tools: docker, git,
+... defined in bootstrap.sh. The application dependencies are
 collected in the subsequent script: application_bootstrap.sh.
 
-** on an existing machine
+** On an existing machine
 
 On an existing machine the setup starts from the
 application_bootstrap.sh script. By running this (as sudo) the
-necessary application dependencies are installed.
+necessary application dependencies are installed (requires internet
+access).
 
 * Execution
 
@@ -64,7 +68,7 @@ Commands to manage the set of validation rules
       Typical issues are incorrect URI identifiers containing for example spaces. 
     - DCAT-AP validation: is the provided file DCAT-AP(VO) compliant.
 
-** building the webservice 
+** Building the webservice 
    [TODO]: make a development and production docker-compose
 
    The creation of a new webservice to test locally is done as follows:
