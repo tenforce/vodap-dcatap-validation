@@ -11,16 +11,10 @@
     width: 98%;
 }
 
-.errors a {
+.help-links {
+   position: relative;
    float: right;
-   border-bottom: 1px black solid;
-   font-size: 16px;
-   vertical-align: center;
-}
-
-.warnings a {
-   float: right;
-   border-bottom: 1px black solid;    
-   font-size: 16px;
-   vertical-align: center;
+   top: -48px;
+   border-bottom: 1px grey solid;
+   padding: 2px;
 }

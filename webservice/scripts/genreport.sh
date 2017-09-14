@@ -72,6 +72,18 @@ get_flag() {
 ###############################################################################
 # Output a single section (labels and counts coming from the outside)
 
+add_properties() {
+    local IFILENAME=$1
+    local LABEL=$2
+    local NNR=$3
+    local TOTAL=$4
+    if [ "${NNR}" != "0" ]; then
+	echo "  :PROPERTIES:"
+	echo "  :HTML_CONTAINER_CLASS: ${LABEL}"
+	echo "  :END:"
+    fi
+}
+    
 output_form() {
     local IFILENAME=$1
     local LABEL=$2
@@ -79,9 +91,6 @@ output_form() {
     local TOTAL=$4
 
     if [ "${NNR}" != "0" ]; then
-	echo "  :PROPERTIES:"
-	echo "  :HTML_CONTAINER_CLASS: ${LABEL}"
-	echo "  :END:"
 	# create a list of groups (must be exact match for the following operation)
 	awk -F, '{print $1","$2","$3","$4};' ${IFILENAME} | sort -u - | while read line
 	do
@@ -124,6 +133,9 @@ genruleresults() {
 	nrwarnings=$(echo $msg | cut -d, -f2)
 	class=$(cat ${IFILENAME} | cut -d, -f1 | uniq) ## was "Agent" XXX needs recovering from the IFILENAME list
 	echo "** Rule $i $(create_label ${nrerrors} ${TERRORS} ${nrwarnings} ${TWARNINGS} ${class})"
+	add_properties 	${IFILENAME} "errors" "${nrerrors}" ${TERRORS}
+	add_properties 	${IFILENAME} "warnings" "${nrerrors}" ${TERRORS}	
+	echo ""
 	echo "#+ATTR_HTML: :target _blank :class help-links"
 	echo "[[https://github.com/SEMICeu/dcat-ap_validator/blob/master/rules/rule-$i.rq][Sparql]]"
 	echo ""
