@@ -28,10 +28,10 @@ genstatistics() {
 
 includestats() {
     # change the out separator for org-mode
-    cat $BASICRESULT | tr -d "\"" | while IFS=, read -r cl ins
-    do
-	if [ "$cl" == "Class" ]
-	then
+    cat $BASICRESULT \
+	| tr -d "\"" \
+	| while IFS=, read -r cl ins; do
+	if [ "$cl" == "Class" ] ; then
 	    echo "| Class | Instances | Errors | Warnings |"
 	else
 	    errors=$(get_number "error" $cl)
@@ -46,7 +46,10 @@ includestats() {
 
 get_number() {
 #   echo get_number $1 $2 1>&2
-    egrep ",\"$1\"," ${RESULTSFILE} | tr -d "\"" | awk -F, -v class=$2 '(index(class, $1) != 0) {print $1;}' | wc -l
+    egrep ",\"$1\"," ${RESULTSFILE} \
+	| tr -d "\"" \
+	| awk -F, -v class=$2 '(index(class, $1) != 0) {print $1;}' \
+	| wc -l
 }
 
 ###############################################################################
@@ -77,9 +80,10 @@ add_properties() {
     local LABEL=$2
     local NNR=$3
     local TOTAL=$4
+    local AUX=$5
     if [ "${NNR}" != "0" ]; then
 	echo "  :PROPERTIES:"
-	echo "  :HTML_CONTAINER_CLASS: ${LABEL}"
+	echo "  :HTML_CONTAINER_CLASS: ${LABEL} ${AUX}"
 	echo "  :END:"
     fi
 }
@@ -92,13 +96,16 @@ output_form() {
 
     if [ "${NNR}" != "0" ]; then
 	# create a list of groups (must be exact match for the following operation)
-	awk -F, '{print $1","$2","$3","$4};' ${IFILENAME} | sort -u - | while read line
-	do
+	awk -F, '{print $1","$2","$3","$4};' ${IFILENAME}\
+	    | sort -u -\
+	    | while read line ; do
 	    # for each grouping dump the corresponding errors and warnings as a table
             echo $line | awk -F, '{ print "   " $1 " - " $3 " -  " $4 ; }'
 	    echo "     | Description | Instance | "
 	    echo "     |-------------+----------| "
-	    cat ${IFILENAME} | egrep "$line" | awk -F, '{ print "    |" $5 "|" $6 "|"; }'
+	    cat ${IFILENAME} \
+		| egrep "$line" \
+		| awk -F, '{ print "    |" $5 "|" $6 "|"; }'
 	done
     fi
 }
@@ -132,9 +139,10 @@ genruleresults() {
 	nrerrors=$(echo $msg | cut -d, -f1)
 	nrwarnings=$(echo $msg | cut -d, -f2)
 	class=$(cat ${IFILENAME} | cut -d, -f1 | uniq) ## was "Agent" XXX needs recovering from the IFILENAME list
+	auxilary=$(cat ${IFILENAME} | cut -d, -f9 | uniq)
 	echo "** Rule $i $(create_label ${nrerrors} ${TERRORS} ${nrwarnings} ${TWARNINGS} ${class})"
-	add_properties 	${IFILENAME} "errors" "${nrerrors}" ${TERRORS}
-	add_properties 	${IFILENAME} "warnings" "${nrerrors}" ${TERRORS}	
+	add_properties ${IFILENAME} "errors" "${nrerrors}" ${TERRORS} ${auxilary}
+	add_properties ${IFILENAME} "warnings" "${nrerrors}" ${TERRORS} ${auxilary}
 	echo ""
 	echo "#+ATTR_HTML: :target _blank :class help-links"
 	echo "[[https://github.com/SEMICeu/dcat-ap_validator/blob/master/rules/rule-$i.rq][Sparql]]"

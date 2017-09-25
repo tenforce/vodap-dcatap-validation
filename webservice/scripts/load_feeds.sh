@@ -22,10 +22,11 @@ do
 done 
 
 ####################################################################################
-log "load_feed: " curl -s -o "$PROCESSDIR/load_feed.log" --data-urlencode "query=\"$LOAD\"" ENV_SPARQL_ENDPOINT_SERVICE_URL
-curl -s -o $PROCESSDIR/load_feed.log --data-urlencode "query=$LOAD" ENV_SPARQL_ENDPOINT_SERVICE_URL
+log "load_feed: " curl -o "$PROCESSDIR/load_feed.log" --data-urlencode "query=\"$LOAD\"" ENV_SPARQL_ENDPOINT_SERVICE_URL
+curl -o $PROCESSDIR/load_feed.log --data-urlencode "query=$LOAD" ENV_SPARQL_ENDPOINT_SERVICE_URL
 
 STATUS=$?
+log_file $PROCESSDIR/load_feed.log
 log "load_feed: STATUS $STATUS"
 exit $STATUS
 

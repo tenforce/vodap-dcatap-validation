@@ -2,12 +2,73 @@
 
 * Introduction
 
-Scripts to use the [[https://github.com/EmidioStani/dcat-ap_validator][dcat-ap validation rules]] to validate currently
-available dcat-ap catalogs, to produce a report of the problems for a
-given web-accessible link.
+The *[[https://www.w3.org/TR/vocab-dcat/][Data Catalog Vocabulary]]* (DCAT) is an RDF schema targeting the
+exchanging of data catalogs (e.g. for harvesting, etc.). It defines
+the common meta-data relationships and properties to describe data
+source references or indeed a set of references. *[[https://joinup.ec.europa.eu/asset/dcat_application_profile/asset_release/dcat-ap-v11][DCAT-AP]]* is a
+specialisation of DCAT targetting European public sector data portals.
+
+Making such meta-data catalogs available as RDF is typically an
+incremental operation, for which some form of validator will greatly
+improve the speed and usefullness of the created catalog (reducing the
+turn around time). The vodap_validator is a variant of the
+*[[https://github.com/SEMICeu/dcat-ap_validator][dcat-ap_validator]]* tool which allows this validation to be performed
+on demand and which will produce a report based on executing sparql
+queries on the RDF data source. 
+
+The main entry point to the system is a HTML form, which will accepts
+a URL reference to an RDF catalog. This will be accessible via the
+link, when using the vagrant environment:
+
+    http://localhost:80/vodap_validator/
+
+The catalog to be downloaded must be a single publically accessible
+document containing RDF in XML or NTriple format. Submitting the form
+triggers a downloading of the referenced catalog, execution of the
+validation rules and the generation of a HTML report.
+** System Outline
+
+To reduce the deployment costs and issues, docker and docker-compose
+have been used to co-ordinate the deployment of the webservice and the
+associated virtuoso service. Virtuoso is used as the temporary work
+RDF store against which the validation rules are executed.
+
+The 'webservice' docker is the main component and this contains an
+apache webserver with all the required scripts and tools (i.e. bash,
+etc.)  required to download the entered URL, validate the catalog and
+create the report (which is based on using org-mode as the markup
+language before converting it to HTML).
+
+As this is a web-based service, the speed of the catalog downloading
+will impact greatly on the performance of the overall system (as will
+the number of errors and warnings which have to be gathered and
+reported on).
+
+A vagrant description has also been provided for development purposes
+which will give a provision a complete machine on which to run the
+docker components (using virtualbox on a windows machine). Configuring
+the service to be acessible via the internet requires changes in the
+Apache configuration rules.
+
+** Report Sections
+
+As indicated above when the form is submitted, the contents of the
+data source (pointed to using the URL) will be downloaded and inserted
+into the RDF store (virtuoso). Against this store (using a specific 
+timestamp graph), each of the SPARQL validation rules will be executed and the
+resulting details recorded in a CSV file (all the rules have comment
+output).
+
+Once the CSV file containing the results available, it is passed to
+the report generation script to construct a report based the
+information available (the initial format is org-mode which is then
+converted to HTML using emacs in batch mode). The HTML report is a
+variant of the 'readthedocs' form which is created using an org-mode
+file. Each section in the report relates to a specific error or
+warning (the number of errors in each section is restricted though to
+the first 50).
 
 * Deployment
-
 ** New machine setup using vagrant
 
 To simplify development and to test the deployment, [[http:://vagrant.com][Vagrant]] is used to
@@ -22,19 +83,27 @@ vagrant up
 #+END_EXAMPLE
 
 This will start up virtualbox, install the expected Ubuntu image, and
-then installs the first the necessary system tools: docker, git,
-... defined in bootstrap.sh. The application dependencies are
-collected in the subsequent script: application_bootstrap.sh.
+then installs the first the necessary system tools: docker,
+git,... defined in bootstrap.sh. The application dependencies are
+collected in the subsequent script: 
+
+#+BEGIN_EXAMPLE
+application_bootstrap.sh.
+#+END_EXAMPLE
 
 ** On an existing machine
 
-On an existing machine the setup starts from the
-application_bootstrap.sh script. By running this (as sudo) the
-necessary application dependencies are installed (requires internet
-access).
+On an existing UBUNTU system the setup starts from the script:
+
+#+BEGIN_EXAMPLE
+application_bootstrap.sh
+#+END_EXAMPLE
+
+By running this (as sudo) the necessary application dependencies are
+installed (requires internet access) and setup.
 
 * Execution
-
+[Needs cleaning up]
 The commands are initiated through the make command.
 
    - make startupvirtuoso : starts a local virtuoso
@@ -53,25 +122,17 @@ Commands to manage the set of validation rules
     - make ISAVODAPrules  : use the rules from ISA adapted to VODAP (SPARQL) case
     - make ISArules       : use the rules from ISA (as is)
 
-* As webservice
-  [TODO] 
-
-  The validation can be deployed as a webservice.  On
-  http://localhost/ a simple webform is presented to the user.  The
-  form expects an URL to the catalog in DCAT-AP form serialized in
-  RDF. It supports serializations in ntriples, turtle and RDF/XML.
-
-  The webservice will forward then the user to a directory containing validation reports .
-
-  The validation consists of 2 levels:
-    - RDF serialization compliance: is the provided file RDF compliant. 
-      Typical issues are incorrect URI identifiers containing for example spaces. 
-    - DCAT-AP validation: is the provided file DCAT-AP(VO) compliant.
-
+* As Webservice
 ** Building the webservice 
-   [TODO]: make a development and production docker-compose
+The reconsitory contains a number of docker-compose*.yml files. The first is the 
+production environment, but the -dev.yml is one which overrides serveral 
+environment settings within the vagrant environment (to make it feel like 
+browsing the target production environment).
 
-   The creation of a new webservice to test locally is done as follows:
+The first task here, is to make a development and production
+docker-compose.
+
+The creation of a new webservice to test locally is done as follows:
 
     + Firstly ensure that the application_bootstrap.sh has been run.
     + (re)build the service using the following
@@ -109,15 +170,41 @@ docker-compose -f docker-compose.yml up -d
     docker-compose -f docker-compose.yml -f docker-compose-dev.yml <command>
     #+END_EXAMPLE
   
-    Note: The docker-compose command 'extends' has problems with the
-    'links' so cannot be used to simplify the above.
+Note: The docker-compose command 'extends' has problems with the
+'links' so cannot be used to simplify the above.
+
+** Startup of the webservice
+The vodap_validator can be deployed as a webservice using the
+docker-compose file. All that should be needed the first time is:
+
+#+BEGIN_EXAMPLE
+cd /vagrant # if using the vagrant machine
+docker-compose up -d
+#+END_EXAMPLE
+
+Once started, browsing to http://localhost/vodap_validator should
+results in a simple webform being visible. The form expects the URL of
+the catalog in DCAT-AP form serialized in RDF to be validated. It
+supports serializations in ntriples, turtle and RDF/XML.
+
+Once validated the, webservice will forward then the user to a
+timestamped directory containing validation report:
+
+The validation consists of 2 levels:
+- RDF serialization compliance: is the provided file RDF compliant.
+  Typical issues are incorrect URI identifiers containing for example
+  spaces.
+- DCAT-AP validation: is the provided file DCAT-AP(VO) compliant.
 
 * Acknowledgements
 
+- [[https://github.com/SEMICeu/dcat-ap_validator][dcat-ap_validator]]
+- [[http://orgmode.org/][org-mode]]
 - [[https://github.com/fniessen/org-html-themes][ReadToOrg]] provide readthedocs styles for the org-mode files.
 - [[https://github.com/binarin/docker-org-export][Docker for exporting orgfiles]] basic approach was copied from this docker file.
 - Virtuoso, Apache and Othertools
 - cgi.sh: The code for getting code from post data is from
   http://oinkzwurgl.org/bash_cgi and was written by Phillippe Kehi
   &lt;phkehi@gmx.net&gt; and flipflip industries
+- Sparql, docker, docker-compose, CSV.P
 

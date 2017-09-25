@@ -10,5 +10,11 @@ function log() {
     ( echo -n "[" ; echo -n `date` ; echo -n "] " ; echo $scriptname $* ) >> /logs/webservice.log
 }
 
+# Dump file into logfile (limit the size!)
+
+function log_file() {
+    ( echo -n "[" ; echo -n `date` ; echo -n "] " ; echo $scriptname START ; cat $1 ; echo "END" ) >> /logs/webservice.log
+}
+
 ####################################################################################
 ####################################################################################
