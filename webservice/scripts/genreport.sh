@@ -85,6 +85,22 @@ add_properties() {
 	echo "  :PROPERTIES:"
 	echo "  :HTML_CONTAINER_CLASS: ${LABEL} ${AUX}"
 	echo "  :END:"
+	echo ""
+	AUXLINK=""
+	if [ "${AUX}" != "" ] ; then
+	    AUXLINK="[[https://overheid.vlaanderen.be/open-data-handleiding][${AUX}]]"
+	    echo "#+ATTR_HTML: :target _blank :class help-links"
+	    echo "${AUXLINK}"
+	elif [ "${LABEL}" == "errors" ] ; then 
+	    REDLINK="[[https://joinup.ec.europa.eu/catalogue/distribution/dcat-ap-version-11][Description]]"
+	    echo "#+ATTR_HTML: :target _blank :class help-links"
+	    echo "${REDLINK}"
+	else
+	    true
+	fi
+	echo "#+ATTR_HTML: :target _blank :class help-links"	
+	echo "[[https://github.com/SEMICeu/dcat-ap_validator/blob/master/rules/rule-$i.rq][Sparql]]"
+	echo ""
     fi
 }
     
@@ -142,11 +158,7 @@ genruleresults() {
 	auxilary=$(cat ${IFILENAME} | cut -d, -f9 | uniq)
 	echo "** Rule $i $(create_label ${nrerrors} ${TERRORS} ${nrwarnings} ${TWARNINGS} ${class})"
 	add_properties ${IFILENAME} "errors" "${nrerrors}" ${TERRORS} ${auxilary}
-	add_properties ${IFILENAME} "warnings" "${nrerrors}" ${TERRORS} ${auxilary}
-	echo ""
-	echo "#+ATTR_HTML: :target _blank :class help-links"
-	echo "[[https://github.com/SEMICeu/dcat-ap_validator/blob/master/rules/rule-$i.rq][Sparql]]"
-	echo ""
+	add_properties ${IFILENAME} "warnings" "${nrwarnings}" ${TWARNINGS} ${auxilary}
 	output_form ${IFILENAME} "errors" "${nrerrors}" ${TERRORS}
 	output_form ${IFILENAME} "warnings" "${nrwarnings}" ${TWARNINGS}
     fi
