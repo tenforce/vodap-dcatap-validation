@@ -13,7 +13,12 @@ cgi_getvars BOTH ALL
 dcat_url=${dcat_url:-ENV_CATALOG_LOCATION}
 pages_start=${pages_start:-1}
 pages_end=${pages_end:-5}
+
+# Cleans the cache each time (yes) or reuses the cache (no)
 cleancache=no
+
+# Catalog file ending
+ending=rdf
 
 # Endpoint to load into
 #SPARQL_ENDPOINT_SERVICE_URL="http://vodapweb-virtuoso:8890/sparql"
@@ -34,7 +39,7 @@ output_line() { # x Link UUID Name
 }
 
 ###################################################################################
-# Recovering the catalog.n3 file is an expensive operation which can sometimes
+# Recovering the catalog.${ending} file is an expensive operation which can sometimes
 # timeout. The following will attempt to first recover the document and then cache
 # the file, so that in the even of a timeout (in subsequent operations), the
 # file does not need to be downloaded again. The cache is based on todays' name
@@ -67,12 +72,12 @@ for (( i=${pages_start}; i<=${pages_end}; i++ )); do
     reference=$(echo "${dcat_url}?validation_mode=true&page=${i}")
     log "printf '%s' \"${reference}\" \| md5sum \| cut -d ' ' -f 1"
     cachekey=$(printf '%s' "${reference}" | md5sum | cut -d ' ' -f 1)
-    newref="http://ENV_VALIDATOR_LOCATION/results/cache/${CACHENAME}/${cachekey}.n3"
+    newref="http://ENV_VALIDATOR_LOCATION/results/cache/${CACHENAME}/${cachekey}.${ending}"
     log "recovering page ${i} ${cachekey}"    
-    if [ ! -f "$CACHEDIR/${cachekey}.n3" ] ; then
+    if [ ! -f "$CACHEDIR/${cachekey}.${ending}" ] ; then
 	# recover the reference and put in cache file.
 	log "caching (--compressed) $reference in $newref"
-	curl --compressed $reference > ${CACHEDIR}/${cachekey}.n3
+	curl --compressed $reference > ${CACHEDIR}/${cachekey}.${ending}
     fi
     # Add the cached file to the list of files to be loaded by virtuoso
     DCATURLS+=" ${newref} "
