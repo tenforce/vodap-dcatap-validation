@@ -99,7 +99,8 @@ add_properties() {
 	    true
 	fi
 	echo "#+ATTR_HTML: :target _blank :class help-links"	
-	echo "[[https://github.com/SEMICeu/dcat-ap_validator/blob/master/rules/rule-$i.rq][Sparql]]"
+	echo "[[https://github.com/tenforce/vodap-dcatap-validation/blob/master/webservice/rules/dcat/rule-$i.rq][Sparql]]"
+	
 	echo ""
     fi
 }
