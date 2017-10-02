@@ -13,7 +13,7 @@ CONSTRUCT {
 } where {
 
   {
-  ?dataset dct:publisher <PUBID> .
+  ?dataset vodap:ckan-organisation PUBID .
   ?c dcat:dataset ?dataset.
   {?dataset ?p1 ?o1.}
   union {
@@ -31,8 +31,8 @@ CONSTRUCT {
 
   { 
 
-  { select ?catalog where {
-       ?ds dct:publisher <PUBID> .
+  { select ?catalog where { 
+       ?ds vodap:ckan-organisation PUBID .
        ?catalog dcat:dataset ?ds.
       }
   }
@@ -45,7 +45,7 @@ CONSTRUCT {
    
 
   { select ?catalog where {
-       ?ds dct:publisher <PUBID> .
+       ?ds vodap:ckan-organisation PUBID .
        ?catalog dcat:dataset ?ds.
       }
   }

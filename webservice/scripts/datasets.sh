@@ -103,16 +103,16 @@ cat $PROCESSDIR/publishers.csv >> /logs/webservice.log
 
 # for each publisher, the query is created and executed, all results are
 # saved for debugging purposes.
-while IFS=, read PubID Name PubUUID PubOld ; do
-    log "Publisher $PubID $Name query start"
-    RPubID=$(echo ${PubID} | tr -d '"')
+while IFS=, read PubUUID Name ; do
+    log "Publisher $PubUUID $Name query start"
+    RPubID=$(echo ${PubUUID} | tr -d '"')
     fn=$(echo ${RPubID} | md5sum | cut -d ' ' -f 1) ;
-    sed -e "s@PUBID@$RPubID@g" query/dataset.template > $PROCESSDIR/name$fn.rq ;
+    sed -e "s@PUBID@$PubUUID@g" query/dataset.template > $PROCESSDIR/name$fn.rq ;
     curl --data-urlencode query="`cat $PROCESSDIR/name$fn.rq`" \
 	 --data format="RDF/XML" \
 	 --data-urlencode default-graph-uri="$DEFAULT_GRAPH" \
 	 -o $PROCESSDIR/name$fn.nt $SPARQL_ENDPOINT_SERVICE_URL >> /logs/webservice.log 2>&1
-    output_line "${PubId}" "$Name" "$PubUUID" "/results/$DATESTAMP/name$fn.nt"
+    output_line "${PubUUID}" "$Name" "$PubUUID" "/results/$DATESTAMP/name$fn.nt"
     log "Publisher $PubID query end"
 done < $PROCESSDIR/publishers.csv
 

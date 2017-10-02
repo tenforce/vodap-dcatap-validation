@@ -98,7 +98,8 @@ add_properties() {
 	else
 	    true
 	fi
-	echo "#+ATTR_HTML: :target _blank :class help-links"	
+	# The $i needs fixing here (misuse of the calling form)
+	echo "#+ATTR_HTML: :target _blank :class help-links"
 	echo "[[https://github.com/tenforce/vodap-dcatap-validation/blob/master/webservice/rules/dcat/rule-$i.rq][Sparql]]"
 	
 	echo ""
