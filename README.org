@@ -196,6 +196,11 @@ The validation consists of 2 levels:
   spaces.
 - DCAT-AP validation: is the provided file DCAT-AP(VO) compliant.
 
+
+* note
+if the download size of the catalog is too large increase this value
+MaxDataSourceSize = 20971520 .  Controls the max size that can be sponged. Default is 20 MB.
+
 * Acknowledgements
 
 - [[https://github.com/SEMICeu/dcat-ap_validator][dcat-ap_validator]]
