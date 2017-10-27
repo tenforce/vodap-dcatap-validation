@@ -9,7 +9,7 @@ WHERE {
   ?s a dct:LicenseDocument.
   FILTER(!EXISTS {?s dct:type ?label}).
   BIND (dct:type AS ?p).
-  BIND ("License Document" AS ?Class_Name).
+  BIND ("Licence Document" AS ?Class_Name).
   BIND (170 AS ?Rule_ID).
   BIND ("error" AS ?Rule_Severity).
   BIND ("dct:type is a required property for Licence Document." AS ?Rule_Description).

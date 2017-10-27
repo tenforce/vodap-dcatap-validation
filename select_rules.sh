@@ -3,7 +3,7 @@
 FILE=$2
 RULESOURCE=$1
 
-grep "; M ; rule" $FILE > S1
+grep ";Selected; rule" $FILE > S1
 sed -e "s/.*\(rule.*rq\).*/\1/" S1 > S2
 
 while read p; do

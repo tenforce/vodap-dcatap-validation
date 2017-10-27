@@ -28,10 +28,10 @@ genstatistics() {
 
 includestats() {
     # change the out separator for org-mode
-    cat $BASICRESULT | tr -d "\"" | while IFS=, read -r cl ins
-    do
-	if [ "$cl" == "Class" ]
-	then
+    cat $BASICRESULT \
+	| tr -d "\"" \
+	| while IFS=, read -r cl ins; do
+	if [ "$cl" == "Class" ] ; then
 	    echo "| Class | Instances | Errors | Warnings |"
 	else
 	    errors=$(get_number "error" $cl)
@@ -45,9 +45,17 @@ includestats() {
 ###############################################################################
 
 get_number() {
+<<<<<<< HEAD
     count=$(egrep ",\"$1\"," ${RESULTSFILE} | tr -d "\"" | awk -F, -v class=$2 '{gsub(/\ /,"",$1); if (index(class,$1) != 0) { print $1;}}' | wc -l)
     log get_number ${RESULTSFILE} $1 $2 $count
     echo $count
+=======
+#   echo get_number $1 $2 1>&2
+    egrep ",\"$1\"," ${RESULTSFILE} \
+	| tr -d "\"" \
+	| awk -F, -v class=$2 '(index(class, $1) != 0) {print $1;}' \
+	| wc -l
+>>>>>>> 037fc012d541dee00617b03946b6349d730114c9
 }
 
 ###############################################################################
@@ -73,6 +81,37 @@ get_flag() {
 ###############################################################################
 # Output a single section (labels and counts coming from the outside)
 
+add_properties() {
+    local IFILENAME=$1
+    local LABEL=$2
+    local NNR=$3
+    local TOTAL=$4
+    local AUX=$5
+    if [ "${NNR}" != "0" ]; then
+	echo "  :PROPERTIES:"
+	echo "  :HTML_CONTAINER_CLASS: ${LABEL} ${AUX}"
+	echo "  :END:"
+	echo ""
+	AUXLINK=""
+	if [ "${AUX}" != "" ] ; then
+	    AUXLINK="[[https://overheid.vlaanderen.be/open-data-handleiding][${AUX}]]"
+	    echo "#+ATTR_HTML: :target _blank :class help-links"
+	    echo "${AUXLINK}"
+	elif [ "${LABEL}" == "errors" ] ; then 
+	    REDLINK="[[https://joinup.ec.europa.eu/catalogue/distribution/dcat-ap-version-11][Description]]"
+	    echo "#+ATTR_HTML: :target _blank :class help-links"
+	    echo "${REDLINK}"
+	else
+	    true
+	fi
+	# The $i needs fixing here (misuse of the calling form)
+	echo "#+ATTR_HTML: :target _blank :class help-links"
+	echo "[[https://github.com/tenforce/vodap-dcatap-validation/blob/master/webservice/rules/dcat/rule-$i.rq][Sparql]]"
+	
+	echo ""
+    fi
+}
+    
 output_form() {
     local IFILENAME=$1
     local LABEL=$2
@@ -80,17 +119,17 @@ output_form() {
     local TOTAL=$4
 
     if [ "${NNR}" != "0" ]; then
-	echo "  :PROPERTIES:"
-	echo "  :HTML_CONTAINER_CLASS: ${LABEL}"
-	echo "  :END:"
 	# create a list of groups (must be exact match for the following operation)
-	awk -F, '{print $1","$2","$3","$4};' ${IFILENAME} | sort -u - | while read line
-	do
+	awk -F, '{print $1","$2","$3","$4};' ${IFILENAME}\
+	    | sort -u -\
+	    | while read line ; do
 	    # for each grouping dump the corresponding errors and warnings as a table
-            echo $line | awk -F, '{ print "   " $1 " - " $3 " -  " $4; }'
+            echo $line | awk -F, '{ print "   " $1 " - " $3 " -  " $4 ; }'
 	    echo "     | Description | Instance | "
 	    echo "     |-------------+----------| "
-	    cat ${IFILENAME} | egrep "$line" | awk -F, '{ print "    |" $5 "|" $6 "|"; }'
+	    cat ${IFILENAME} \
+		| egrep "$line" \
+		| awk -F, '{ print "    |" $5 "|" $6 "|"; }'
 	done
     fi
 }
@@ -124,7 +163,10 @@ genruleresults() {
 	nrerrors=$(echo $msg | cut -d, -f1)
 	nrwarnings=$(echo $msg | cut -d, -f2)
 	class=$(cat ${IFILENAME} | cut -d, -f1 | uniq) ## was "Agent" XXX needs recovering from the IFILENAME list
+	auxilary=$(cat ${IFILENAME} | cut -d, -f9 | uniq)
 	echo "** Rule $i $(create_label ${nrerrors} ${TERRORS} ${nrwarnings} ${TWARNINGS} ${class})"
+	add_properties ${IFILENAME} "errors" "${nrerrors}" ${TERRORS} ${auxilary}
+	add_properties ${IFILENAME} "warnings" "${nrwarnings}" ${TWARNINGS} ${auxilary}
 	output_form ${IFILENAME} "errors" "${nrerrors}" ${TERRORS}
 	output_form ${IFILENAME} "warnings" "${nrwarnings}" ${TWARNINGS}
     fi
@@ -143,7 +185,6 @@ genreport() {
     echo "#+HTML_HEAD: <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>"
     echo "#+HTML_HEAD: <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>"
     echo "#+HTML_HEAD: <script type=\"text/javascript\" src=\"http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js\"></script>"
-    echo "#+HTML_HEAD: <script type=\"text/javascript\" src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>"
     echo "* Introduction"
     echo "Original source link: $ORIGURL"
     echo "** Processing File Links"

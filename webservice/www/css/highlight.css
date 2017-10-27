@@ -10,3 +10,31 @@
     align: center;
     width: 98%;
 }
+
+.errors.vodap {
+    background-color: orange;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.errors.vodap table {
+    margin: 0 auto;
+    align: center;
+    width: 98%;
+}
+
+.help-links {
+   position: relative;
+   float: right;
+   top: -48px;
+   border-bottom: 1px grey solid;
+   padding: 2px;
+}
+
+table {
+    width: 98%;
+}
+
+td:first-child {  
+    width:50%;
+}

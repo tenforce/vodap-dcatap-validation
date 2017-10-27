@@ -6,7 +6,7 @@ PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 
-SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o ?Rule_Auxillary
 WHERE {
   ?s a dcat:Dataset.
   ?s dcat:contactPoint ?cPoint.
@@ -18,4 +18,5 @@ WHERE {
   BIND ("error" AS ?Rule_Severity).
   BIND ("vcard:hasEmail is a mandatory property for a contactpoint of a Dataset." AS ?Rule_Description).
   BIND (concat("The dcat:Dataset ",str(?s)," does not have a vcard:hasEmail property.") AS ?Message).
+  BIND ("vodap" AS ?Rule_Auxillary).  
 }
