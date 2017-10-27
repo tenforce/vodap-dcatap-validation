@@ -45,17 +45,12 @@ includestats() {
 ###############################################################################
 
 get_number() {
-<<<<<<< HEAD
-    count=$(egrep ",\"$1\"," ${RESULTSFILE} | tr -d "\"" | awk -F, -v class=$2 '{gsub(/\ /,"",$1); if (index(class,$1) != 0) { print $1;}}' | wc -l)
+    count=$(egrep ",\"$1\"," ${RESULTSFILE} \
+		   | tr -d "\"" \
+		   | awk -F, -v class=$2 '{gsub(/\ /,"",$1); if (index(class,$1) != 0) { print $1;}}' \
+		   | wc -l)
     log get_number ${RESULTSFILE} $1 $2 $count
     echo $count
-=======
-#   echo get_number $1 $2 1>&2
-    egrep ",\"$1\"," ${RESULTSFILE} \
-	| tr -d "\"" \
-	| awk -F, -v class=$2 '(index(class, $1) != 0) {print $1;}' \
-	| wc -l
->>>>>>> 037fc012d541dee00617b03946b6349d730114c9
 }
 
 ###############################################################################
@@ -66,7 +61,7 @@ get_instances() { # Label
     if [ "$l" == "" ]; then
 	out="with no instances"
     else
-	out="in $l instances"
+	out="of $l instances"
     fi;
     echo $out
 }
@@ -140,11 +135,15 @@ create_label() {
     warnings=""
     padding=""
     instances=$(get_instances $5)
+    first=""
+    if [ "$1" == "${MAXLINES}" -o "$3" == "${MAXLINES}" ] ; then
+	first="first "
+    fi
     if [ "$1" != "0" ] ; then
-	errors=$(echo "errors: $1")
+	errors=$(echo "errors: $first$1")
     fi
     if [ "$3" != "0" ] ; then
-	warnings=$(echo "warnings: $3")
+	warnings=$(echo "warnings: $first$3")
     fi
     if [ "$1" != "0" -a "$3" != "0" ] ; then
 	padding=","
@@ -181,7 +180,7 @@ genreport() {
     echo "#+DATE: `date`"
     echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>"
     echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css\"/>"
-    echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://ENV_VALIDATOR_LOCATION/css/highlight.css\" />"   
+    echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://ENV_VALIDATOR_LOCATION/www/css/highlight.css\" />"   
     echo "#+HTML_HEAD: <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>"
     echo "#+HTML_HEAD: <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>"
     echo "#+HTML_HEAD: <script type=\"text/javascript\" src=\"http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js\"></script>"
