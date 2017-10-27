@@ -61,7 +61,7 @@ get_instances() { # Label
     if [ "$l" == "" ]; then
 	out="with no instances"
     else
-	out="of $l instances"
+	out="in $l instances"
     fi;
     echo $out
 }
