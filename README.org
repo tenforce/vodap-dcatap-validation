@@ -110,7 +110,7 @@ docker-compose -f docker-compose.yml up -d
 
 * Acknowledgements
 
-- [[https://github.com/fniessen/org-html-themes][ReadToOrg]] provide readthedocs styles for the org-mode files.
+- [[https://github.com/fniessen/org-html-themes][ReadToOrg]] provide "readthedocs" style for the org-mode files.
 - [[https://github.com/binarin/docker-org-export][Docker for exporting orgfiles]] basic approach was copied from this docker file.
 - Virtuoso, Apache and Othertools
 - cgi.sh: The code for getting code from post data is from

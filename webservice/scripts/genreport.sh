@@ -45,8 +45,9 @@ includestats() {
 ###############################################################################
 
 get_number() {
-#   echo get_number $1 $2 1>&2
-    egrep ",\"$1\"," ${RESULTSFILE} | tr -d "\"" | awk -F, -v class=$2 '(index(class, $1) != 0) {print $1;}' | wc -l
+    count=$(egrep ",\"$1\"," ${RESULTSFILE} | tr -d "\"" | awk -F, -v class=$2 '{gsub(/\ /,"",$1); if (index(class,$1) != 0) { print $1;}}' | wc -l)
+    log get_number ${RESULTSFILE} $1 $2 $count
+    echo $count
 }
 
 ###############################################################################
