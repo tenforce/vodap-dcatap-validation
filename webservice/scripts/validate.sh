@@ -51,7 +51,7 @@ case "${ec}" in
     1) # File can be downloaded, but there is a parsing error
        log "1 status, REDIRECT to load_feed.log - load problem (in /vodap_validator/results/$DATESTAMP)"
        ln -s $PROCESSDIR/feed.$DATESTAMP.report $PROCESSDIR/index.html
-       REDIRECT="http://ENV_VALIDATOR_LOCATION/bin/148_error.sh?dcat_url=$dcat_url&details=/vodap_validator/results/$DATESTAMP/feed.$DATESTAMP.report"       
+       REDIRECT="http://ENV_VALIDATOR_LOCATION/bin/148_error.sh?dcat_url=$dcat_url&details=/ENV_VALIDATOR_LOCATION_PATH/results/$DATESTAMP/feed.$DATESTAMP.report"       
        ;;
 
     2) # File cannot be downloaded, so redirect to the 404 message
@@ -63,7 +63,7 @@ case "${ec}" in
   148) # File can be downloaded, but there is a parsing error
        # ln -s $PROCESSDIR/feed.$DATESTAMP.report $PROCESSDIR/index.html
        log "148 code, REDIRECT to $PROCESSDIR/feed.$DATESTAMP.report - load problem (in /vodap_validator/results/$DATESTAMP)"
-       REDIRECT="http://ENV_VALIDATOR_LOCATION/bin/148_error.sh?dcat_url=$dcat_url&details=/vodap_validator/results/$DATESTAMP/feed.$DATESTAMP.download"       
+       REDIRECT="http://ENV_VALIDATOR_LOCATION/bin/148_error.sh?dcat_url=$dcat_url&details=/ENV_VALIDATOR_LOCATION_PATH/results/$DATESTAMP/feed.$DATESTAMP.download"       
        ;;
 
     *) # no idea what the response code is.
