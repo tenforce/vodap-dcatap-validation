@@ -93,11 +93,11 @@ add_properties() {
 	echo ""
 	AUXLINK=""
 	if [ "${AUX}" != "" ] ; then
-	    AUXLINK="[[https://overheid.vlaanderen.be/open-data-handleiding][${AUX}]]"
+	    AUXLINK="[[https://overheid.vlaanderen.be/open-data-handleiding][DCAT-AP(VO)]]"
 	    echo "#+ATTR_HTML: :target _blank :class help-links"
 	    echo "${AUXLINK}"
 	elif [ "${LABEL}" == "errors" ] ; then 
-	    REDLINK="[[https://joinup.ec.europa.eu/catalogue/distribution/dcat-ap-version-11][Description]]"
+	    REDLINK="[[https://joinup.ec.europa.eu/catalogue/distribution/dcat-ap-version-11][DCAT-AP]]"
 	    echo "#+ATTR_HTML: :target _blank :class help-links"
 	    echo "${REDLINK}"
 	else
@@ -184,7 +184,7 @@ genreport() {
     echo "#+DATE: `date`"
     echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>"
     echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css\"/>"
-    echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://ENV_VALIDATOR_LOCATION/www/css/highlight.css\" />"   
+    echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"http://ENV_VALIDATOR_LOCATION/css/highlight.css\" />"   
     echo "#+HTML_HEAD: <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>"
     echo "#+HTML_HEAD: <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>"
     echo "#+HTML_HEAD: <script type=\"text/javascript\" src=\"http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js\"></script>"
