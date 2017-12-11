@@ -55,7 +55,7 @@ RUN rm -rf /www/vodap_validator/ && mkdir -p /www/vodap_validator && ln -s /scri
 # Default Environment Variable assignments
 # these values can be overwritten at runtime
 ENV ENV_VALIDATOR_DOMAIN opendata.vlaanderen.be
-ENV ENV_VALIDATOR_LOCATION  opendata.vlaanderen.be/vodap_validator
+ENV ENV_VALIDATOR_LOCATION  opendata.vlaanderen.be/validator
 ENV ENV_SPARQL_ENDPOINT_SERVICE_URL http://sparql-endpoint-service:8890/sparql
 
 # redefine the start of the service to be incorporate the runtime configuration 
