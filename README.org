@@ -2,7 +2,7 @@
 
 the online version is available at *[[http://opendata.vlaanderen.be/validator]]*.
 
-The DCAT-AP validator has been realized with the support the H2020 funded project *[[https://yourdatastories.eu/][Your Data Stories]].
+The DCAT-AP validator has been realized with the support the H2020 funded project [[https://yourdatastories.eu/][Your Data Stories]].
 Your Data Stories has received funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No 645886.
 
 * Introduction
