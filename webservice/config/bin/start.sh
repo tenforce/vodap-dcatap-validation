@@ -7,7 +7,7 @@
 /config/bin/replace-env.sh /scripts/load_feeds.sh
 /config/bin/replace-env.sh /scripts/datasets.sh
 /config/bin/replace-env.sh /scripts/genreport.sh
-/config/bin/replace-env.sh /scripts/datasets-list-bvodap.html
+/config/bin/replace-env.sh /scripts/datasets-list-before.html
 
 /config/bin/replace-env.sh /www/index.html
 /config/bin/replace-env.sh /www/minimal.html
