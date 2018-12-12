@@ -32,10 +32,10 @@ export PROCESSDIR=/www/results/$DATESTAMP
 # Page contents with one link per publisher.
 rm -f $PROCESSDIR/tmp.list
 output_line() { # x Link UUID Name
-    pointer=$(urlencode "http://ENV_VALIDATOR_LOCATION"$4)
+    pointer=$(urlencode "https://ENV_VALIDATOR_LOCATION"$4)
     label=$(echo $2 | tr -d '"')
     nm=$(echo $3 | tr -d '"')
-    echo "<li><a href=\"http://ENV_VALIDATOR_LOCATION/dataset?dcat_url=$pointer\">"$label" - ("$nm")</a></li>" >>  $PROCESSDIR/tmp.list
+    echo "<li><a href=\"https://ENV_VALIDATOR_LOCATION/dataset?dcat_url=$pointer\">"$label" - ("$nm")</a></li>" >>  $PROCESSDIR/tmp.list
 }
 
 ###################################################################################
@@ -72,7 +72,7 @@ for (( i=${pages_start}; i<=${pages_end}; i++ )); do
     reference=$(echo "${dcat_url}?validation_mode=true&page=${i}")
     log "printf '%s' \"${reference}\" \| md5sum \| cut -d ' ' -f 1"
     cachekey=$(printf '%s' "${reference}" | md5sum | cut -d ' ' -f 1)
-    newref="http://ENV_VALIDATOR_LOCATION/results/cache/${CACHENAME}/${cachekey}.${ending}"
+    newref="https://ENV_VALIDATOR_LOCATION/results/cache/${CACHENAME}/${cachekey}.${ending}"
     log "recovering page ${i} ${cachekey}"    
     if [ ! -f "$CACHEDIR/${cachekey}.${ending}" ] ; then
 	# recover the reference and put in cache file.
@@ -141,7 +141,7 @@ cat /scripts/datasets-list-after.html >> $PROCESSDIR/datasets.html
 
 echo "Content-type: text/html"
 echo "Status: 302 Redirect"
-echo "Location: http://ENV_VALIDATOR_LOCATION/results/$DATESTAMP/datasets.html"
+echo "Location: https://ENV_VALIDATOR_LOCATION/results/$DATESTAMP/datasets.html"
 echo ""
 echo '<html>'
 echo '<head>'
