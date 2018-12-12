@@ -187,7 +187,7 @@ genreport() {
     echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"https://ENV_VALIDATOR_LOCATION/css/highlight.css\" />"   
     echo "#+HTML_HEAD: <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>"
     echo "#+HTML_HEAD: <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>"
-    echo "#+HTML_HEAD: <script type=\"text/javascript\" src=\"https://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js\"></script>"
+    echo "#+HTML_HEAD: <script type=\"text/javascript\" src=\"https://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js\"></script>"
     echo "* Introduction"
     echo "Original source link: $ORIGURL"
     echo "** Processing File Links"
