@@ -14,6 +14,8 @@ if [ "$dcat_url" = "" ] ; then
     dcat_url="http://data.kortrijk.be/api/dcat"
 fi
 
+log "used ruleset = ${regels}"
+
 DATESTAMP=`date +%Y-%m-%dT%H:%M:%SZ`
 export PROCESSDIR=/www/results/$DATESTAMP
 
@@ -37,7 +39,17 @@ case "${ec}" in
        LOADSTATUS=$?
        if [ "${LOADSTATUS}" == "0" ] ; then
 	   log "LOADSTATUS = ${LOADSTATUS}"		
-	   ./dcat_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
+	   case "${regels}" in
+		1) ./dcatapvl_mandatory_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
+		;;
+		2) ./dcatapvl_recommended_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
+		;;
+		3) ./dereference.sh $DATESTAMP
+		   ./dcatapvl_mandatory_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
+		;;
+		*) ./dcat_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
+		;;
+           esac
 	   log "Set Pointer to $PROCESSDIR/vodapreport.html"
 	   ln -s $PROCESSDIR/vodapreport.html $PROCESSDIR/index.html
 	   # all the links to the original report are fond in the generated document

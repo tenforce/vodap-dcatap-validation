@@ -1,0 +1,22 @@
+# Rule_ID:208
+# @title [Catalog] dct:description should have a language tag
+# @tag distribution
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o ?Rule_Auxillary
+WHERE {
+  ?s a dcat:Catalog.
+  ?s dct:description ?o.
+  FILTER(isLiteral(?o)).
+  FILTER(lang(?o) = "").
+  BIND (dct:description AS ?p).
+  BIND ("Catalog" AS ?Class_Name).
+  BIND (208 AS ?Rule_ID).
+  BIND ("error" AS ?Rule_Severity).
+  BIND ("dct:description should have a language tag." AS ?Rule_Description).
+  BIND (concat("The dct:description ",str(?s)," has no language tag.") AS ?Message).
+  BIND ("vodap" AS ?Rule_Auxillary).  
+}
+

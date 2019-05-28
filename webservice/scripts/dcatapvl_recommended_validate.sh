@@ -28,8 +28,8 @@ done
 
 ####################################################################################
 # run the validation rules
-log "$PROCESSDIR: run dcat validation rules"
-for i in /rules/dcat/*.rq ; do 
+log "$PROCESSDIR: run dcatapvl recommended validation rules"
+for i in /rules/dcatapvl_recommended/*.rq ; do 
      curl -s --data-urlencode "query=`cat $i`"  --data-urlencode "format=text/csv" --data-urlencode "default-graph-uri=$DEFAULT_GRAPH" $SPARQL_ENDPOINT_SERVICE_URL 
 done | egrep -v Class_Name > $PROCESSDIR/vodapreport.csv
 
