@@ -1,0 +1,21 @@
+# Rule_ID:200
+# @title [Distribution] dct:title is a mandatory property for Distribution
+# @tag distribution
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o ?Rule_Auxillary
+WHERE {
+  ?s a dcat:Distribution.
+  FILTER(!(EXISTS { ?s dct:title ?title})).
+  BIND (rdf:type AS ?p).
+  BIND (dcat:Distribution AS ?o).
+  BIND ("Distribution" AS ?Class_Name).
+  BIND (81 AS ?Rule_ID).
+  BIND ("error" AS ?Rule_Severity).
+  BIND ("dct:title is a required property for Distribution." AS ?Rule_Description).
+  BIND (concat("The dcat:Distribution ",str(?s)," does not have a dct:title property.") AS ?Message).
+  BIND ("vodap" AS ?Rule_Auxillary).  
+}

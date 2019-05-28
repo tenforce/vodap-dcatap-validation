@@ -1,0 +1,19 @@
+# Rule_ID:204
+# @title [Dataset] dct:accessRights is required
+# @tag dataset
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o ?Rule_Auxillary
+WHERE {
+  ?s a dcat:Dataset.
+  FILTER(!EXISTS {?s dct:accessRights ?o}).
+  BIND (dct:accessRights AS ?p).
+  BIND ("Dataset" AS ?Class_Name).
+  BIND (204 AS ?Rule_ID).
+  BIND ("error" AS ?Rule_Severity).
+  BIND ("dct:accessRights is required." AS ?Rule_Description).
+  BIND (concat("The Dataset ",str(?s)," has no accessRights.") AS ?Message).
+  BIND ("vodap" AS ?Rule_Auxillary).  
+}

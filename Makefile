@@ -52,6 +52,19 @@ VODAPrules: ISArules
 	./select_rules.sh ISArules VODAPrules/VODAP_selection.csv
 	./copy_rules.sh VODAPrules
 
+.PHONY: Mandatoryrules
+Mandatoryrules: ISArules
+	rm -rf rules
+	mkdir -p rules
+	./select_rules.sh ISArules Mandatoryrules/mandatory_selection.csv
+	./copy_rules.sh Mandatoryrules
+
+.PHONY: Recommended
+Recommendedrules: ISArules
+	rm -rf rules
+	mkdir -p rules
+	./select_rules.sh ISArules VODAPrules/recommended_selection.csv
+	./copy_rules.sh VODAPrules
 
 
 # management of the catalog

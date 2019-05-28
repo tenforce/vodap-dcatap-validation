@@ -1,0 +1,22 @@
+# Rule_ID:202
+# @title [Catalog] dct:license is CC0
+# @tag catalog
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o ?Rule_Auxillary
+WHERE {
+  ?s a dcat:Catalog.
+  ?s dct:license ?desc.
+  FILTER (?desc not in (<https://data.vlaanderen.be/id/licentie/creative-commons-zero-verklaring/v1.0>,<https://creativecommons.org/publicdomain/zero/1.0/>))
+  BIND (dct:license AS ?p).
+  BIND (dcat:Catalog AS ?o).
+  BIND ("Catalog" AS ?Class_Name).
+  BIND (201 AS ?Rule_ID).
+  BIND ("error" AS ?Rule_Severity).
+  BIND ("The catalog dct:license must be CC0." AS ?Rule_Description).
+  BIND (concat("The dcat:Catalog ",str(?o)," does not have CC0 as license.") AS ?Message).  
+  BIND ("vodap" AS ?Rule_Auxillary).  
+}

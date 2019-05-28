@@ -1,0 +1,22 @@
+# Rule_ID:114
+# @title [Dataset] dcat:Dataset does not exist
+# @tag dataset
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+WHERE {
+{
+select count(?a) as ?number where {
+?a a dcat:Dataset
+}
+}
+filter(?number = 0).  
+  BIND ("Dataset" AS ?Class_Name).
+  BIND (114 AS ?Rule_ID).
+  BIND ("error" AS ?Rule_Severity).
+  BIND ("dcat:Dataset does not exist." AS ?Rule_Description).
+  BIND (concat("The mandatory class dcat:Dataset does not exist.") AS ?Message).
+  Bind ("" as ?s).
+  Bind ("" as ?p).
+  Bind ("" as ?o).
+}
