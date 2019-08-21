@@ -93,11 +93,11 @@ add_properties() {
 	echo ""
 	AUXLINK=""
 	if [ "${AUX}" != "" ] ; then
-	    AUXLINK="[[https://overheid.vlaanderen.be/open-data-handleiding][DCAT-AP(VO)]]"
+	    AUXLINK="[[https://data.vlaanderen.be/doc/applicatieprofiel/DCAT-AP-VL/][DCAT-AP VL]]"
 	    echo "#+ATTR_HTML: :target _blank :class help-links"
 	    echo "${AUXLINK}"
 	elif [ "${LABEL}" == "errors" ] ; then 
-	    REDLINK="[[https://joinup.ec.europa.eu/catalogue/distribution/dcat-ap-version-11][DCAT-AP]]"
+	    REDLINK="[[https://joinup.ec.europa.eu/release/dcat-ap/121][DCAT-AP]]"
 	    echo "#+ATTR_HTML: :target _blank :class help-links"
 	    echo "${REDLINK}"
 	else
