@@ -45,7 +45,7 @@
     
       <div class="region">
         <div class="layout layout--wide">
-	<form class="form col--1-6 col--1-6--s" action="/ENV_VALIDATOR_LOCATION_PATH/bin/validate.sh" method="POST">
+	<form class="form col--1-16 col--1-16--s" action="/ENV_VALIDATOR_LOCATION_PATH/bin/validate.sh" method="POST">
           <!-- input-field component -->          
 	  <div class="u-float-left">
           <label for="input-field" class="form__label">DCAT URL: </label>
@@ -53,19 +53,25 @@
 	  </div>
 	  <div class="u-float-left">
             <label class="radio">
-              <input type="radio" name="regels" class="radio__toggle" value="1"><span></span> verplichte informatie
+              <input type="radio" name="regels" class="radio__toggle" value="1"><span></span>DCAT-AP-VL  
             </label>
 	  </div>
             <!-- radiobutton component -->
 	  <div class="u-float-left">
             <label class="radio">
-              <input type="radio" name="regels" class="radio__toggle" value="2"><span></span> aanbevolen informatie
+              <input type="radio" name="regels" class="radio__toggle" value="2"><span></span>DCAT-AP verplichte en aanbevolen velden
+            </label>
+	  </div>
+            <!-- radiobutton component -->
+	  <div class="u-float-left">
+            <label class="radio">
+              <input type="radio" name="regels" class="radio__toggle" value="2"><span></span>DCAT-AP volledig
             </label>
 	  </div>
             <!-- radiobutton component -->            
 	  <div class="u-float-left">
             <label class="radio">
-              <input type="radio" name="regels" class="radio__toggle" value="3"><span></span> dereferentie licenties
+              <input type="radio" name="regels" class="radio__toggle" value="3"><span></span>DCAT-AP-VL met derefentie licenties 
             </label>         
 	  </div>
 
@@ -73,6 +79,15 @@
 	  <input type="submit" value="Submit">
 
         </form>
+	  <div>
+		Voor een gegeven set van validatieregels worden:
+		<ul>
+		<li>Fouten tegen cardinaliteitsbeperkingen worden als error weergegeven.</li>
+                <li>Fouten tegen explicitiete range classificatie worden als warning weergegeven.</li>
+                <li>Fouten tegen codelijsten (de opgegeven waarde is geen onderdeel van de codelijst) worden als error weergegeven.</li>
+                <li>Fouten tegen datatype definitie worden als error weergegeven.</li>
+		</ul>
+	  </div>
 	</div>
       </div>
     </div>
