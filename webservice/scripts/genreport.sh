@@ -10,6 +10,7 @@ BASICRESULT=$3
 ORIGURL=$4
 DATESTAMP=$5
 MAXLINES=30
+RULESET=$6
 
 URLDATESTAMP=$(echo $DATESTAMP | sed -e 's^:^%3A^g')
 TERRORS=`egrep ",\"error\"," ${RESULTSFILE} | wc -l`
@@ -110,6 +111,24 @@ add_properties() {
 	echo ""
     fi
 }
+
+add_properties_simple() {
+    local IFILENAME=$1
+    local LABEL=$2
+    local NNR=$3
+    local TOTAL=$4
+    if [ "${NNR}" != "0" ]; then
+	echo "  :PROPERTIES:"
+	echo "  :HTML_CONTAINER_CLASS: ${LABEL}"
+	echo "  :END:"
+	echo ""
+	# The $i needs fixing here (misuse of the calling form)
+	echo "#+ATTR_HTML: :target _blank :class help-links"
+	genruleset_ruleurl $i
+	
+	echo ""
+    fi
+}
     
 output_form() {
     local IFILENAME=$1
@@ -168,13 +187,37 @@ genruleresults() {
 	class=$(cat ${IFILENAME} | cut -d, -f1 | uniq) ## was "Agent" XXX needs recovering from the IFILENAME list
 	auxilary=$(cat ${IFILENAME} | cut -d, -f9 | uniq)
 	echo "** Rule $i $(create_label ${nrerrors} ${TERRORS} ${nrwarnings} ${TWARNINGS} ${class})"
-	add_properties ${IFILENAME} "errors" "${nrerrors}" ${TERRORS} ${auxilary}
-	add_properties ${IFILENAME} "warnings" "${nrwarnings}" ${TWARNINGS} ${auxilary}
+	add_properties_simple ${IFILENAME} "errors" "${nrerrors}" ${TERRORS} ${auxilary}
+	add_properties_simple ${IFILENAME} "warnings" "${nrwarnings}" ${TWARNINGS} ${auxilary}
 	output_form ${IFILENAME} "errors" "${nrerrors}" ${TERRORS}
 	output_form ${IFILENAME} "warnings" "${nrwarnings}" ${TWARNINGS}
     fi
     rm -rf ${IFILENAME}
   done
+}
+###############################################################################
+genruleset() {
+   case $RULESET in
+     1) echo "The used ruleset is DCAT-AP-VL obligations and recommendations."
+     ;;
+     2) echo "The used ruleset is DCAT-AP mandatory and recommended properties."
+     ;;
+     *)
+     ;;
+   esac
+}
+
+genruleset_ruleurl() {
+   case $RULESET in
+     1) 
+	echo "[[https://github.com/tenforce/vodap-dcatap-validation/raw/master/webservice/rules/dcatapvl_mandatory/rule-$1.rq][Sparql]]"
+     ;;
+     2) 
+	echo "[[https://github.com/tenforce/vodap-dcatap-validation/raw/master/webservice/rules/dcatapvl_recommended/rule-$1.rq][Sparql]]"
+     ;;
+     *)
+     ;;
+   esac
 }
 
 ###############################################################################
@@ -184,15 +227,16 @@ genreport() {
     echo "#+DATE: `date`"
     echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"https://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>"
     echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"https://www.pirilampo.org/styles/readtheorg/css/readtheorg.css\"/>"
-    echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"https://ENV_VALIDATOR_LOCATION/css/highlight.css\" />"   
+    echo "#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"/ENV_VALIDATOR_LOCATION_PATH/css/highlight.css\" />"   
     echo "#+HTML_HEAD: <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>"
     echo "#+HTML_HEAD: <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>"
     echo "#+HTML_HEAD: <script type=\"text/javascript\" src=\"https://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js\"></script>"
     echo "* Introduction"
     echo "Original source link: $ORIGURL"
+    genruleset
     echo "** Processing File Links"
     echo "The following reports and log files are being created during the validation process. "
-    echo "Only if the RDF parsing is successfull (see first report) the content validation whether the data is aligned with the DCAT-AP(VO) profile."
+    echo "Only if the RDF parsing is successfull (see first report) the content validation whether the data is aligned with the DCAT-AP-VL profile."
     echo "  - [[file:feed.$URLDATESTAMP.report][~feed.$DATESTAMP.report - the download & RDF parsing report~]]"
     echo "  - [[file:feed.$URLDATESTAMP][~feed.$DATESTAMP - the downloaded RDF file in turtle~]]"
     echo "  - [[file:load_feed.log][~load_feed.log - loading of the DCAT feed into the RDF store~]]"

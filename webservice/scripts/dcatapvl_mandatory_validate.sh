@@ -36,7 +36,7 @@ done | egrep -v Class_Name > $PROCESSDIR/vodapreport.csv
 ####################################################################################
 # generate the org fle
 log "$PROCESSDIR: generate the org file"
-./genreport.sh $PROCESSDIR/vodapreport.csv $PROCESSDIR/vodapreport.org $PROCESSDIR/basic.csv $dcat_url $DATESTAMP
+./genreport.sh $PROCESSDIR/vodapreport.csv $PROCESSDIR/vodapreport.org $PROCESSDIR/basic.csv $dcat_url $DATESTAMP 1
 
 ####################################################################################
 # style the output

@@ -63,7 +63,7 @@ echo '<body>'
 
 echo "Deze uri: "
 echo "http://data.vlaanderen.be$REDIRECT_URL"
-echo " voldoet niet aan de VO URI strategie."
+echo " voldoet niet aan de Vlaamse Overheid URI strategie."
 echo "\n"
 
 echo "Oorzaak is "

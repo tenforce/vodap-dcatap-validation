@@ -44,37 +44,39 @@ case "${ec}" in
 		;;
 		2) ./dcatapvl_recommended_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
 		;;
-		3) ./dereference.sh $DATESTAMP
+		3) ./dcatap_full_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
+		;;
+		4) ./dereference.sh $DATESTAMP
 		   ./dcatapvl_mandatory_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
 		;;
-		*) ./dcat_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
+		*) ./dcatapvl_mandatory_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
 		;;
            esac
 	   log "Set Pointer to $PROCESSDIR/vodapreport.html"
 	   ln -s $PROCESSDIR/vodapreport.html $PROCESSDIR/index.html
 	   # all the links to the original report are fond in the generated document
        else
-	   log "REDIRECT to load_feed,log - load problem (in /vodap_validator/results/$DATESTAMP)"	
+	   log "REDIRECT to load_feed,log - load problem (in /ENV_VALIDATOR_LOCATION_PATH/results/$DATESTAMP)"	
 	   ln -s $PROCESSDIR/load_feed.log $PROCESSDIR/index.html
        fi
        REDIRECT="http://ENV_VALIDATOR_LOCATION/results/$DATESTAMP"
        ;;
 
     1) # File can be downloaded, but there is a parsing error
-       log "1 status, REDIRECT to load_feed.log - load problem (in /vodap_validator/results/$DATESTAMP)"
+       log "1 status, REDIRECT to load_feed.log - load problem (in /ENV_VALIDATOR_LOCATION_PATH/results/$DATESTAMP)"
        ln -s $PROCESSDIR/feed.$DATESTAMP.report $PROCESSDIR/index.html
        REDIRECT="http://ENV_VALIDATOR_LOCATION/bin/148_error.sh?dcat_url=$dcat_url&details=/ENV_VALIDATOR_LOCATION_PATH/results/$DATESTAMP/feed.$DATESTAMP.report"       
        ;;
 
     2) # File cannot be downloaded, so redirect to the 404 message
        ln -s $PROCESSDIR/feed.$DATESTAMP.report $PROCESSDIR/index.html
-       log "404 code, /vodap_validator/bin/404_error.sh?dcat_url=$dcat_url"
+       log "404 code, /ENV_VALIDATOR_LOCATION_PATH/bin/404_error.sh?dcat_url=$dcat_url"
        REDIRECT="http://ENV_VALIDATOR_LOCATION/bin/404_error.sh?dcat_url=$dcat_url"
        ;;
   
   148) # File can be downloaded, but there is a parsing error
        # ln -s $PROCESSDIR/feed.$DATESTAMP.report $PROCESSDIR/index.html
-       log "148 code, REDIRECT to $PROCESSDIR/feed.$DATESTAMP.report - load problem (in /vodap_validator/results/$DATESTAMP)"
+       log "148 code, REDIRECT to $PROCESSDIR/feed.$DATESTAMP.report - load problem (in /ENV_VALIDATOR_LOCATION_PATH/results/$DATESTAMP)"
        REDIRECT="http://ENV_VALIDATOR_LOCATION/bin/148_error.sh?dcat_url=$dcat_url&details=/ENV_VALIDATOR_LOCATION_PATH/results/$DATESTAMP/feed.$DATESTAMP.download"       
        ;;
 

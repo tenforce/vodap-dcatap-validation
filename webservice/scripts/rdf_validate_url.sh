@@ -13,7 +13,8 @@ STATUS=0
 
 ####################################################################################
 #echo "stage1: download" 
-wget $URL -o $FILE.download -O $FILE
+curl -k -o $FILE -s -S $URL &> $FILE.download
+#wget $URL -o $FILE.download -O $FILE
 STATUS=$?
 if [ $STATUS != 0 ] ; then 
     # echo "maybe https certificate?"   
