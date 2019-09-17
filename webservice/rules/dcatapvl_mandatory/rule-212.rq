@@ -1,0 +1,27 @@
+# Rule_ID:212
+# @title [Agent] foaf:name should have a single value per a language tag
+# @tag agent
+
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+WHERE {
+  ?s a foaf:Agent.
+  ?s foaf:name ?o.
+  FILTER(!isLiteral(?o)).
+   { select  count ( ?oo ) as ?c  ?lang where {
+       ?s a foaf:Agent.
+       ?s foaf:name ?oo.
+       FILTER(isLiteral(?oo)).
+       BIND (lang(?oo) as ?lang).
+       } group by ?lang
+}
+  FILTER (?c > 1).
+  BIND (?lang as ?o ).
+  BIND (foaf:name AS ?p)
+  BIND ("Agent" AS ?Class_Name).
+  BIND (1 AS ?Rule_ID).
+  BIND ("error" AS ?Rule_Severity).
+  BIND ("The foaf:name property should have just one value per language tag." AS ?Rule_Description).
+  BIND (concat("The foaf:name property ",str(?p)," has more than one value per language tag ", str(?lang)) AS ?Message).
+}

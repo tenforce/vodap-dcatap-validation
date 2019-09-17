@@ -1,0 +1,19 @@
+# Rule_ID:211
+# @title [Agent] foaf:name should have a language tag
+# @tag agent
+
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+WHERE {
+  ?s a foaf:Agent.
+  ?s foaf:name ?o.
+  FILTER(isLiteral(?o)).
+  FILTER(lang(?o) = "").
+  BIND (foaf:name AS ?p)
+  BIND ("Agent" AS ?Class_Name).
+  BIND (1 AS ?Rule_ID).
+  BIND ("error" AS ?Rule_Severity).
+  BIND ("The foaf:name property should have a language tag." AS ?Rule_Description).
+  BIND (concat("The foaf:name property ",str(?p)," has no language tag.") AS ?Message).
+}

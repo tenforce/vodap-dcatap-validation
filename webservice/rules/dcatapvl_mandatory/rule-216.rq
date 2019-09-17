@@ -1,0 +1,28 @@
+# Rule_ID:216
+# @title [Distribution] dct:title should have a single value per a language tag
+# @tag Distribution
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o  ?Rule_Auxillary
+WHERE {
+  ?s a dcat:Distribution.
+   { select  count ( ?oo ) as ?c  ?lang where {
+       ?s a dcat:Distribution.
+       ?s dct:title ?oo.
+       FILTER(isLiteral(?oo)).
+       BIND (lang(?oo) as ?lang).
+       } group by ?lang
+}
+  FILTER (?c > 1).
+  BIND (?lang as ?o ).
+  BIND (dct:title AS ?p).
+  BIND ("Distribution" AS ?Class_Name).
+  BIND (210 AS ?Rule_ID).
+  BIND ("error" AS ?Rule_Severity).
+  BIND ("dct:title should have just one value per language tag." AS ?Rule_Description).
+  BIND (concat("The dct:title of distribution ",str(?s)," has more than one value per language tag ",str(?lang)) AS ?Message).
+  BIND ("vodap" AS ?Rule_Auxillary).
+}
+

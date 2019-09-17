@@ -1,5 +1,5 @@
 # Rule_ID:411
-# @title [Dataset] vcard:hasEmail is a mandatory property for a ContactPoint of a Dataset
+# @title [ContactPoint] vcard:hasEmail is a mandatory property for a ContactPoint of a Dataset
 # @tag dataset
 
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
@@ -13,10 +13,10 @@ WHERE {
   FILTER(!(EXISTS { ?cPoint vcard:hasEmail ?email})).
   BIND (rdf:type AS ?p).
   BIND (dcat:Dataset AS ?o).
-  BIND ("Dataset" AS ?Class_Name).
+  BIND ("ContactPoint" AS ?Class_Name).
   BIND (411 AS ?Rule_ID).
   BIND ("error" AS ?Rule_Severity).
   BIND ("vcard:hasEmail is a mandatory property for a contactpoint of a Dataset." AS ?Rule_Description).
-  BIND (concat("The dcat:Dataset ",str(?s)," does not have a vcard:hasEmail property.") AS ?Message).
+  BIND (concat("The contactpoint of dcat:Dataset ",str(?s)," does not have a vcard:hasEmail property.") AS ?Message).
   BIND ("vodap" AS ?Rule_Auxillary).  
 }

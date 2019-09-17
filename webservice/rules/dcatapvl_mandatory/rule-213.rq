@@ -1,0 +1,28 @@
+# Rule_ID:213
+# @title [Catalog] dct:desription should have a single value per a language tag
+# @tag Catalog
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o  ?Rule_Auxillary
+WHERE {
+  ?s a dcat:Catalog.
+   { select  count ( ?oo ) as ?c  ?lang where {
+       ?s a dcat:Catalog.
+       ?s dct:desription ?oo.
+       FILTER(isLiteral(?oo)).
+       BIND (lang(?oo) as ?lang).
+       } group by ?lang
+}
+  FILTER (?c > 1).
+  BIND (?lang as ?o ).
+  BIND (dct:description AS ?p).
+  BIND ("Catalog" AS ?Class_Name).
+  BIND (210 AS ?Rule_ID).
+  BIND ("error" AS ?Rule_Severity).
+  BIND ("dct:description should have just one value per language tag." AS ?Rule_Description).
+  BIND (concat("The dct:description ",str(?s)," has more than one value per language tag ",str(?lang)) AS ?Message).
+  BIND ("vodap" AS ?Rule_Auxillary).
+}
+
