@@ -13,7 +13,7 @@ STATUS=0
 
 ####################################################################################
 #echo "stage1: download" 
-curl -k -o $FILE -s -S $URL &> $FILE.download
+curl -k -L -o $FILE -s -S $URL &> $FILE.download
 #wget $URL -o $FILE.download -O $FILE
 STATUS=$?
 if [ $STATUS != 0 ] ; then 
