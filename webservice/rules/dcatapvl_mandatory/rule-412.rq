@@ -1,0 +1,24 @@
+# Rule_ID:412
+# @title [ContactPoint] vcard:hasEmail is a URI with the mailto protocol
+# @tag dataset
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o ?Rule_Auxillary
+WHERE {
+  ?s a dcat:Dataset.
+  ?s dcat:contactPoint ?cPoint.
+  ?cPoint vcard:hasEmail ?email.
+  filter isIRI(?email).
+  filter( strstarts(str(?email), "mailto:")).
+  BIND (vcard:hasEmail AS ?p).
+  BIND (dcat:Dataset AS ?o).
+  BIND ("ContactPoint" AS ?Class_Name).
+  BIND (411 AS ?Rule_ID).
+  BIND ("error" AS ?Rule_Severity).
+  BIND ("vcard:hasEmail for a contactpoint of a Dataset is a URI with the mailto protocol." AS ?Rule_Description).
+  BIND (concat("The vcard:hasEmail of contactpoint of dcat:Dataset ",str(?s)," is not a URI with the mailto protocol.") AS ?Message).
+  BIND ("vodap" AS ?Rule_Auxillary).  
+}
