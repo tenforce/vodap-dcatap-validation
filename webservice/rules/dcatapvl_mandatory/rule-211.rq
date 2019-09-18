@@ -12,7 +12,7 @@ WHERE {
   FILTER(lang(?o) = "").
   BIND (foaf:name AS ?p)
   BIND ("Agent" AS ?Class_Name).
-  BIND (1 AS ?Rule_ID).
+  BIND (211 AS ?Rule_ID).
   BIND ("error" AS ?Rule_Severity).
   BIND ("The foaf:name property should have a language tag." AS ?Rule_Description).
   BIND (concat("The foaf:name property ",str(?p)," has no language tag.") AS ?Message).

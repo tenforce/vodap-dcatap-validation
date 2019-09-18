@@ -19,7 +19,7 @@ WHERE {
   BIND (?lang as ?o ).
   BIND (dct:title AS ?p).
   BIND ("Distribution" AS ?Class_Name).
-  BIND (210 AS ?Rule_ID).
+  BIND (216 AS ?Rule_ID).
   BIND ("error" AS ?Rule_Severity).
   BIND ("dct:title should have just one value per language tag." AS ?Rule_Description).
   BIND (concat("The dct:title of distribution ",str(?s)," has more than one value per language tag ",str(?lang)) AS ?Message).

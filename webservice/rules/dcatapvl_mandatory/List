@@ -1,0 +1,58 @@
+rule-0.rq:# @title [Agent] foaf:name is a required property for Agent
+rule-100.rq:# @title [Dataset] dct:accessRights has maximum cardinality of 1 for Dataset
+rule-112.rq:# @title [Catalog] dcat:Catalog does not exist
+rule-113.rq:# @title [Agent] foaf:Agent does not exist
+rule-114.rq:# @title [Dataset] dcat:Dataset does not exist
+rule-115.rq:# @title [Dataset] dcat:theme should be a skos:Concept
+rule-11.rq:# @title [Catalog] dct:publisher should be a foaf:Agent
+rule-12.rq:# @title [Catalog] dct:title is a required property for Catalog
+rule-138.rq:# @title [Catalog] dct:license should be a dct:LicenseDocument
+rule-13.rq:# @title [Catalog] dct:title should be a literal
+rule-150.rq:# @title [Dataset] dct:accessRights should be a dct:RightsStatement
+rule-163.rq:# @title [Distribution] dcat:Distribution does not exist
+rule-1.rq:# @title [Agent] foaf:name should be a literal
+rule-200.rq:# @title [Distribution] dct:title is a mandatory property for Distribution
+rule-201.rq:# @title [Catalog] dct:license is a required property for Catalog
+rule-202.rq:# @title [Catalog] dct:license is CC0
+rule-203.rq:# @title [Dataset] dct:accessRights must be _:public
+rule-204.rq:# @title [Dataset] dct:accessRights is required
+rule-205.rq:# @title [Distribution] dct:title should have a language tag
+rule-206.rq:# @title [Dataset] dct:title should have a language tag
+rule-207.rq:# @title [Dataset] dct:description should have a language tag
+rule-208.rq:# @title [Catalog] dct:description should have a language tag
+rule-209.rq:# @title [Catalog] dct:title should have a language tag
+rule-210.rq:# @title [Catalog] dct:title should have a single value per a language tag
+rule-211.rq:# @title [Agent] foaf:name should have a language tag
+rule-212.rq:# @title [Agent] foaf:name should have a single value per a language tag
+rule-213.rq:# @title [Catalog] dct:desription should have a single value per a language tag
+rule-214.rq:# @title [Dataset] dct:title should have a single value per a language tag
+rule-215.rq:# @title [Dataset] dct:desription should have a single value per a language tag
+rule-216.rq:# @title [Distribution] dct:title should have a single value per a language tag
+rule-220.rq:# @title [Distribution] dcat:accessURL has a maximum cardinality of 1 for Distribution
+rule-23.rq:# @title [Catalog] dct:license has a maximum cardinality of 1 for Catalog
+rule-37.rq:# @title [Dataset] dct:description is a required property for Dataset
+rule-38.rq:# @title [Dataset] dct:description should be a literal
+rule-39.rq:# @title [Dataset] dct:title is a required property for Dataset
+rule-40.rq:# @title [Dataset] dct:title should be a literal
+rule-411.rq:# @title [ContactPoint] vcard:hasEmail is a mandatory property for a ContactPoint of a Dataset
+rule-412.rq:# @title [ContactPoint] vcard:hasEmail is a URI with the mailto protocol
+rule-41.rq:# @title [Dataset] dcat:contactPoint is a required property for Dataset
+rule-43.rq:# @title [Dataset] dcat:contactPoint should be a vcard:Kind
+rule-44.rq:# @title [Dataset] dcat:distribution is a required property for Dataset
+rule-46.rq:# @title [Dataset] dcat:distribution should be a dcat:Distribution
+rule-49.rq:# @title [Dataset] dct:publisher is a mandatory property for Dataset
+rule-4.rq:# @title [Catalog] dcat:dataset is a required property for Catalog
+rule-50.rq:# @title [Dataset] dct:publisher has maximum cardinality of 1 for Dataset
+rule-52.rq:# @title [Dataset] dct:publisher should be a foaf:Agent
+rule-5.rq:# @title [Catalog] dcat:dataset should be a dcat:Dataset
+rule-6.rq:# @title [Catalog] dct:description is a required property for Catalog
+rule-79.rq:# @title [Distribution] dcat:accessURL is a required property for Distribution
+rule-7.rq:# @title [Catalog] dct:description should be a literal
+rule-80.rq:# @title [Distribution] dcat:accessURL should be a resource
+rule-82.rq:# @title [Distribution] dct:description should be a literal
+rule-86.rq:# @title [Distribution] dct:license is a mandatory property for Distribution
+rule-87.rq:# @title [Distribution] dct:license should be a dct:LicenseDocument
+rule-88.rq:# @title [Distribution] dct:license has a maximum cardinality of 1 for Distribution
+rule-8.rq:# @title [Catalog] dct:publisher is a required property for Catalog
+rule-95.rq:# @title [Distribution] dct:title should be a literal
+rule-9.rq:# @title [Catalog] dct:publisher has maximum cardinality of 1 for Catalog

@@ -1,0 +1,58 @@
+[Agent] foaf:Agent does not exist
+[Agent] foaf:name is a required property for Agent
+[Agent] foaf:name should be a literal
+[Agent] foaf:name should have a language tag
+[Agent] foaf:name should have a single value per a language tag
+[Catalog] dcat:Catalog does not exist
+[Catalog] dcat:dataset is a required property for Catalog
+[Catalog] dcat:dataset should be a dcat:Dataset
+[Catalog] dct:description is a required property for Catalog
+[Catalog] dct:description should be a literal
+[Catalog] dct:description should have a language tag
+[Catalog] dct:desription should have a single value per a language tag
+[Catalog] dct:license has a maximum cardinality of 1 for Catalog
+[Catalog] dct:license is a required property for Catalog
+[Catalog] dct:license is CC0
+[Catalog] dct:license should be a dct:LicenseDocument
+[Catalog] dct:publisher has maximum cardinality of 1 for Catalog
+[Catalog] dct:publisher is a required property for Catalog
+[Catalog] dct:publisher should be a foaf:Agent
+[Catalog] dct:title is a required property for Catalog
+[Catalog] dct:title should be a literal
+[Catalog] dct:title should have a language tag
+[Catalog] dct:title should have a single value per a language tag
+[ContactPoint] vcard:hasEmail is a mandatory property for a ContactPoint of a Dataset
+[ContactPoint] vcard:hasEmail is a URI with the mailto protocol
+[Dataset] dcat:contactPoint is a required property for Dataset
+[Dataset] dcat:contactPoint should be a vcard:Kind
+[Dataset] dcat:Dataset does not exist
+[Dataset] dcat:distribution is a required property for Dataset
+[Dataset] dcat:distribution should be a dcat:Distribution
+[Dataset] dcat:theme should be a skos:Concept
+[Dataset] dct:accessRights has maximum cardinality of 1 for Dataset
+[Dataset] dct:accessRights is required
+[Dataset] dct:accessRights must be _:public
+[Dataset] dct:accessRights should be a dct:RightsStatement
+[Dataset] dct:description is a required property for Dataset
+[Dataset] dct:description should be a literal
+[Dataset] dct:description should have a language tag
+[Dataset] dct:desription should have a single value per a language tag
+[Dataset] dct:publisher has maximum cardinality of 1 for Dataset
+[Dataset] dct:publisher is a mandatory property for Dataset
+[Dataset] dct:publisher should be a foaf:Agent
+[Dataset] dct:title is a required property for Dataset
+[Dataset] dct:title should be a literal
+[Dataset] dct:title should have a language tag
+[Dataset] dct:title should have a single value per a language tag
+[Distribution] dcat:accessURL has a maximum cardinality of 1 for Distribution
+[Distribution] dcat:accessURL is a required property for Distribution
+[Distribution] dcat:accessURL should be a resource
+[Distribution] dcat:Distribution does not exist
+[Distribution] dct:description should be a literal
+[Distribution] dct:license has a maximum cardinality of 1 for Distribution
+[Distribution] dct:license is a mandatory property for Distribution
+[Distribution] dct:license should be a dct:LicenseDocument
+[Distribution] dct:title is a mandatory property for Distribution
+[Distribution] dct:title should be a literal
+[Distribution] dct:title should have a language tag
+[Distribution] dct:title should have a single value per a language tag

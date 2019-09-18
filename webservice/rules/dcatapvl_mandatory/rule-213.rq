@@ -1,5 +1,5 @@
 # Rule_ID:213
-# @title [Catalog] dct:desription should have a single value per a language tag
+# @title [Catalog] dct:description should have a single value per a language tag
 # @tag Catalog
 
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
@@ -19,7 +19,7 @@ WHERE {
   BIND (?lang as ?o ).
   BIND (dct:description AS ?p).
   BIND ("Catalog" AS ?Class_Name).
-  BIND (210 AS ?Rule_ID).
+  BIND (213 AS ?Rule_ID).
   BIND ("error" AS ?Rule_Severity).
   BIND ("dct:description should have just one value per language tag." AS ?Rule_Description).
   BIND (concat("The dct:description ",str(?s)," has more than one value per language tag ",str(?lang)) AS ?Message).
