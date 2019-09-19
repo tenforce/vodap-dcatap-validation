@@ -10,8 +10,13 @@ SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?
 WHERE {
   ?s a dcat:Dataset.
   ?s dct:publisher ?o.
+  ?o ?op ?ov.
+  {
   ?o a ?type.
   FILTER(!(?type in (foaf:Agent, foaf:Organization,foaf:Person)) ).
+  } union {
+  FILTER(!EXISTS {?o a ?t}).
+  }
   BIND ("Dataset" AS ?Class_Name).
   BIND (52 AS ?Rule_ID).
   BIND ("error" AS ?Rule_Severity).
