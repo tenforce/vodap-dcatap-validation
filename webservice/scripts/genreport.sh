@@ -176,7 +176,7 @@ create_label() {
 
 ###############################################################################
 genruleresults() {
-  for i in {0..256} 
+  for i in {0..500} #nb is number of the rule
   do
     IFILENAME=/tmp/items${PID}.txt
     egrep ",$i," ${RESULTSFILE} | tr -d "\"" | head -${MAXLINES} > ${IFILENAME}
