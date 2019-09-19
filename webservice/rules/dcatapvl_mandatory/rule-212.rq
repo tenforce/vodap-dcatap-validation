@@ -6,12 +6,12 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 
 SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
 WHERE {
-  ?s a foaf:Agent.
-  ?s foaf:name ?o.
-  FILTER(!isLiteral(?o)).
+  ?s a ?type.
+  FILTER(?type in (foaf:Agent, foaf:Organization,foaf:Person)) .
    { select  count ( ?oo ) as ?c  ?lang where {
-       ?s a foaf:Agent.
        ?s foaf:name ?oo.
+       ?s a ?type.
+       FILTER(?type in (foaf:Agent, foaf:Organization,foaf:Person)) .
        FILTER(isLiteral(?oo)).
        BIND (lang(?oo) as ?lang).
        } group by ?lang
