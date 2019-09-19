@@ -1,5 +1,5 @@
-# Rule_ID:411
-# @title [ContactPoint] vcard:hasEmail is a mandatory property for a ContactPoint of a Dataset
+# Rule_ID:413
+# @title [ContactPoint] vcard:hasEmail is a URI 
 # @tag dataset
 
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
@@ -10,13 +10,14 @@ SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o ?
 WHERE {
   ?s a dcat:Dataset.
   ?s dcat:contactPoint ?cPoint.
-  FILTER(!(EXISTS { ?cPoint vcard:hasEmail ?email})).
-  BIND (rdf:type AS ?p).
+  ?cPoint vcard:hasEmail ?email.
+  filter ( ! ( isIRI(?email))) .
+  BIND (vcard:hasEmail AS ?p).
   BIND (dcat:Dataset AS ?o).
   BIND ("Kind" AS ?Class_Name).
-  BIND (411 AS ?Rule_ID).
+  BIND (413 AS ?Rule_ID).
   BIND ("error" AS ?Rule_Severity).
-  BIND ("vcard:hasEmail is a mandatory property for a contactpoint of a Dataset." AS ?Rule_Description).
-  BIND (concat("The contactpoint of dcat:Dataset ",str(?s)," does not have a vcard:hasEmail property.") AS ?Message).
+  BIND ("vcard:hasEmail for a contactpoint of a Dataset is a URI" AS ?Rule_Description).
+  BIND (concat("The vcard:hasEmail of contactpoint of dcat:Dataset ",str(?s)," is not a URI.") AS ?Message).
   BIND ("vodap" AS ?Rule_Auxillary).  
 }
