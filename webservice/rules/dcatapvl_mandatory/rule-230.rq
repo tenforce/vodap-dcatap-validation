@@ -13,7 +13,7 @@ WHERE {
   BIND (dct:title AS ?p).
   BIND ("Dataset" AS ?Class_Name).
   BIND (230 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:title should not be an empty string." AS ?Rule_Description).
   BIND (concat("The dct:title property ",str(?p)," should not be an empty string.") AS ?Message).
 }

@@ -12,10 +12,10 @@ WHERE {
   ?s dcat:contactPoint ?cPoint.
   ?cPoint vcard:hasEmail ?email.
   filter isIRI(?email).
-  filter( strstarts(str(?email), "mailto:")).
+  filter( ! (strstarts(str(?email), "mailto:"))).
   BIND (vcard:hasEmail AS ?p).
   BIND (dcat:Dataset AS ?o).
-  BIND ("ContactPoint" AS ?Class_Name).
+  BIND ("Kind" AS ?Class_Name).
   BIND (412 AS ?Rule_ID).
   BIND ("error" AS ?Rule_Severity).
   BIND ("vcard:hasEmail for a contactpoint of a Dataset is a URI with the mailto protocol." AS ?Rule_Description).
