@@ -21,6 +21,7 @@
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/temporal> _:b3 .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/temporal> _:b4 .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/title> "" .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/title> <https://dummy.com/dummy> .
 <https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Dataset> .
 <https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/2002/07/owl#versionInfo> <http://dummy.com/dummy>.
 <https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/ns/dcat#contactPoint> _:b5 .
