@@ -9,7 +9,7 @@ SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?
 WHERE {
   ?s a dcat:Catalog.
   ?s dct:license ?o.
-  ?o ?pred ?val.
+  ?o ?op ?ov.
   FILTER(!EXISTS {?o a dct:LicenseDocument}).
   BIND ("Catalog" AS ?Class_Name).
   BIND (138 AS ?Rule_ID).

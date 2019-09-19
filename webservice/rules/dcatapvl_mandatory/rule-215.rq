@@ -10,7 +10,7 @@ WHERE {
   ?s a dcat:Dataset.
    { select  count ( ?oo ) as ?c  ?lang where {
        ?s a dcat:Dataset.
-       ?s dct:desription ?oo.
+       ?s dct:description ?oo.
        FILTER(isLiteral(?oo)).
        BIND (lang(?oo) as ?lang).
        } group by ?lang
