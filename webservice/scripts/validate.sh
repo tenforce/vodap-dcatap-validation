@@ -42,7 +42,7 @@ case "${ec}" in
 	   case "${regels}" in
 		1) ./dcatapvl_mandatory_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
 		;;
-		2) ./dcatapvl_recommended_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
+		2) ./dcatap_recommended_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
 		;;
 		3) ./dcatap_full_validate.sh http://data.vlaanderen.be/id/dataset/$DATESTAMP $dcat_url $DATESTAMP
 		;;
