@@ -62,7 +62,7 @@
             <!-- radiobutton component -->
 	  <div class="u-align-left">
             <label class="radio">
-              <input type="radio" name="regels" class="radio__toggle" value="3"><span></span>all DCAT-AP verplichte, aanbevolen en optionele velden
+              <input type="radio" name="regels" class="radio__toggle" value="3"><span></span>DCAT-AP verplichte, aanbevolen en optionele velden
             </label>
 	  </div>
 	  <div class="u-align-left">
@@ -73,7 +73,7 @@
             <!-- radiobutton component -->            
 	  <div class="u-align-left">
             <label class="radio">
-              <input type="radio" name="regels" class="radio__toggle" value="3"><span></span>Bijkomende DCAT-AP-VL verplichtingen met derefentie licenties 
+              <input type="radio" name="regels" class="radio__toggle" value="3"><span></span>Bijkomende DCAT-AP VL verplichtingen na toepassing van dereferentie van licenties.
             </label>         
 	  </div>
 
@@ -86,11 +86,11 @@
 	  <div class="u-float-left col--1-16 col--1-16--s">
 		Voor een gegeven set van validatieregels worden:
 		<ul>
-		<li>Fouten tegen cardinaliteitsbeperkingen worden als error weergegeven.</li>
-                <li>Fouten tegen codelijsten (de opgegeven waarde is geen onderdeel van de codelijst) worden als error weergegeven.</li>
-                <li>Fouten tegen datatype definitie worden als error weergegeven.</li>
-                <li>Fouten tegen explicitiete range classificatie worden als warning weergegeven.</li>
-                <li>Expliciete range classificatie validatie wordt enkel geactiveerd als er meer info over de waarde wordt meegegeven.</li>
+		<li>Fouten tegen max-cardinaliteitsbeperkingen worden als error weergegeven.</li>
+		<li>Fouten tegen min-cardinaliteitsbeperkingen worden als error weergegeven enkel voor verplichte velden, voor andere slechts als warning.</li>
+                <li>Fouten tegen codelijsten, namelijk de opgegeven waarde is geen onderdeel van de codelijst,  worden als error weergegeven.</li>
+                <li>Fouten tegen range datatype, namelijk de opgegeven waarde voldoet niet aan de expliciete datatypering, worden als error weergegeven.</li>
+                <li>Fouten tegen range class, namelijk de opgegeven waarde is geen lid van de verwachte klasse, worden als warning weergegeven.</li>
 		</ul>
 	  </div>
 	</div>
