@@ -8,13 +8,13 @@ SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
 WHERE {
   ?s a ?type.
   FILTER(?type in (foaf:Agent, foaf:Organization,foaf:Person)) .
-   { select  count ( ?oo ) as ?c  ?lang where {
+   { select ?s  count ( ?oo ) as ?c  ?lang where {
        ?s foaf:name ?oo.
        ?s a ?type.
        FILTER(?type in (foaf:Agent, foaf:Organization,foaf:Person)) .
        FILTER(isLiteral(?oo)).
        BIND (lang(?oo) as ?lang).
-       } group by ?lang
+       } group by ?lang ?s
 }
   FILTER (?c > 1).
   BIND (?lang as ?o ).
