@@ -4,8 +4,9 @@
 /config/bin/replace-env.sh /scripts/validate.sh
 /config/bin/replace-env.sh /scripts/rdf_validate_url.sh
 /config/bin/replace-env.sh /scripts/dcat_validate.sh
-/config/bin/replace-env.sh /scripts/dcatapvl_recommended_validate.sh
+/config/bin/replace-env.sh /scripts/dcatap_recommended_validate.sh
 /config/bin/replace-env.sh /scripts/dcatapvl_mandatory_validate.sh
+/config/bin/replace-env.sh /scripts/dcatap_full_validate.sh
 /config/bin/replace-env.sh /scripts/dereference.sh
 /config/bin/replace-env.sh /scripts/load_feeds.sh
 /config/bin/replace-env.sh /scripts/datasets.sh
