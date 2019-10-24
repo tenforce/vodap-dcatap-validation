@@ -5,16 +5,22 @@
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 
-SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o ?Rule_Auxillary
 WHERE {
   ?s a dcat:Dataset.
   ?s dcat:contactPoint ?o.
-  ?o ?pred ?val.
-  FILTER(!EXISTS {?o a vcard:Kind}).
+  ?o ?op ?ov.
+  {
+  ?o a ?type.
+  FILTER(!(?type in (vcard:Kind, vcard:Organization,vcard:Individual,vcard:Location,vcard:Group )) ).
+  } union {
+  FILTER(! ( EXISTS {?o a ?t})).
+  }
   BIND (dcat:contactPoint AS ?p).
   BIND ("Dataset" AS ?Class_Name).
   BIND (43 AS ?Rule_ID).
   BIND ("error" AS ?Rule_Severity).
   BIND ("dcat:contactPoint should be a vcard:Kind." AS ?Rule_Description).
   BIND (concat("The dcat:contactPoint ",str(?p)," is not a vcard:Kind.") AS ?Message).
+  BIND ("vodap" AS ?Rule_Auxillary).  
 }

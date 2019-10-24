@@ -6,10 +6,18 @@ PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
 SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
 WHERE {
-  FILTER(!EXISTS {?s a dcat:Distribution}).
+{
+select count(?a) as ?number where {
+?a a dcat:Distribution
+}
+}
+filter(?number = 0).  
   BIND ("Distribution" AS ?Class_Name).
   BIND (163 AS ?Rule_ID).
   BIND ("warning" AS ?Rule_Severity).
   BIND ("dcat:Distribution does not exist." AS ?Rule_Description).
   BIND (concat("The recommended class dcat:Distribution does not exist.") AS ?Message).
+  Bind ("" as ?s).
+  Bind ("" as ?p).
+  Bind ("" as ?o).
 }
