@@ -17,12 +17,28 @@
 <https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://purl.org/dc/terms/modified> "2019-03-27T15:15:08Z" .
 <https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://purl.org/dc/terms/title> "" .
 <https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://spdx.org/rdf/terms#checksum> <https://dummy.com/dummycheck> .
+<https://dummy.com/dummycheck> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://www.w3.org/ns/adms#status> <https://dummy.com/dummyStatus> .
+<https://dummy.com/dummyStatus> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://xmlns.com/foaf/0.1/page> <https://dummy.com/dummyPage>.
+<https://dummy.com/dummyPage> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
 <https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://www.w3.org/ns/dcat#accessURL> "https://mijnorganisatie/opendata/datasets/1/distributies/api" .
 <https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://www.w3.org/ns/dcat#downloadURL> "https://mijnorganisatie/opendata/datasets/1/distributies/api/2" .
+<https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://purl.org/dc/terms/language> "http://publications.europa.eu/resource/authority/language/ENG".
+<https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://purl.org/dc/terms/language> <https://dummy.com/dummyLan>.
+<https://dummy.com/dummyLan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://purl.org/dc/terms/conformsTo> <https://dummy.com/dummyStandaard>.
+<https://dummy.com/dummyStandaard> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
 <https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/format> "http://publications.europa.eu/resource/authority/file-type/CSV" .
 <https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/format> <http://publications.europa.eu/resource/authority/file-type/PDF> .
+<http://publications.europa.eu/resource/authority/file-type/PDF> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://www.w3.org/ns/dcat#mediaType> <http://publications.europa.eu/resource/authority/file-type/PDF> .
+<http://publications.europa.eu/resource/authority/file-type/PDF> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
 <https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/license> "https://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/v1.0" .
 <https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/title> <http://dummy.com/dummy> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/rights> <http://dummy.com/dummy> .
+<http://dummy.com/dummy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
 <https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
 <https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://www.w3.org/ns/dcat#accessURL> <https://mijnorganisatie/opendata/datasets/1/distributies/csv> .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/accessRights> <http://publications.europa.eu/resource/authority/access-right/PUBLIC> .
