@@ -18,8 +18,7 @@
 <https://dummy.com/dummyDataset> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/provenance> <https://dummy.com/dummyProv> .
 <https://dummy.com/dummyProv> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
-<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/relation> <https://dummy.com/dummyRel> .
-<https://dummy.com/dummyRel> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/relation> "a related item".
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/conformsTo> <https://dummy.com/dummyStandard> .
 <https://dummy.com/dummyStandard> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/accrualPeriodicity> <https://dummy.com/dummyFreq> .
@@ -34,17 +33,24 @@
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/spatial> <http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen> .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/temporal> _:b3 .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/temporal> _:b4 .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/issued> "2016-12-10T12:54:04Z" .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/modified> "2016-12-11T12:54:04Z" .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/title> "" .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/title> <https://dummy.com/dummy> .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/type> <https://dummy.com/dummyType> .
 <https://dummy.com/dummyType> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
-<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/adms/sample> <https://dummy.com/dummySample> .
+<https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/ns/adms#sample> <https://dummy.com/dummySample> .
 <https://dummy.com/dummySample> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/ns/adms#identifier> <https://dummy.com/dummyID> .
+<https://dummy.com/dummyID> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/ns/adms#versionNotes> <https://dummy.com/dummyNotes> .
 <https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Dataset> .
 <https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/2002/07/owl#versionInfo> <http://dummy.com/dummy>.
 <https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/ns/dcat#contactPoint> _:b5 .
 <https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/ns/dcat#contactPoint> _:b6 .
 <https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/ns/dcat#keyword> <http://dummy.com/dummy>.
+<https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/ns/dcat#landingPage> <http://dummy.com/dummyLpage>.
+<https://dummy.com/dummyLpage> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
 <https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/ns/dcat#theme> "http://vocab.belgif.be/auth/datatheme/SOCI" .
 _:b0 <http://purl.org/dc/terms/type> <http://purl.org/adms/publishertype/LocalAuthority> .
 _:b0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Agent> .
@@ -65,7 +71,7 @@ _:b5 <http://www.w3.org/2006/vcard/ns#fn> "Mijn Toffe Organisatie" .
 _:b5 <http://www.w3.org/2006/vcard/ns#hasEmail> "mailto:opendata@mijnorganisatie.be" .
 _:b5 <http://www.w3.org/2006/vcard/ns#hasURL> "http://mijnorganisatie.org/" .
 _:b5 <http://www.w3.org/2006/vcard/ns#organization-name> "Mijn Toffe Organisatie" .
-_:b6 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/vcard/ns#Organization> .
+_:b6 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dummy.com/dummyType>.
 _:b6 <http://www.w3.org/2006/vcard/ns#fn> "Mijn Toffe Organisatie 2" .
 _:b6 <http://www.w3.org/2006/vcard/ns#hasEmail> <http://opendata@mijnorganisatie.be> .
 _:b6 <http://www.w3.org/2006/vcard/ns#hasURL> <http://mijnorganisatie.org/2> .
