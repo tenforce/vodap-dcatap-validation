@@ -10,6 +10,20 @@
 <https://mijnorganisatie/opendata/catalogus> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Catalog> .
 <https://mijnorganisatie/opendata/catalogus> <http://www.w3.org/ns/dcat#dataset> <https://mijnorganisatie/opendata/datasets/1> .
 <https://mijnorganisatie/opendata/catalogus> <http://xmlns.com/foaf/0.1/homepage> <https://mijnorganisatie/index.html> .
+<https://mijnorganisatie/opendata/datasets/1> <http://xmlns.com/foaf/0.1/page> <https://dummy.com/dummyPage> .
+<https://dummy.com/dummyPage> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/hasVersion> <https://dummy.com/dummyDataset> .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/isVersionOf> <https://dummy.com/dummyDataset> .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/source> <https://dummy.com/dummyDataset> .
+<https://dummy.com/dummyDataset> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/provenance> <https://dummy.com/dummyProv> .
+<https://dummy.com/dummyProv> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/relation> <https://dummy.com/dummyRel> .
+<https://dummy.com/dummyRel> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/conformsTo> <https://dummy.com/dummyStandard> .
+<https://dummy.com/dummyStandard> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/accrualPeriodicity> <https://dummy.com/dummyFreq> .
+<https://dummy.com/dummyFreq> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/accessRights> "".
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/description> "".
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/description> <http://dummy.com/dummy>.
@@ -22,6 +36,10 @@
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/temporal> _:b4 .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/title> "" .
 <https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/title> <https://dummy.com/dummy> .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/dc/terms/type> <https://dummy.com/dummyType> .
+<https://dummy.com/dummyType> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
+<https://mijnorganisatie/opendata/datasets/1> <http://purl.org/adms/sample> <https://dummy.com/dummySample> .
+<https://dummy.com/dummySample> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
 <https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Dataset> .
 <https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/2002/07/owl#versionInfo> <http://dummy.com/dummy>.
 <https://mijnorganisatie/opendata/datasets/1> <http://www.w3.org/ns/dcat#contactPoint> _:b5 .
