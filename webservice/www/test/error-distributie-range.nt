@@ -34,6 +34,7 @@
 <https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/format> <http://publications.europa.eu/resource/authority/file-type/PDF> .
 <http://publications.europa.eu/resource/authority/file-type/PDF> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
 <https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://www.w3.org/ns/dcat#mediaType> <http://publications.europa.eu/resource/authority/file-type/PDF> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/byteSize> "12312321A".
 <http://publications.europa.eu/resource/authority/file-type/PDF> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://dummy.com/someval> .
 <https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/license> "https://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/v1.0" .
 <https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/title> <http://dummy.com/dummy> .

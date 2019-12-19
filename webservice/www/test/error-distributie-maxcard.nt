@@ -62,3 +62,13 @@ _:b3 <http://www.w3.org/2006/vcard/ns#fn> "Mijn Toffe Organisatie" .
 _:b3 <http://www.w3.org/2006/vcard/ns#hasEmail> <mailto:opendata@mijnorganisatie.be> .
 _:b3 <http://www.w3.org/2006/vcard/ns#hasURL> "http://mijnorganisatie.org/" .
 _:b3 <http://www.w3.org/2006/vcard/ns#organization-name> "Mijn Toffe Organisatie" .
+<https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://spdx.org/rdf/terms#checksum> <https://dummy.com/dummycheck1> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://spdx.org/rdf/terms#checksum> <https://dummy.com/dummycheck2> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/rights> <http://dummy.com/dummy1> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/rights> <http://dummy.com/dummy2> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://www.w3.org/ns/adms#status> <https://dummy.com/dummyStatus1> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/api> <http://www.w3.org/ns/adms#status> <https://dummy.com/dummyStatus2> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/byteSize> "12312321A".
+<https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://purl.org/dc/terms/byteSize> "12312321B".
+<https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://www.w3.org/ns/dcat#mediaType> <http://publications.europa.eu/resource/authority/file-type/PDF> .
+<https://mijnorganisatie/opendata/datasets/1/distributies/csv> <http://www.w3.org/ns/dcat#mediaType> <http://publications.europa.eu/resource/authority/file-type/JSON> .
