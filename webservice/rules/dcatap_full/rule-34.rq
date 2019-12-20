@@ -14,7 +14,7 @@ WHERE {
   BIND (dct:rights AS ?p).
   BIND ("Catalog" AS ?Class_Name).
   BIND (34 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:rights should be a dct:RightsStatement." AS ?Rule_Description).
   BIND (concat("The dct:rights ",str(?o)," is not a dct:RightsStatement.") AS ?Message).
 }

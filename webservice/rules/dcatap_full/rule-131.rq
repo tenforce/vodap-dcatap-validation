@@ -12,7 +12,7 @@ WHERE {
   FILTER(!EXISTS {?o a dct:LinguisticSystem}).
   BIND ("CatalogRecord" AS ?Class_Name).
   BIND (131 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:language should be a dct:LinguisticSystem." AS ?Rule_Description).
   BIND (concat("The dct:language ",str(?o)," is not a dct:LinguisticSystem.") AS ?Message).
 }

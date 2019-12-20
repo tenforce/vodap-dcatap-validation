@@ -13,7 +13,7 @@ WHERE {
   BIND (adms:sample AS ?p).
   BIND ("Dataset" AS ?Class_Name).
   BIND (156 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("adms:sample should be a dcat:Distribution." AS ?Rule_Description).
   BIND (concat("The adms:sample ",str(?p)," is not a dcat:Distribution.") AS ?Message).
 }

@@ -13,7 +13,7 @@ WHERE {
   FILTER(!EXISTS {?o a dct:LinguisticSystem}).
   BIND ("Dataset" AS ?Class_Name).
   BIND (65 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:language should be a dct:LinguisticSystem." AS ?Rule_Description).
   BIND (concat("The dcat:Dataset ",str(?s)," has a dct:language property which is not a dct:LinguisticSystem.") AS ?Message).
 }

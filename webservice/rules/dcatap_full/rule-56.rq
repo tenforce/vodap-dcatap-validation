@@ -13,7 +13,7 @@ WHERE {
   FILTER(!EXISTS {?o a dct:Standard}).
   BIND ("Dataset" AS ?Class_Name).
   BIND (56 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:conformsTo should be a dct:Standard." AS ?Rule_Description).
   BIND (concat("The dct:conformsTo ",str(?o)," is not a dct:Standard.") AS ?Message).
 }

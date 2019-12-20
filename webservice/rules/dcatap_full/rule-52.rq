@@ -14,7 +14,7 @@ WHERE {
   FILTER(!EXISTS {?o a foaf:Agent}).
   BIND ("Dataset" AS ?Class_Name).
   BIND (52 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:publisher should be a foaf:Agent." AS ?Rule_Description).
   BIND (concat("The dct:publisher ",str(?o)," is not a foaf:Agent.") AS ?Message).
 }

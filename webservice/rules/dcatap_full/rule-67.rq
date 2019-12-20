@@ -13,7 +13,7 @@ WHERE {
   FILTER(!EXISTS {?o a adms:Identifier}).
   BIND ("Dataset" AS ?Class_Name).
   BIND (67 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("adms:identifier should be a adms:Identifier." AS ?Rule_Description).
   BIND (concat("The dcat:Dataset ",str(?s)," has a adms:identifier property which is not a adms:Identifier.") AS ?Message).
 }

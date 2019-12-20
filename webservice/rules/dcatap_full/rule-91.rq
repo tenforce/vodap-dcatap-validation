@@ -13,7 +13,7 @@ WHERE {
   FILTER(!EXISTS {?o a dct:MediaTypeOrExtent}).
   BIND ("Distribution" AS ?Class_Name).
   BIND (91 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dcat:mediaType should be a dct:MediaTypeOrExtent." AS ?Rule_Description).
   BIND (concat("The dcat:mediaType ",str(?s)," is not a dct:MediaTypeOrExtent.") AS ?Message).
 }

@@ -13,7 +13,7 @@ WHERE {
   BIND (dct:source AS ?p).
   BIND ("CatalogRecord" AS ?Class_Name).
   BIND (128 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:source should be a dcat:CatalogRecord." AS ?Rule_Description).
   BIND (concat("dcat:CatalogRecord ",str(?s)," has a ",str(?o)," which is not a dcat:CatalogRecord.") AS ?Message).
 }

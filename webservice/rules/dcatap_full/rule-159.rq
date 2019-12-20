@@ -14,7 +14,7 @@ WHERE {
   BIND (foaf:page AS ?p).
   BIND ("Ditribution" AS ?Class_Name).
   BIND (159 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("foaf:page should be a foaf:Document." AS ?Rule_Description).
   BIND (concat("The foaf:page ",str(?o)," is not a foaf:Document.") AS ?Message).
 }

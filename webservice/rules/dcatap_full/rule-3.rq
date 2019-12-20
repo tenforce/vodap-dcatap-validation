@@ -14,7 +14,7 @@ WHERE {
   FILTER(!EXISTS {?o a skos:Concept}).
   BIND ("Agent" AS ?Class_Name).
   BIND (3 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:type should be a skos:Concept." AS ?Rule_Description).
   BIND (concat("foaf:Agent ",str(?s)," does not have a dct:type property of type skos:Concept.") AS ?Message).
 }

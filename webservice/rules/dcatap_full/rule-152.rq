@@ -14,7 +14,7 @@ WHERE {
   BIND (dct:hasVersion AS ?p).
   BIND ("Dataset" AS ?Class_Name).
   BIND (152 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:hasVersion should be a dcat:Dataset." AS ?Rule_Description).
   BIND (concat("The dcat:Dataset ",str(?s)," has a ",str(?o)," which is not a dcat:Dataset.") AS ?Message).
 }

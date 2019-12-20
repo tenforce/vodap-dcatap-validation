@@ -11,7 +11,7 @@ WHERE {
   FILTER(!EXISTS {?o a dcat:Dataset}).
   BIND ("Catalog" AS ?Class_Name).
   BIND (5 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dcat:dataset should be a dcat:Dataset." AS ?Rule_Description).
   BIND (concat("The dcat:Catalog ",str(?s)," has a ",str(?o)," which is not a dcat:Dataset") AS ?Message).
 }

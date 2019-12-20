@@ -13,7 +13,7 @@ WHERE {
   BIND (dcat:distribution AS ?p).
   BIND ("Dataset" AS ?Class_Name).
   BIND (46 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dcat:distribution should be a dcat:Distribution." AS ?Rule_Description).
   BIND (concat("The dcat:distribution ",str(?o)," is not a distribution.") AS ?Message).
 }

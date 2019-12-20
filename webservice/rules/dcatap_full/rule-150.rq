@@ -14,7 +14,7 @@ WHERE {
   BIND (dct:accessRights AS ?p).
   BIND ("Dataset" AS ?Class_Name).
   BIND (150 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:accessRights should be a dct:RightsStatement." AS ?Rule_Description).
   BIND (concat("The dct:accessRights ",str(?o)," is not a dct:RightsStatement.") AS ?Message).
 }

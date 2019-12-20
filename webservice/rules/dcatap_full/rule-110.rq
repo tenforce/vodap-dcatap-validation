@@ -14,7 +14,7 @@ WHERE {
   FILTER(!EXISTS {?o a skos:Concept}).
   BIND ("Distribution" AS ?Class_Name).
   BIND (110 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("adms:status should be a skos:Concept." AS ?Rule_Description).
   BIND (concat("dcat:Distribution ",str(?s)," does not have a adms:status property of type skos:Concept.") AS ?Message).
 }

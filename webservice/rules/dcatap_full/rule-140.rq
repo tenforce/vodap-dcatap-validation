@@ -14,7 +14,7 @@ WHERE {
   BIND (dct:hasPart AS ?p).
   BIND ("Catalog" AS ?Class_Name).
   BIND (140 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:hasPart should be a dcat:Catalog." AS ?Rule_Description).
   BIND (concat("The dcat:Catalog ",str(?s)," has a ",str(?o)," which is not a dcat:Catalog.") AS ?Message).
 }

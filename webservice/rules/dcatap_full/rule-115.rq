@@ -14,7 +14,7 @@ WHERE {
   BIND (dcat:theme AS ?p).
   BIND ("Dataset" AS ?Class_Name).
   BIND (115 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dcat:theme should be a skos:Concept." AS ?Rule_Description).
   BIND (concat("The dcat:Dataset ",str(?s)," has a ",str(?o)," which is not a skos:Concept") AS ?Message).
 }

@@ -14,7 +14,7 @@ WHERE {
   BIND (dct:provenance AS ?p).
   BIND ("Dataset" AS ?Class_Name).
   BIND (154 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:provenance should be a dct:ProvenanceStatementt." AS ?Rule_Description).
   BIND (concat("The dcat:Dataset ",str(?s)," has a ",str(?o)," which is not a dct:ProvenanceStatement.") AS ?Message).
 }

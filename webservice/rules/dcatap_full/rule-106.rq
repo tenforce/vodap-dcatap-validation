@@ -15,7 +15,7 @@ WHERE {
   BIND (spdx:checksum AS ?p).
   BIND ("Distribution" AS ?Class_Name).
   BIND (106 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("spdx:checksum should be a spdx:Checksum." AS ?Rule_Description).
   BIND (concat("The spdx:checksum ",str(?s)," is not a spdx:Checksum.") AS ?Message).
 }

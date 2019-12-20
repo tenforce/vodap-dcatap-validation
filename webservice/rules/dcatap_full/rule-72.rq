@@ -13,7 +13,7 @@ WHERE {
   FILTER(!EXISTS {?o a dct:PeriodOfTime}).
   BIND ("Dataset" AS ?Class_Name).
   BIND (72 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:temporal should be a dct:PeriodOfTime." AS ?Rule_Description).
   BIND (concat("dcat:Dataset ",str(?s)," does not have a dct:temporal property of type dct:PeriodOfTime.") AS ?Message).
 }

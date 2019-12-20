@@ -13,7 +13,7 @@ WHERE {
   FILTER(!EXISTS {?o a dct:LicenseDocument}).
   BIND ("Catalog" AS ?Class_Name).
   BIND (138 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:license should be a dct:LicenseDocument." AS ?Rule_Description).
   BIND (concat("The dct:license ",str(?o)," is not a dct:LicenseDocument.") AS ?Message).
 }

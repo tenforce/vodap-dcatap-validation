@@ -14,7 +14,7 @@ WHERE {
   BIND (foaf:homepage AS ?p).
   BIND ("Catalog" AS ?Class_Name).
   BIND (17 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("foaf:homepage should be a foaf:Document." AS ?Rule_Description).
   BIND (concat("The foaf:homepage ",str(?o)," is not a foaf:Document.") AS ?Message).
 }

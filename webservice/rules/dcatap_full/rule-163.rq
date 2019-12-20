@@ -14,7 +14,7 @@ select count(?a) as ?number where {
 filter(?number = 0).  
   BIND ("Distribution" AS ?Class_Name).
   BIND (163 AS ?Rule_ID).
-  BIND ("warning" AS ?Rule_Severity).
+  BIND ("error" AS ?Rule_Severity).
   BIND ("dcat:Distribution does not exist." AS ?Rule_Description).
   BIND (concat("The recommended class dcat:Distribution does not exist.") AS ?Message).
   Bind ("" as ?s).
