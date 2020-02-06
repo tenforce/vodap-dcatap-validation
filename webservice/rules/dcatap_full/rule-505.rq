@@ -1,0 +1,28 @@
+# Rule_ID:505
+# @title [LicenseDocument] property is a rdf:resource
+# @tag dataset
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX spdx: <http://spdx.org/rdf/terms#>
+PREFIX adms: <http://www.w3.org/ns/adms#>
+
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+WHERE {
+  ?s a dct:LicenseDocument.
+  ?s ?p ?o.
+  filter (?p in ( dct:type )).
+  filter ( ! ( isIRI(?o))) .
+  BIND (dcat:LicenseDocument AS ?o).
+  BIND ("LicenseDocument" AS ?Class_Name).
+  BIND (505 AS ?Rule_ID).
+  BIND ("error" AS ?Rule_Severity).
+  BIND ("LicenseDocument property should not be a literal." AS ?Rule_Description).
+  BIND (concat("The property ", str(p) ," of dct:LicenseDocument ",str(?s)," should not be a literal.") AS ?Message).
+}
+
+

@@ -1,0 +1,28 @@
+# Rule_ID:504
+# @title [CatalogRecord] property is a rdf:resource
+# @tag dataset
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX spdx: <http://spdx.org/rdf/terms#>
+PREFIX adms: <http://www.w3.org/ns/adms#>
+
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+WHERE {
+  ?s a dcat:CatalogRecord.
+  ?s ?p ?o.
+  filter (?p in ( adms:status , dct:source , dct:language , foaf:primaryTopic )).
+  filter ( ! ( isIRI(?o))) .
+  BIND (dcat:CatalogRecord AS ?o).
+  BIND ("CatalogRecord" AS ?Class_Name).
+  BIND (504 AS ?Rule_ID).
+  BIND ("error" AS ?Rule_Severity).
+  BIND ("CatalogRecord property should not be a literal." AS ?Rule_Description).
+  BIND (concat("The property ", str(p) ," of dcat:CatalogRecord ",str(?s)," should not be a literal.") AS ?Message).
+}
+
+
