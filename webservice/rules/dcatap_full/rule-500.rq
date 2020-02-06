@@ -20,5 +20,5 @@ WHERE {
   BIND (500 AS ?Rule_ID).
   BIND ("error" AS ?Rule_Severity).
   BIND ("Catalog property should not be a literal." AS ?Rule_Description).
-  BIND (concat("The property ", str(p) ," of dcat:Catalog ",str(?s)," should not be a literal.") AS ?Message).
+  BIND (concat("The property ", str(?p) ," of dcat:Catalog ",str(?s)," should not be a literal.") AS ?Message).
 }

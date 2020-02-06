@@ -20,5 +20,5 @@ WHERE {
   BIND (503 AS ?Rule_ID).
   BIND ("error" AS ?Rule_Severity).
   BIND ("Agent property should not be a literal." AS ?Rule_Description).
-  BIND (concat("The property ", str(p) ," of foaf:Agent ",str(?s)," should not be a literal.") AS ?Message).
+  BIND (concat("The property ", str(?p) ," of foaf:Agent ",str(?s)," should not be a literal.") AS ?Message).
 }
