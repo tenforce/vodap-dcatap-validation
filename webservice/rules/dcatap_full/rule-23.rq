@@ -10,4 +10,4 @@ WHERE {
    ?s a dcat:Catalog.
    ?s dct:license ?lic.
 } GROUP BY ?s 
-  HAVING (COUNT( ?s) > 1)
+  HAVING (COUNT( ?lic) > 1)
