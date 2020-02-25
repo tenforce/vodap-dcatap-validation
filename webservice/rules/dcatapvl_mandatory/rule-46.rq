@@ -4,7 +4,7 @@
 
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
-SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o ?Rule_Auxillary
+SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
 WHERE {
   ?s a dcat:Dataset.
   ?s dcat:distribution ?o.
@@ -13,8 +13,7 @@ WHERE {
   BIND (dcat:distribution AS ?p).
   BIND ("Dataset" AS ?Class_Name).
   BIND (46 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dcat:distribution should be a dcat:Distribution." AS ?Rule_Description).
   BIND (concat("The dcat:distribution ",str(?o)," is not a distribution.") AS ?Message).
-  BIND ("vodap" AS ?Rule_Auxillary).  
 }

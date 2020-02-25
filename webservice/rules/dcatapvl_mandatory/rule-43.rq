@@ -19,7 +19,7 @@ WHERE {
   BIND (dcat:contactPoint AS ?p).
   BIND ("Dataset" AS ?Class_Name).
   BIND (43 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dcat:contactPoint should be a vcard:Kind." AS ?Rule_Description).
   BIND (concat("The dcat:contactPoint ",str(?p)," is not a vcard:Kind.") AS ?Message).
   BIND ("vodap" AS ?Rule_Auxillary).  

@@ -5,7 +5,7 @@
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dct: <http://purl.org/dc/terms/>
 
-SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o ?Rule_Auxillary
+SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
 WHERE {
   ?s a dcat:Distribution.
   ?s dct:license ?o.
@@ -13,8 +13,7 @@ WHERE {
   FILTER(!EXISTS {?o a dct:LicenseDocument}).
   BIND ("Distribution" AS ?Class_Name).
   BIND (87 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:license should be a dct:LicenseDocument." AS ?Rule_Description).
   BIND (concat("The dct:license ",str(?o)," is not a dct:LicenseDocument.") AS ?Message).
-  BIND ("vodap" AS ?Rule_Auxillary).  
 }

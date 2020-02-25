@@ -1,11 +1,11 @@
 # Rule_ID:44
-# @title [Dataset] dcat:distribution is a required property for Dataset
+# @title [Dataset] dcat:distribution is a recommended property for Dataset
 # @tag dataset
 
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o ?Rule_Auxillary
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
 WHERE {
   ?s a dcat:Dataset.
   FILTER(!(EXISTS { ?s dcat:distribution ?dist})).
@@ -13,8 +13,7 @@ WHERE {
   BIND (dcat:Dataset AS ?o).
   BIND ("Dataset" AS ?Class_Name).
   BIND (44 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
-  BIND ("dcat:distribution is a required property for Dataset." AS ?Rule_Description).
+  BIND ("warning" AS ?Rule_Severity).
+  BIND ("dcat:distribution is a recommended property for Dataset." AS ?Rule_Description).
   BIND (concat("The dcat:Dataset ",str(?o)," does not have a dcat:distribution property.") AS ?Message).
-  BIND ("vodap" AS ?Rule_Auxillary).  
 }
