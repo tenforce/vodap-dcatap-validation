@@ -14,7 +14,7 @@ WHERE {
   ?s a dcat:Dataset.
   ?s ?p ?o.
   FILTER ( ?p in (dcat:contactPoint , dcat:distribution , dct:publisher , dct:conformsTo , dct:accrualPeriodicity , dcat:landingPage , dct:language , adms:identifier , dct:spatial , dct:temporal , dct:type , dcat:theme , dct:accessRights , foaf:page , dct:hasVersion , dct:isVersionOf , dct:provenance , adms:sample , dct:source ) ).
-  filter ( ! ( isIRI(?o))) .
+  filter ( ! ( isIRI(?o) || isBlank(?o))) .
   BIND (dcat:Dataset AS ?o).
   BIND ("Dataset" AS ?Class_Name).
   BIND (501 AS ?Rule_ID).

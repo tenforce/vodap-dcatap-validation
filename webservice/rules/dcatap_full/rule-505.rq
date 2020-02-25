@@ -16,7 +16,7 @@ WHERE {
   ?s a dct:LicenseDocument.
   ?s ?p ?o.
   filter (?p in ( dct:type )).
-  filter ( ! ( isIRI(?o))) .
+  filter ( ! ( isIRI(?o) || isBlank(?o))) .
   BIND (dcat:LicenseDocument AS ?o).
   BIND ("LicenseDocument" AS ?Class_Name).
   BIND (505 AS ?Rule_ID).

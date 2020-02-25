@@ -15,7 +15,7 @@ WHERE {
   ?s a dcat:Distribution.
   ?s ?p ?o.
   FILTER ( ?p in (dct:format , dct:license , dcat:mediaType , dct:rights , spdx:checksum , adms:status , foaf:page , dct:language , dct:conformsTo )).
-  filter ( ! ( isIRI(?o))) .
+  filter ( ! ( isIRI(?o) || isBlank(?o))) .
   BIND (dcat:Distribution AS ?o).
   BIND ("Distribution" AS ?Class_Name).
   BIND (502 AS ?Rule_ID).

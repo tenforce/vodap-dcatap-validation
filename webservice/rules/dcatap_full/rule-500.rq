@@ -14,7 +14,7 @@ WHERE {
   ?s a dcat:Catalog.
   ?s ?p ?o.
   FILTER( ?p in (dcat:dataset, dct:publisher, foaf:homepage, dct:language, dcat:record, dct:rights, dct:spatial, dct:license, dcat:themeTaxonomy, dct:hasPart, dct:isPartOf )).
-  filter ( ! ( isIRI(?o))) .
+  filter ( ! ( isIRI(?o) || isBlank(?o))) .
   BIND (dcat:Catalog AS ?o).
   BIND ("Catalog" AS ?Class_Name).
   BIND (500 AS ?Rule_ID).

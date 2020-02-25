@@ -16,7 +16,7 @@ WHERE {
   ?s a dcat:CatalogRecord.
   ?s ?p ?o.
   filter (?p in ( adms:status , dct:source , dct:language , foaf:primaryTopic )).
-  filter ( ! ( isIRI(?o))) .
+  filter ( ! ( isIRI(?o) || isBlank(?o))) .
   BIND (dcat:CatalogRecord AS ?o).
   BIND ("CatalogRecord" AS ?Class_Name).
   BIND (504 AS ?Rule_ID).
