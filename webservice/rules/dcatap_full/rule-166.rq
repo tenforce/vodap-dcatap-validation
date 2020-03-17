@@ -9,7 +9,7 @@ WHERE {
   FILTER(!EXISTS {?s a dct:LicenseDocument}).
   BIND ("License Document" AS ?Class_Name).
   BIND (166 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:LicenseDocument does not exist." AS ?Rule_Description).
   BIND (concat("The recommended class dct:LicenseDocument does not exist.") AS ?Message).
 }
