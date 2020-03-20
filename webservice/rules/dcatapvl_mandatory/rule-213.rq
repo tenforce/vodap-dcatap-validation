@@ -20,7 +20,7 @@ WHERE {
   BIND (dct:description AS ?p).
   BIND ("Catalog" AS ?Class_Name).
   BIND (213 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("dct:description should have just one value per language tag." AS ?Rule_Description).
   BIND (concat("The dct:description ",str(?s)," has more than one value per language tag ",str(?lang)) AS ?Message).
   BIND ("vodap" AS ?Rule_Auxillary).

@@ -21,7 +21,7 @@ WHERE {
   BIND (foaf:name AS ?p)
   BIND ("Agent" AS ?Class_Name).
   BIND (212 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
+  BIND ("warning" AS ?Rule_Severity).
   BIND ("The foaf:name property should have just one value per language tag." AS ?Rule_Description).
   BIND (concat("The foaf:name property ",str(?p)," has more than one value per language tag ", str(?lang)) AS ?Message).
 }
