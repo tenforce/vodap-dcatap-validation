@@ -87,11 +87,11 @@
 	  <div class="u-float-left col--1-16 col--1-16--s">
 		Voor een gegeven set van validatieregels worden:
 		<ul>
-		<li>Gedetecteerde issues komende van max-cardinaliteitsbeperkingen worden als error weergegeven.</li>
-		<li>Gedetecteerde issues komende van min-cardinaliteitsbeperkingen worden als error weergegeven enkel voor verplichte velden, voor andere slechts als warning.</li>
+			<li>Gedetecteerde issues die het gevolg zijn van maximum-kardinaliteitsbeperkingen, worden als “fout” (error) weergegeven</li>
+			<li>Gedetecteerde issues die het gevolg zijn van minimum-kardinaliteitsbeperkingen worden als “fout” weergegeven voor verplichte eigenschappen/klassen en als “waarschuwing” voor niet-verplichte eigenschappen/klassen . </li>
+			<li>Gedetecteerde issues die het gevolg zijn van het feit dat de opgegeven waarde niet voldoet aan het range-voorschrift van een gegeven element, worden als fout weergegeven .</li>
+			<li>Gedetecteerde issues die het gevolg zijn van het feit dat de opgegeven waarde geen lid is van de verwachte klasse, worden als warning weergegeven . </li>
 		<!-- <li>Gedetecteerde issues komende van dat de opgegeven waarde is geen onderdeel van de verwachte codelijst, worden als error weergegeven.</li> -->
-                <li>Gedetecteerde issues komende van dat de opgegeven waarde voldoet niet aan de expliciete datatypering, worden als error weergegeven. Dit geldt voor waarden die literals zijn.</li>
-                <li>Gedetecteerde issues komende van dat de opgegeven waarde is geen lid van de verwachte klasse, worden als warning weergegeven. Dit geldt voor waarden die resources zijn.</li>
 		</ul>
 	  </div>
 	</div>
