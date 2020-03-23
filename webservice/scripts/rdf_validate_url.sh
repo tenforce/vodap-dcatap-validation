@@ -50,8 +50,9 @@ cat $FILE.rdf_report >> $FILE.report
 
 rm $FILE.download $FILE.rdf_report2 $FILE.rdf_report
 
-log "zip the file before loading"
-gzip $FILE
+#log "zip the file before loading"
+# due to bug in virtuoso not supported
+#gzip $FILE
 
 log "final STATUS = $STATUS"
 exit $STATUS
