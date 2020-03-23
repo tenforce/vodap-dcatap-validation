@@ -28,6 +28,11 @@ fi
 
 ####################################################################################
 #echo "stage2: validate rdf" 
+if file $FILE | grep -q "compressed" ; then
+   log "uncompress the downloaded file" 
+   gunzip $FILE
+fi 
+
 rapper --show-namespaces --trace  -o ntriples -i guess $FILE 1> $FILE.rdf_report 2> $FILE.rdf_report2
 if [ $? != 0 ] ; then 
     # echo "incorrect RDF" 1>&2
@@ -43,6 +48,9 @@ echo "===============================================" >> $FILE.report
 cat $FILE.rdf_report >> $FILE.report
 
 rm $FILE.download $FILE.rdf_report2 $FILE.rdf_report
+
+log "zip the file before loading"
+gzip $FILE
 
 log "final STATUS = $STATUS"
 exit $STATUS
