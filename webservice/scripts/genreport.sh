@@ -196,6 +196,19 @@ genruleresults() {
   done
 }
 ###############################################################################
+genrulesettitle() {
+   case $RULESET in
+              <input type="radio" name="regels" class="radio__toggle" value="3"><span></span>
+     1) echo "DCAT-AP VL"
+     ;;
+     3) echo "DCAT-AP"
+     ;;
+     4) echo "DCAT-AP VL with inference"
+     *)
+     ;;
+   esac
+}
+
 genruleset() {
    case $RULESET in
      1) echo "The used ruleset is DCAT-AP-VL obligations and recommendations."
@@ -232,8 +245,9 @@ genreport() {
     echo "#+HTML_HEAD: <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>"
     echo "#+HTML_HEAD: <script type=\"text/javascript\" src=\"https://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js\"></script>"
     echo "* Introduction"
-    echo "Original source link: $ORIGURL"
-    genruleset
+    echo "  - Original source link: $ORIGURL"
+    echo "  - Applied ruleset: "
+    genrulesettitle
     echo "** Processing File Links"
     echo "The following reports and log files are being created during the validation process. "
     echo "Only if the RDF parsing is successfull (see first report) the content validation whether the data is aligned with the DCAT-AP-VL profile."
