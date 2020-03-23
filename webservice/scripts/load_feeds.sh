@@ -22,6 +22,8 @@ do
 done 
 
 ####################################################################################
+sleep 1s
+
 log "load_feed: " curl -o "$PROCESSDIR/load_feed.log" --data-urlencode "query=\"$LOAD\"" ENV_SPARQL_ENDPOINT_SERVICE_URL
 curl -o $PROCESSDIR/load_feed.log --data-urlencode "query=$LOAD" ENV_SPARQL_ENDPOINT_SERVICE_URL
 
