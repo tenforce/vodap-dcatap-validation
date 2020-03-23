@@ -198,12 +198,12 @@ genruleresults() {
 ###############################################################################
 genrulesettitle() {
    case $RULESET in
-              <input type="radio" name="regels" class="radio__toggle" value="3"><span></span>
-     1) echo "DCAT-AP VL"
+     1) echo "  - Applied ruleset: DCAT-AP VL"
      ;;
-     3) echo "DCAT-AP"
+     3) echo "  - Applied ruleset: DCAT-AP"
      ;;
-     4) echo "DCAT-AP VL with inference"
+     4) echo "  - Applied ruleset: DCAT-AP VL with inference"
+     ;;
      *)
      ;;
    esac
@@ -246,7 +246,6 @@ genreport() {
     echo "#+HTML_HEAD: <script type=\"text/javascript\" src=\"https://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js\"></script>"
     echo "* Introduction"
     echo "  - Original source link: $ORIGURL"
-    echo "  - Applied ruleset: "
     genrulesettitle
     echo "** Processing File Links"
     echo "The following reports and log files are being created during the validation process. "
