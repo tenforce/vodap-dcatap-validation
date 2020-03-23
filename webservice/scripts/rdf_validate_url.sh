@@ -30,6 +30,7 @@ fi
 #echo "stage2: validate rdf" 
 if file $FILE | grep -q "compressed" ; then
    log "uncompress the downloaded file" 
+   mv $FILE $FILE.gz
    gunzip $FILE
 fi 
 

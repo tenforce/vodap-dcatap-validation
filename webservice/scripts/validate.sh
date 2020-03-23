@@ -35,7 +35,9 @@ log "AFTER: ${ec}"
 case "${ec}" in
     0) log "BEFORE: load_feed.sh $dcat_url $DATESTAMP"
        # only continue if previous is success
-       ./load_feeds.sh $DATESTAMP $dcat_url
+       LOCALFEED="https://ENV_VALIDATOR_LOCATION/results/$DATESTAMP/feed.$DATESTAMP"
+       ./load_feeds.sh $DATESTAMP $LOCALFEED
+       #./load_feeds.sh $DATESTAMP $dcat_url
        LOADSTATUS=$?
        if [ "${LOADSTATUS}" == "0" ] ; then
 	   log "LOADSTATUS = ${LOADSTATUS}"		
