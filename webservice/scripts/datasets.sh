@@ -3,6 +3,7 @@
 # datasets.sh
 #   Script to recover a paged DCAT catalog, load it into the endpoint and recover the 
 #   list of publishers.
+# Target catalog is the VODAP catalog
 
 source ./log.sh
 source ./cgi.sh
@@ -68,20 +69,34 @@ mkdir -p $CACHEDIR
 # Recover the file requested, but put contents in a cache
 
 log "recovering ${pages_start} to ${pages_end} pages"
-for (( i=${pages_start}; i<=${pages_end}; i++ )); do
-    reference=$(echo "${dcat_url}?validation_mode=true&page=${i}")
-    log "printf '%s' \"${reference}\" \| md5sum \| cut -d ' ' -f 1"
-    cachekey=$(printf '%s' "${reference}" | md5sum | cut -d ' ' -f 1)
-    newref="https://ENV_VALIDATOR_LOCATION/results/cache/${CACHENAME}/${cachekey}.${ending}"
-    log "recovering page ${i} ${cachekey}"    
+   # add ckan specific items to the feed
+reference=$(echo "${dcat_url}?validation_mode=true&page=${i}")
+cachekey=$(printf '%s' "${reference}" | md5sum | cut -d ' ' -f 1)
+newref="https://ENV_VALIDATOR_LOCATION/results/cache/${CACHENAME}/${cachekey}.${ending}"
+log "recovering page ${i} ${cachekey}"    
     if [ ! -f "$CACHEDIR/${cachekey}.${ending}" ] ; then
 	# recover the reference and put in cache file.
 	log "caching (--compressed) $reference in $newref"
-	curl --compressed $reference > ${CACHEDIR}/${cachekey}.${ending}
+	./download.sh ${reference}  ${CACHEDIR}/${cachekey}.${ending}
     fi
-    # Add the cached file to the list of files to be loaded by virtuoso
-    DCATURLS+=" ${newref} "
-done
+DCATURLS+=" ${newref} "
+
+
+# old solution
+#for (( i=${pages_start}; i<=${pages_end}; i++ )); do
+#    reference=$(echo "${dcat_url}?validation_mode=true&page=${i}")
+#    log "printf '%s' \"${reference}\" \| md5sum \| cut -d ' ' -f 1"
+#    cachekey=$(printf '%s' "${reference}" | md5sum | cut -d ' ' -f 1)
+#    newref="https://ENV_VALIDATOR_LOCATION/results/cache/${CACHENAME}/${cachekey}.${ending}"
+#    log "recovering page ${i} ${cachekey}"    
+#    if [ ! -f "$CACHEDIR/${cachekey}.${ending}" ] ; then
+#	# recover the reference and put in cache file.
+#	log "caching (--compressed) $reference in $newref"
+#	curl --compressed $reference > ${CACHEDIR}/${cachekey}.${ending}
+#    fi
+#    # Add the cached file to the list of files to be loaded by virtuoso
+#    DCATURLS+=" ${newref} "
+#done
 
 ####################################################################################
 log "call: ./load_feeds.sh $DATESTAMP $DCATURLS"
