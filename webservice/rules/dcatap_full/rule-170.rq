@@ -1,5 +1,5 @@
 # Rule_ID:170
-# @title [Licence Document] dct:type is a required property for Licence Document
+# @title [Licence Document] dct:type is a recommended property for Licence Document
 # @tag licensedocument
 
 PREFIX dct: <http://purl.org/dc/terms/>
@@ -11,7 +11,7 @@ WHERE {
   BIND (dct:type AS ?p).
   BIND ("Licence Document" AS ?Class_Name).
   BIND (170 AS ?Rule_ID).
-  BIND ("error" AS ?Rule_Severity).
-  BIND ("dct:type is a required property for Licence Document." AS ?Rule_Description).
+  BIND ("warning" AS ?Rule_Severity).
+  BIND ("dct:type is a recommended property for Licence Document." AS ?Rule_Description).
   BIND (concat("The dct:LicenseDocument ",str(?o)," does not have a dct:type property.") AS ?Message).
 }
