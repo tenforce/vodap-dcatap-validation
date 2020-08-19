@@ -1,0 +1,27 @@
+# Rule_ID:512
+# @title [Distribution] property is an absolute URI 
+# @tag dataset
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX spdx: <http://spdx.org/rdf/terms#>
+PREFIX adms: <http://www.w3.org/ns/adms#>
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+WHERE {
+  ?s a dcat:Distribution.
+  ?s ?p ?o.
+  FILTER ( ?p in (dct:format , dct:license , dcat:mediaType , dct:rights , adms:status , foaf:page , dct:language , dct:conformsTo )).
+  filter ( ! ( isIRI(?o) )) .
+  BIND (dcat:Distribution AS ?o).
+  BIND ("Distribution" AS ?Class_Name).
+  BIND (512 AS ?Rule_ID).
+  BIND ("warnning" AS ?Rule_Severity).
+  BIND ("Distribution property should be an absolute URI ." AS ?Rule_Description).
+  BIND (concat("The property ", str(?p) ," of dcat:Distribution ",str(?s)," should be an absolute URI .") AS ?Message).
+}
+
+
